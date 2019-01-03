@@ -3,7 +3,49 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MengniuMilk.Api", "MengniuMilk.Api\MengniuMilk.Api.csproj", "{9932DBDE-6E83-44D1-9BD5-3F2CE023B06C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MengniuMilk.UI", "MengniuMilk.UI\MengniuMilk.UI.csproj", "{9E3A14E5-9CC0-428C-8C78-48718F18FB8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MengniuMilk.Entity", "MengniuMilk.Entity\MengniuMilk.Entity.csproj", "{99167FFE-4C94-4F81-B962-A117567921EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MengniuMilk.Service", "MengniuMilk.Service\MengniuMilk.Service.csproj", "{C12EB7B6-4EC8-496A-8F35-460027FE8023}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MengniuMilk.IService", "MengniuMilk.IService\MengniuMilk.IService.csproj", "{54611C6F-E3C9-4EA6-BAB8-FC55A2827E16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MengniuMilk.Common", "MengniuMilk.Common\MengniuMilk.Common.csproj", "{71EDC0E8-2112-4562-8FE5-CC6DCA8727AD}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9932DBDE-6E83-44D1-9BD5-3F2CE023B06C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9932DBDE-6E83-44D1-9BD5-3F2CE023B06C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9932DBDE-6E83-44D1-9BD5-3F2CE023B06C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9932DBDE-6E83-44D1-9BD5-3F2CE023B06C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E3A14E5-9CC0-428C-8C78-48718F18FB8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E3A14E5-9CC0-428C-8C78-48718F18FB8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E3A14E5-9CC0-428C-8C78-48718F18FB8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E3A14E5-9CC0-428C-8C78-48718F18FB8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99167FFE-4C94-4F81-B962-A117567921EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99167FFE-4C94-4F81-B962-A117567921EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99167FFE-4C94-4F81-B962-A117567921EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99167FFE-4C94-4F81-B962-A117567921EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C12EB7B6-4EC8-496A-8F35-460027FE8023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C12EB7B6-4EC8-496A-8F35-460027FE8023}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C12EB7B6-4EC8-496A-8F35-460027FE8023}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C12EB7B6-4EC8-496A-8F35-460027FE8023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54611C6F-E3C9-4EA6-BAB8-FC55A2827E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54611C6F-E3C9-4EA6-BAB8-FC55A2827E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54611C6F-E3C9-4EA6-BAB8-FC55A2827E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54611C6F-E3C9-4EA6-BAB8-FC55A2827E16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71EDC0E8-2112-4562-8FE5-CC6DCA8727AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71EDC0E8-2112-4562-8FE5-CC6DCA8727AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71EDC0E8-2112-4562-8FE5-CC6DCA8727AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71EDC0E8-2112-4562-8FE5-CC6DCA8727AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
