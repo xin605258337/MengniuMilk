@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace MengniuMilk.Entity
 {
-  public  class QCPlan
+    /// <summary>
+    /// 质检计划表
+    /// </summary>
+  public class QCPlan
     {
         /// <summary>
         /// 质检计划ID
