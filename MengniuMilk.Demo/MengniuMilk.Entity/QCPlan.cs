@@ -26,7 +26,7 @@ namespace MengniuMilk.Entity
         /// <summary>
         /// 类型
         /// </summary>
-        public string Type_ID { get; set; }
+        public int Type_ID { get; set; }
         /// <summary>
         /// 对象类型
         /// </summary>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MengniuMilk.Common
+namespace MengniuMilk.Entity
 {
     //质检对象表
     public class QCPlanObjType

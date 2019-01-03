@@ -4,6 +4,8 @@ using Unity;
 
 namespace MengniuMilk.Api
 {
+    using MengniuMilk.IService;
+    using MengniuMilk.Service;
     /// <summary>
     /// Specifies the Unity configuration for the main container.
     /// </summary>
@@ -42,6 +44,7 @@ namespace MengniuMilk.Api
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
+            container.RegisterType<IQCPlanServices, QCPlanServices>();
         }
     }
 }
