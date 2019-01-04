@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DapperHelper.cs" />
+    <Compile Include="PermissionServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QCPlanServices.cs" />
   </ItemGroup>
