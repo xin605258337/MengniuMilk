@@ -88,11 +88,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\css\bootstrap-theme.css" />
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\css\bootstrap-theme.min.css" />
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\css\bootstrap.css" />
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\css\bootstrap.min.css" />
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\js\bootstrap.js" />
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\js\bootstrap.min.js" />
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\js\npm.js" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\axios.js" />
+    <Content Include="Scripts\axios.min.js" />
+    <Content Include="Scripts\vue.js" />
+    <Content Include="Scripts\vue.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\QCPlanController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -100,7 +113,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
+    <Content Include="bootstrap-3.3.7-dist\Bootstrap-中文%28完整版%29-API\Bootstrap-中文-API.chm" />
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\css\bootstrap-theme.css.map" />
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\css\bootstrap-theme.min.css.map" />
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\css\bootstrap.css.map" />
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\css\bootstrap.min.css.map" />
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="bootstrap-3.3.7-dist\bootstrap337\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="packages.config" />
+    <Content Include="Views\QCPlan\Index.cshtml" />
+    <Content Include="Scripts\axios.min.map" />
+    <Content Include="Scripts\axios.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -110,7 +135,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>

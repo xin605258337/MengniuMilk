@@ -1,0 +1,303 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/axios.js"></script>
+    <script src="~/Scripts/vue.js"></script>
+    <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+    <div>
+        <h3>Vue.js质检计划表添加页面</h3>
+    </div>
+    <div id="add">
+        <table class="table table-hover">
+            <tr>
+                <td>质检计划编号: </td>
+                <td><input type="text" v-model="Code" /></td>
+            </tr>
+            <tr>
+                <td>质检计划名称:</td>
+                <td><input type="text" v-model="Name" /></td>
+            </tr>
+            <tr>
+                <td>
+                    质检类型:
+                </td>
+                <td>
+                    <select id="Select1" v-model="Type_ID">
+                        <option value="请选择">--请选择--</option>
+                        <option v-for="type in QCPlanType" v-bind:value="type.Type_ID">{{type.Type_Name}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    质检对象:
+                </td>
+                <td>
+                    <select id="Select2" v-model="ObjType_ID">
+                        <option value="请选择">--请选择--</option>
+                        <option v-for="ObType in QCPlanObjType" v-bind:value="ObType.ObjType_ID">{{ObType.ObjType_Name}}</option>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    检验工序:
+                </td>
+                <td>
+                    <select id="Select3"  v-model="Process_ID">
+                        <option value="请选择">--请选择--</option>
+                        <option v-for="pro in Process" v-bind:value="pro.Process_ID">{{pro.Process_Name}}</option>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    质检设备:
+                </td>
+                <td>
+                    <select id="Select4" v-model="Facility_ID">
+                        <option value="请选择">--请选择--</option>
+                        <option v-for="facility in Facility" v-bind:value="facility.Facility_ID">{{facility.Facility_Name}}</option>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    状态:
+                </td>
+                <td><input id="Radio1" type="radio" v-model="QCPlan_State" name="QCPlan_State" value="1" checked>有效
+                <input id="Radio1" type="radio" v-model="QCPlan_State" name="QCPlan_State"  value="0" />无效</td>
+            </tr>
+            <tr>
+                <td>
+                    指标项分类:
+                </td>
+                <td>
+                    <select id="Select5" v-model="TargetType_ID">
+                        <option value="请选择">--请选择--</option>
+                        <option v-for="targettype in TargetType" v-bind:value="targettype.TargetType_ID">{{targettype.TargetType_Name}}</option>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    指标项名称:
+                </td>
+                <td>
+                    <select id="Select1" v-model="Target_ID">
+                        <option value="请选择">--请选择--</option>
+                        <option v-for="target in Target" v-bind:value="target.Target_ID">{{target.Target_Name}}</option>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    标准值:
+                </td>
+                <td><input type="text" v-model="StandardValues" /></td>
+            </tr>
+            <tr>
+                <td>
+                    标准值上线:
+                </td>
+                <td><input type="text" v-model="StandardValuesMax" /></td>
+            </tr>
+            <tr>
+                <td>
+                    标准值下限:
+                </td>
+                <td><input type="text" v-model="StandardValuesMin" /></td>
+            </tr>
+            <tr>
+                <td><a href="javascript:;" v-on:click="AddQCPlan1(Code,Name,Type_ID,ObjType_ID,Process_ID,Facility_ID,QCPlan_State,TargetType_ID,Target_ID,StandardValues,StandardValuesMax,StandardValuesMin)">添加</a></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: "#add",
+        data: {
+            QCPlanType: [],
+            QCPlanObjType: [],
+            Process: [],
+            Facility:[],
+            TargetType: [],
+            Target: [],
+            Type_ID: "请选择",
+            ObjType_ID: "请选择",
+            Process_ID: "请选择",
+            Facility_ID: "请选择",
+            TargetType_ID: "请选择",
+            Target_ID: "请选择",
+
+        },
+        mounted() {
+
+            this.getQCPlanType();
+            this.getQCPlanObjType();
+            this.getProcesses();
+            this.getTargetType();
+            this.getFacility();
+            this.getTarget();
+        },
+        methods:
+        {
+            //获取质检类型表
+            getQCPlanType: function () {
+                axios.get('http://localhost:8103/GetQCPlanTypes').then(
+                    (response) => {
+                        this.QCPlanType = [];
+                        for (var i = 0; i < response.data.length; i++) {
+                            this.QCPlanType.push(response.data[i]);
+                        }
+                    },
+                    (response) => {
+                        alert(response.status+"1");
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                    });
+
+            },
+            //获取对象类型表
+            getQCPlanObjType: function () {
+                axios.get('http://localhost:8103/GetQCPlanObjTypes').then(
+                    (response) => {
+                        this.QCPlanObjType = [];
+                        for (var i = 0; i < response.data.length; i++) {
+                            this.QCPlanObjType.push(response.data[i]);
+                        }
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+
+            },
+            //获取检验工序表
+          
+            getProcesses: function () {
+                axios.get('http://localhost:8103/GetProcess').then(
+                    (response) => {
+                        this.Process = [];
+                        for (var i = 0; i < response.data.length; i++) {
+                            this.Process.push(response.data[i]);
+                        }
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+
+            },
+            //获取指标分类表
+
+            getTargetType: function () {
+                axios.get('http://localhost:8103/GetTargetTypes').then(
+                    (response) => {
+                        this.TargetType = [];
+                        for (var i = 0; i < response.data.length; i++) {
+                            this.TargetType.push(response.data[i]);
+                        }
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+
+            },
+            //获取质检设备表
+            getFacility: function () {
+                axios.get('http://localhost:8103/GetFacilities').then(
+                    (response) => {
+                        this.Facility = [];
+                        for (var i = 0; i < response.data.length; i++) {
+                            this.Facility.push(response.data[i]);
+                        }
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+
+            },
+            //获取指标项名称
+            getTarget: function () {
+                axios.get('http://localhost:8103/GetTargets').then(
+                    (response) => {
+                        this.Target = [];
+                        for (var i = 0; i < response.data.length; i++) {
+                            this.Target.push(response.data[i]);
+                        }
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+
+            },
+            //保存
+            AddQCPlan1: function (code, name, type_ID, objType_ID, process_ID, facility_ID, qCPlan_State, targetType_ID, target_ID, standardValues, standardValuesMax, standardValuesMin) {
+                console.log("121212")
+                var params = new URLSearchParams();
+                params.append('Code', code);
+                params.append('Name', name);
+                params.append('Type_ID', type_ID);
+                params.append('ObjType_ID', objType_ID);
+                params.append('Process_ID', process_ID );
+                params.append('Facility_ID', facility_ID);
+                params.append('QCPlan_State', qCPlan_State);
+                params.append('TargetType_ID', targetType_ID);
+                params.append('Target_ID', target_ID);
+                params.append('StandardValues', standardValues);
+                params.append('StandardValuesMax', standardValuesMax);
+                params.append('StandardValuesMin', standardValuesMin);
+                axios.post('http://localhost:8103/AddQCPlan', params).then(
+                    (response) => {
+                        alert(response)
+                        
+                            alert("添加成功")
+                          
+                         
+                        },
+                        (response) => {
+                            alert(response.status);
+                        }
+                    ).catch(function (response) {
+                        alert(response);
+                    });
+                },
+
+        },
+        computed: {
+        }
+
+    });
+</script>
