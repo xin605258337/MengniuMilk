@@ -54,7 +54,7 @@ namespace MengniuMilk.IService
         /// 获取检验工序
         /// </summary>
         /// <returns></returns>
-        List<Processes> GetProcess();
+        List<Process> GetProcess();
 
         /// <summary>
         /// 获取质检对象

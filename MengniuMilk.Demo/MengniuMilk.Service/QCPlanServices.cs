@@ -13,7 +13,6 @@ namespace MengniuMilk.Service
     using Oracle.ManagedDataAccess;
     using System.Configuration;
     
-
     public class QCPlanServices : IQCPlanServices
     {
        
@@ -70,15 +69,15 @@ namespace MengniuMilk.Service
         /// 获取检验工序
         /// </summary>
         /// <returns></returns>
-        public List<Processes> GetProcess()
+        public List<Process> GetProcess()
         {
 
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
                 string sql = @"select * from Processes";
-                var result = conn.Query<Processes>(sql, null);
-                return result.ToList<Processes>();
+                var result = conn.Query<Process>(sql, null);
+                return result.ToList<Process>();
             }
         }
         
