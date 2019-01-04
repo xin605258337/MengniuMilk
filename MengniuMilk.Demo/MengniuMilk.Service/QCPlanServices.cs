@@ -75,7 +75,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"select * from Processes";
+                string sql = @"select * from Process";
                 var result = conn.Query<Process>(sql, null);
                 return result.ToList<Process>();
             }
