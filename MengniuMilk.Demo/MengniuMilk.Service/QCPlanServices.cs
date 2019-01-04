@@ -12,11 +12,20 @@ namespace MengniuMilk.Service
     using Oracle.ManagedDataAccess;
     using System.Data;
     using Newtonsoft.Json;
+    using System.Configuration;
 
     public class QCPlanServices : IQCPlanServices
     {
-        ConnForOracle connForOracle = new ConnForOracle();
-        ConvertDatatableToList convert = new ConvertDatatableToList();
+        //连接数据库字符串
+        private static readonly string connStr = ConfigurationManager.ConnectionStrings["connString"].ConnectionString;
+        OracleConnection conn = null;
+        public QCPlanServices()
+        {
+            if (conn == null)
+            {
+                conn = new OracleConnection(connStr);
+            }
+        }
         /// <summary>
         /// 新增质检计划
         /// </summary>
