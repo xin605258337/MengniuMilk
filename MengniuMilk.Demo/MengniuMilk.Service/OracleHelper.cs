@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.OracleClient;
 using System.Collections;
 using System.Reflection;
+using System.Configuration;
 
 /// <summary>  
 /// ConnDbForOracle 的摘要说明。  
@@ -14,7 +15,7 @@ public class ConnForOracle
     public ConnForOracle()
     {
         string connStr;
-        connStr = System.Configuration.ConfigurationSettings.AppSettings["connString"].ToString();
+        connStr = ConfigurationManager.ConnectionStrings["connString"].ToString();
         connectionString = connStr;
         Connection = new OracleConnection(connectionString);
     }

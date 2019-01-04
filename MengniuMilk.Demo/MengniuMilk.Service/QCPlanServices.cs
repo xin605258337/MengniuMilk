@@ -16,7 +16,7 @@ namespace MengniuMilk.Service
     public class QCPlanServices : IQCPlanServices
     {
         ConnForOracle connForOracle = new ConnForOracle();
-
+        ConvertDatatableToList convert = new ConvertDatatableToList();
         /// <summary>
         /// 新增质检计划
         /// </summary>
@@ -58,13 +58,13 @@ namespace MengniuMilk.Service
         /// 获取检验工序
         /// </summary>
         /// <returns></returns>
-        public List<Process> GetProcess()
+        public List<Processes> GetProcess()
         {
             string sql = "select * from Process";
             DataTable dt = connForOracle.ReturnDataSet(sql);
-            return JsonConvert.DeserializeObject<List<Process>>(JsonConvert.SerializeObject(dt));
+            return convert.ConvertToList<Processes>(dt);
         }
-
+        
         /// <summary>
         /// 获取质检对象
         /// </summary>
@@ -82,7 +82,7 @@ namespace MengniuMilk.Service
         /// <returns></returns>
         public List<QCPlan> GetQCPlans()
         {
-            string sql = "select q.id,q.code,q.name,t.type_name,p.process_name,o.objtype_name,f.facility_name,r.targettype_name,g.target_name,q.standardvalues,q.standardvaluesmax,q.standardvaluesmin from QCPlan q inner join QCPlanType t on q.type_id = t.type_id inner join Process p on q.process_id = p.process_id inner join QCPlanObjType o on q.objtype_id = o.objtype_id inner join Facility f on q.facility_id = f.facility_id inner join TargetType r on q.targettype_id = r.targettype_id inner join Target g on q.target_id = g.target_id";
+            string sql = "select q.id,q.code,q.name,t.type_name,p.process_name,o.objtype_name,f.facility_name,r.targettype_name,g.target_name,q.standardvalues,q.standardvaluesmax,q.standardvaluesmin from QCPlan q inner join QCPlanType t on q.type_id = t.type_id inner join Processes p on q.process_id = p.process_id inner join QCPlanObjType o on q.objtype_id = o.objtype_id inner join Facility f on q.facility_id = f.facility_id inner join TargetType r on q.targettype_id = r.targettype_id inner join Target g on q.target_id = g.target_id";
             DataTable dt = connForOracle.ReturnDataSet(sql);
             return JsonConvert.DeserializeObject<List<QCPlan>>(JsonConvert.SerializeObject(dt));
             

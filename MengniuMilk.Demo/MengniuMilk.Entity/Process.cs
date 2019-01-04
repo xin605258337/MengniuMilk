@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MengniuMilk.Entity
 {
     //检验工序表
-    public class Process
+    public class Processes
     {
         /// <summary>
         /// 工序ID

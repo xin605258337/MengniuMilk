@@ -60,7 +60,7 @@ namespace MengniuMilk.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetProcess")]
-        public List<Process> GetProcess()
+        public List<Processes> GetProcess()
         {
             var result = qcPlanServices.GetProcess();
             return result;
