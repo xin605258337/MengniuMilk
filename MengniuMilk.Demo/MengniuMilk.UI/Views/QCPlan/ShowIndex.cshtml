@@ -230,6 +230,7 @@
                 });
 
             },
+            //获取质检计划信息
             getList: function () {
                 axios.get('http://localhost:8103/GetQCPlans').then((response) => {
                     this.list = [];
@@ -244,6 +245,7 @@
                     alert(response);
                 });
             },
+            //删除质检计划信息
             DelQCPlan: function (Id) {               
                 axios.get('http://localhost:8103/DeleteQCPlan?id=' + Id).then((respose) => {                  
                     if (respose.data > 0) {
@@ -258,6 +260,7 @@
                     alert(response);
                 });
             },
+            //修改质检计划信息
             UptQCPlan: function (Id, code, name, type_ID, objType_ID, process_ID, facility_ID, targetType_ID, target_ID, standardValues, standardValuesMax, standardValuesMin, qCPlan_State) {
                 var params = new URLSearchParams();
                 params.append('ID', Id);
