@@ -6,20 +6,15 @@ using System.Web.Mvc;
 
 namespace MengniuMilk.UI.Controllers
 {
-    public class DataGatherController : Controller
+    public class PermissionController : Controller
     {
-        // GET: DataGather
+        // GET: Permission
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult AddDataGather()
-        {
-            return View();
-        }
-
-        public ActionResult UpdateDataGather()
+        public ActionResult AddPermission()
         {
             return View();
         }

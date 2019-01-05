@@ -80,5 +80,18 @@ namespace MengniuMilk.Api.Controllers
             var result = permissionServices.UpdatePermission(permission);
             return result;
         }
+
+        /// <summary>
+        /// 获得权限所有父节点
+        /// </summary>
+        /// <param name="pID"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetPermissionsPid")]
+        public List<Permission> GetPermissionsPid()
+        {
+            var result = permissionServices.GetPermissionsPid();
+            return result;
+        }
     }
 }

@@ -44,5 +44,12 @@ namespace MengniuMilk.IService
         /// <returns></returns>
         int UpdatePermission(Permission permission);
 
+        /// <summary>
+        /// 获得权限所有父节点
+        /// </summary>
+        /// <param name="pID"></param>
+        /// <returns></returns>
+        List<Permission> GetPermissionsPid();
+
     }
 }
