@@ -105,7 +105,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = "select q.id,q.code,q.name,t.type_name,p.process_name,o.objtype_name,f.facility_name,r.targettype_name,g.target_name,q.QCPlan_State,q.standardvalues,q.standardvaluesmax,q.standardvaluesmin from QCPlan q inner join QCPlanType t on q.type_id = t.type_id inner join Processes p on q.process_id = p.process_id inner join QCPlanObjType o on q.objtype_id = o.objtype_id inner join Facility f on q.facility_id = f.facility_id inner join TargetType r on q.targettype_id = r.targettype_id inner join Target g on q.target_id = g.target_id";
+                string sql = "select q.ID,q.Code,q.Name,t.Type_Name,p.Process_Name,o.ObjType_Name,f.Facility_Name,r.TargetType_Name,g.Target_Name,q.QCPlan_State,q.StandardValues,q.StandardValuesMax,q.StandardValuesMin,q.Type_ID,q.Process_ID,q.ObjType_ID,q.Facility_ID,q.TargetType_ID,q.Target_ID from QCPlan q left join QCPlanType t on q.Type_ID=t.Type_ID left join Process p on q.Process_ID=p.Process_ID left join QCPlanObjType o on q.ObjType_ID=o.ObjType_ID left join Facility f on q.Facility_ID=f.Facility_ID left join TargetType r on q.TargetType_ID=r.TargetType_ID left join Target g on q.Target_ID=g.Target_ID";
                 var result = conn.Query<QCPlan>(sql, null);
                 return result.ToList<QCPlan>();
             }
@@ -184,7 +184,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"update QCPlan set Code=:Code,Name=:Name,Type_ID=:Type_ID,ObjType_ID=:ObjType_ID,Process_ID=:Process_ID,Facility_ID=:Facility_ID,QCPlan_State=:QCPlan_State,TargetType_ID=:TargetType_ID,Target_ID=:Target_ID,StandardValues=:StandardValues,StandardValuesMax=:StandardValuesMax,StandardValuesMin=:StandardValuesMin";
+                string sql = @"update QCPlan set Code=:Code,Name=:Name,Type_ID=:Type_ID,ObjType_ID=:ObjType_ID,Process_ID=:Process_ID,Facility_ID=:Facility_ID,QCPlan_State=:QCPlan_State,TargetType_ID=:TargetType_ID,Target_ID=:Target_ID,StandardValues=:StandardValues,StandardValuesMax=:StandardValuesMax,StandardValuesMin=:StandardValuesMin where ID=:ID";
                 var result = conn.Execute(sql, qcPlan);
                 return result;
             }

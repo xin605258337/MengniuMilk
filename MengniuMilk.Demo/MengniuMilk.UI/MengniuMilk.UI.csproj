@@ -126,6 +126,7 @@
     <Content Include="Views\QCPlan\Index.cshtml" />
     <Content Include="Scripts\axios.min.map" />
     <Content Include="Scripts\axios.map" />
+    <Content Include="Views\QCPlan\ShowIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
