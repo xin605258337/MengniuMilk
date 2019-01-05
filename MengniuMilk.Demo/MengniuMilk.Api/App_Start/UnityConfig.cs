@@ -46,6 +46,8 @@ namespace MengniuMilk.Api
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<IQCPlanServices, QCPlanServices>();
             container.RegisterType<IPermissionServices, PermissionServices>();
+            container.RegisterType<IDataGatherServices, DataGatherServices>();
+            container.RegisterType<ISampleServices, SampleServices>();
         }
     }
 }

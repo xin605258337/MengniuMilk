@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDataGatherServices.cs" />
     <Compile Include="IPermissionServices.cs" />
     <Compile Include="IQCPlanServices.cs" />
+    <Compile Include="ISampleServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
