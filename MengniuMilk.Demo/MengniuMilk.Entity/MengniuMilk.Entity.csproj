@@ -50,6 +50,7 @@
     <Compile Include="QCPlan.cs" />
     <Compile Include="QCPlanObjType.cs" />
     <Compile Include="QCPlanType.cs" />
+    <Compile Include="QCtask.cs" />
     <Compile Include="Roles.cs" />
     <Compile Include="Sample.cs" />
     <Compile Include="Target.cs" />
