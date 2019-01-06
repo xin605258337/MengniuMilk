@@ -1,0 +1,74 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SampleAdd</title>
+    <script src="~/Scripts/axios.js"></script>
+    <script src="~/Scripts/vue.js"></script>
+    <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+    <div>
+        <div>
+            <h3>Vue.js采样表添加页面</h3>
+        </div>
+        <div id="add">
+            <table class="table table-hover">
+                <tr>
+                    <td>样品名称:</td>
+                    <td><input type="text" v-model="Name" /></td>
+                </tr>
+                <tr>
+                    <td>样品编号:</td>
+                    <td><input type="text" v-model="Code" /></td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:;" v-on:click="AddSample(Name,Code)">添加</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: "#add",
+        data: {
+
+        },
+        mounted() {
+
+        },
+        methods: {
+
+            AddSample: function (Name, Code) {
+                var params = new URLSearchParams();
+                params.append("Name", Name);
+                params.append("Code", Code);
+                axios.post('http://localhost:8103/AddSample', params).then(
+                    (response) => {
+                        alert("添加成功")
+                        location.href ="/Sample/SampleIndex"
+
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+
+            }
+
+        }
+
+    })
+
+</script>

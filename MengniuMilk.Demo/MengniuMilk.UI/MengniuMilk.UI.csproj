@@ -106,6 +106,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\QCPlanController.cs" />
+    <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -127,6 +128,8 @@
     <Content Include="Scripts\axios.min.map" />
     <Content Include="Scripts\axios.map" />
     <Content Include="Views\QCPlan\ShowIndex.cshtml" />
+    <Content Include="Views\Sample\SampleAdd.cshtml" />
+    <Content Include="Views\Sample\SampleIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

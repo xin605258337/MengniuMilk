@@ -1,0 +1,111 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SampleIndex</title>
+    <script src="~/Scripts/axios.js"></script>
+    <script src="~/Scripts/vue.js"></script>
+    <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app" class="div-td">
+        <input id="Button1" type="button" value="添加" onclick="location.href='SampleAdd'" />
+        <table v-show="list.length" class="table table-hover">
+            <tr>
+                <th>ID</th>
+                <th>样品名称</th>
+                <th>样品编号</th>
+                <th>操作</th>
+
+            </tr>
+            <tr v-for="item in list ">
+                <td>{{item.ID}}</td>
+                <td><input type="text" v-model="item.Name" /></td>
+                <td><input type="text" v-model="item.Code" /></td>
+
+                <td>
+                    <div v-if="item.ID!=''">
+                        <a href="#" v-on:click="DelQCPlan(item.ID)">删除</a>
+                        <a href="#" v-on:click="UptQCPlan(item.ID,item.Code,item.Name)">修改</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: "#app",
+        data: {
+
+            list: [],
+        },
+        mounted() {
+            this.getList();   
+
+        },
+        methods: {
+            getList: function () {
+                axios.get('http://localhost:8103/GetSample').then((response) => {
+                    this.list = [];
+                    for (var i = 0; i < response.data.length; i++) {
+                        this.list.push(response.data[i]);
+                    }
+                },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            },
+            //删除质检计划信息
+            DelQCPlan: function (Id) {
+                axios.get('http://localhost:8103/DelSample?id=' + Id).then((respose) => {
+                    if (respose.data > 0) {
+                        alert("删除成功!!!");
+                        this.getList();
+                    }
+                },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            },
+            //修改质检计划信息
+            UptQCPlan: function (Id, code, name) {
+                var params = new URLSearchParams();
+                params.append('ID', Id);
+                params.append('Name', name);
+                params.append('Code', code);
+                axios.post('http://localhost:8103/UptSample', params).then(
+                    (response) => {
+                        console.log(response.data);
+                        if (response.data > 0) {
+                            alert("修改成功!!!");
+                            this.getList();
+                        }
+                        //console.info(this.list);
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            },
+
+        },
+
+    })
+</script>
