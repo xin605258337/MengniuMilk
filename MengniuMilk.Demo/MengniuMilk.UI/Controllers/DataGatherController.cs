@@ -19,9 +19,6 @@ namespace MengniuMilk.UI.Controllers
             return View();
         }
 
-        public ActionResult UpdateDataGather()
-        {
-            return View();
-        }
+       
     }
 }

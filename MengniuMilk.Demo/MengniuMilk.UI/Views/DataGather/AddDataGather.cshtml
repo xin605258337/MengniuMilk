@@ -1,0 +1,157 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddDataGather</title>
+    <script src="~/Scripts/axios.js"></script>
+    <script src="~/Scripts/vue.js"></script>
+    <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+    <div style="margin-left:400px">
+        <h3>Vue.js人工数据采集添加页面</h3>
+    </div>
+    <div id="add" style="margin-left:400px">
+        <table class="table table-hover table-bordered" style="width:700px">
+
+
+            <tr>
+                <td>
+                    检验工序:
+                </td>
+                <td>
+                    <select id="Select3" v-model="Process_ID">
+                        <option value="请选择">--请选择--</option>
+                        <option v-for="pro in Process" v-bind:value="pro.Process_ID">{{pro.Process_Name}}</option>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    质检设备:
+                </td>
+                <td>
+                    <select id="Select4" v-model="Facility_ID">
+                        <option value="请选择">--请选择--</option>
+                        <option v-for="facility in Facility" v-bind:value="facility.Facility_ID">{{facility.Facility_Name}}</option>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>检验人: </td>
+                <td><input type="text" v-model="Surveyor" /></td>
+            </tr>
+            <tr>
+                <td>检验时间:</td>
+                <td><input type="text" v-model="DateTime" /></td>
+            </tr>
+            <tr>
+                <td>参数值</td>
+                <td>
+                    <input type="text" v-model="ParameterValues" />
+                </td>
+            </tr>
+            <tr>
+                <td>备注</td>
+                <td>
+                    <input type="text" v-model="Remark" />
+                </td>
+            </tr>
+            <tr>
+                <td><input type="button" v-on:click="AddQCPlan1(Facility_ID, Process_ID,Surveyor,DateTime,ParameterValues,Remark)" value="添加" class="btn btn-info" /></td>
+                <td><a href="#" onclick="location.href='Index'">显示</a></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: "#add",
+        data: {       
+            Process: [],
+            Facility: [],        
+            Process_ID: "请选择",
+            Facility_ID: "请选择",
+           
+
+        },
+        mounted() {        
+            this.getProcesses();         
+            this.getFacility();      
+        },
+        methods:
+        {       
+            //获取检验工序表
+
+            getProcesses: function () {
+                axios.get('http://localhost:8103/GetProcess').then(
+                    (response) => {
+                        this.Process = [];
+                        for (var i = 0; i < response.data.length; i++) {
+                            this.Process.push(response.data[i]);
+                        }
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+
+            },
+            
+            //获取质检设备表
+            getFacility: function () {
+                axios.get('http://localhost:8103/GetFacilities').then(
+                    (response) => {
+                        this.Facility = [];
+                        for (var i = 0; i < response.data.length; i++) {
+                            this.Facility.push(response.data[i]);
+                        }
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+
+            },
+           
+            //保存
+            AddQCPlan1: function (facility_ID, process_ID, surveyor, dateTime, parameterValues, remark) {
+                var params = new URLSearchParams();
+                params.append('Facility_ID', facility_ID);
+                params.append('Process_ID', process_ID);
+                params.append('Surveyor', surveyor);
+                params.append('DateTime', dateTime);
+                params.append('ParameterValues', parameterValues);
+                params.append('Remark', remark);
+              
+                axios.post('http://localhost:8103/AddDataGather', params).then(
+                    (response) => {                      
+                        alert("添加成功")
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            },
+
+        },
+        computed: {
+        }
+
+    });
+</script>

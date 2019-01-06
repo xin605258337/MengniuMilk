@@ -1,0 +1,189 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/axios.js"></script>
+    <script src="~/Scripts/vue.js"></script>
+    <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <style>
+        /*.div-td table td {
+            width: 30px;
+            line-height: 15px
+        }*/
+    </style>
+</head>
+<body>
+    <div id="app" class="div-td">
+        <input id="Button1" type="button" value="添加" onclick="location.href='AddDataGather'" class="btn btn-danger" />
+        <table v-show="list.length" class="table-condensed table table-hover table-bordered" border="1" style="width:1200px">
+            <tr>
+                <th>检验工序</th>
+                <th>质检设备</th>            
+                <th>检验人</th>
+                <th>检验时间</th>
+                <th>参数值</th>
+                <th>备注</th>
+                <th>编辑</th>
+            </tr>
+            <tr v-for="item in list ">
+
+                <td>
+                    <select id="Select3" v-model="item.Process_ID">
+                        <option value="请选择">--请选择--</option>
+                        <option v-for="pro in Process" v-bind:value="pro.Process_ID">{{pro.Process_Name}}</option>
+
+                    </select>
+                </td>
+                <td>
+                    <select id="Select4" v-model="item.Facility_ID">
+                        <option value="请选择">--请选择--</option>
+                        <option v-for="facility in Facility" v-bind:value="facility.Facility_ID">{{facility.Facility_Name}}</option>
+
+                    </select>
+                </td>
+
+
+                <td><input type="text" v-model="item.Surveyor" /></td>
+                <td><input type="text" v-model="item.DateTime" /></td>
+                <td><input type="text" v-model="item.ParameterValues" /></td>
+                <td><input type="text" v-model="item.Remark" /></td>
+                <td>
+                    <div v-if="item.ID!=''" style="width:100px">
+                        <a href="#" v-on:click="DelQCPlan(item.ID)">删除</a>
+                        <a href="#" v-on:click="UptQCPlan(item.ID,item.Facility_ID, item.Process_ID, item.Surveyor, item.DateTime, item.ParameterValues, item.Remark)">修改</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: "#app",
+        data: {      
+            Process: [],
+            Facility: [],     
+            list:[]
+        },
+        mounted() {
+           
+            this.getProcesses();         
+            this.getFacility();
+            this.getList();
+        },
+        methods: {
+           
+            //获取检验工序表
+            getProcesses: function () {
+                axios.get('http://localhost:8103/GetProcess').then(
+                    (response) => {
+                        this.Process = [];
+                        for (var i = 0; i < response.data.length; i++) {
+                            this.Process.push(response.data[i]);
+                        }
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+
+            },
+           
+            //获取质检设备表
+            getFacility: function () {
+                axios.get('http://localhost:8103/GetFacilities').then(
+                   
+                    (response) => {
+                        this.Facility = [];
+                       
+                        for (var i = 0; i < response.data.length; i++) {
+                            this.Facility.push(response.data[i]);
+                        }
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+
+            },
+
+            //获取人工数据采集信息
+            getList: function () {
+                axios.get('http://localhost:8103/GetDataGathers').then(
+                    (response) => {
+                        this.Facility = [];
+                        for (var i = 0; i < response.data.length; i++) {
+                            this.list.push(response.data[i]);
+                        }
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+
+            },
+            
+            //删除质检计划信息
+            DelQCPlan: function (Id) {
+                axios.get('http://localhost:8103/DelDateGathers?id=' + Id).then((respose) => {
+                    if (respose.data > 0) {
+                        alert("删除成功!!!");
+                       
+                       location.href = '/DataGather/Index';
+                    }
+
+                },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            },
+            //修改质检计划信息
+            UptQCPlan: function (id,facility_ID, process_ID, surveyor, dateTime, parameterValues, remark) {
+                var params = new URLSearchParams();
+                params.append('ID', id);
+                params.append('Facility_ID', facility_ID);
+                params.append('Process_ID', process_ID);
+                params.append('Surveyor', surveyor);
+                params.append('DateTime', dateTime);
+                params.append('ParameterValues', parameterValues);
+                params.append('Remark', remark);
+               
+                axios.post('http://localhost:8103/UptDateGathers', params).then(
+                    (response) => {
+                        console.log(response.data);
+                        if (response.data > 0) {
+                            alert("修改成功!!!");
+                            location.href = '/DataGather/Index';
+                        }
+                        //console.info(this.list);
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            },
+
+        },
+
+    })
+</script>

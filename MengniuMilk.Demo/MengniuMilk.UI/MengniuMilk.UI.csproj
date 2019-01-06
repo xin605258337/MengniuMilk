@@ -99,6 +99,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\axios.js" />
     <Content Include="Scripts\axios.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
     <Content Include="Web.config" />
@@ -131,6 +132,8 @@
     <Content Include="Views\QCPlan\ShowIndex.cshtml" />
     <Content Include="Views\Permission\AddPermission.cshtml" />
     <Content Include="Views\Permission\Index.cshtml" />
+    <Content Include="Views\DataGather\AddDataGather.cshtml" />
+    <Content Include="Views\DataGather\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -141,7 +144,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\DataGather\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <PropertyGroup>
