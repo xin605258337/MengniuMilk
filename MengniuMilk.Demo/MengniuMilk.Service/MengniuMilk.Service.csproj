@@ -58,6 +58,7 @@
     <Compile Include="PermissionServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QCPlanServices.cs" />
+    <Compile Include="QCtaskServices.cs" />
     <Compile Include="SampleServices.cs" />
   </ItemGroup>
   <ItemGroup>

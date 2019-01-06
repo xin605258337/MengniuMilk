@@ -26,7 +26,7 @@ namespace MengniuMilk.Entity
         /// <summary>
         /// 检验人
         /// </summary>
-        public string surveyor { get; set; }
+        public string Surveyor { get; set; }
         /// <summary>
         /// 检验时间
         /// </summary>

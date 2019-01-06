@@ -1,0 +1,118 @@
+﻿@{
+    /**/
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(function () {
+            $("input[name=isPid]").click(function () {
+                if ($("input[name=isPid]:checked").val() == "1") {
+                    $("#pIDShow").show();
+                }
+                else {
+                    $("#pIDShow").hide();
+                }
+            })
+
+            //获得权限父节点
+            $.ajax({
+                url: 'http://localhost:8103/GetPermissionsPid',
+                type: 'get',
+                success: function (data) {
+                    $(data).each(function (index, data) {
+                        $("#pID").append("<option value='" + data.PermissionID + "'>" + data.PermissionName + "</option>");
+                    })
+                }
+
+            });
+
+
+            //添加权限
+            $("#btnAdd").click(function () {
+                $.ajax({
+                    url: 'http://localhost:8103/AddPermission',
+                    type: 'post',
+                    data: $("#formData").serialize(),
+                    success: function (data) {
+                        if (data > 0) {
+                            alert("添加成功");
+                        }
+                    }
+                })
+            });
+        })
+
+    </script>
+</head>
+<body>
+    <div style="margin-left:400px">
+        <h2>添加权限</h2>
+        <form id="formData" enctype="multipart/form-data" method="post">
+            <table class="table-bordered table table-hover" style="width:700px">
+
+                <tr>
+                    <td>权限名称</td>
+                    <td>
+                        <input type="text" name="PermissionName" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>权限URL</td>
+                    <td>
+                        <input type="text" name="PermissionURL" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>是否启用</td>
+                    <td>
+                        <input type="radio" name="PermissionEnabel" value="0" checked="checked" />启用
+                        <input type="radio" name="PermissionEnabel" value="1" />禁用
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>是否是父节点</td>
+                    <td>
+                        <input id="IsPid" type="radio" name="isPid" value="0" />是
+                        <input id="NoPid" type="radio" name="isPid" value="1" checked="checked" />否
+                    </td>
+                </tr>
+                <tr id="pIDShow">
+                    <td>父节点</td>
+                    <td>
+                        <select name="pID" id="pID">
+                            <option value="0">=请选择=</option>
+                            
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>描述</td>
+                    <td>
+                        <textarea name="PermissionRemark" rows="4" cols="40"></textarea>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><input type="button" id="btnAdd" class="btn btn-info" value="新增权限" /></td>
+                    <td>
+                        <a href="Permission/Index">显示列表</a>
+
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

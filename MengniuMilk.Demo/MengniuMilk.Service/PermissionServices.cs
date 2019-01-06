@@ -53,7 +53,12 @@ namespace MengniuMilk.Service
         /// <returns></returns>
         public List<Permission> GetPermissionByID(int id)
         {
-            throw new NotImplementedException();
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                string sql = "select * from Permission where PermissionID=:PermissionID";
+                var result = conn.Query<Permission>(sql, new { PermissionID = id });
+                return result.ToList<Permission>();
+            }
         }
 
         /// <summary>
@@ -62,7 +67,13 @@ namespace MengniuMilk.Service
         /// <returns></returns>
         public List<Permission> GetPermissions()
         {
-            throw new NotImplementedException();
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                conn.Open();
+                string sql = @"select * from Permission";
+                var result = conn.Query<Permission>(sql, null);
+                return result.ToList<Permission>();
+            }
         }
 
         /// <summary>
@@ -72,7 +83,31 @@ namespace MengniuMilk.Service
         /// <returns></returns>
         public int UpdatePermission(Permission permission)
         {
-            throw new NotImplementedException();
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                conn.Open();
+                string sql = "update Permission set PermissionName=:PermissionName,PermissionURL=:PermissionURL,PermissionEnabel=:PermissionEnabel,PermissionRemark=:PermissionRemark,pID=:pID where PermissionID=:PermissionID";
+                var result = conn.Execute(sql, permission);
+                return result;
+            }
         }
+
+        /// <summary>
+        /// 获得权限所有父节点
+        /// </summary>
+        /// <param name="pID"></param>
+        /// <returns></returns>
+        public List<Permission> GetPermissionsPid()
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                conn.Open();
+                string sql = "select * from permission where pID=0";
+                var resul = conn.Query<Permission>(sql);
+                return resul.ToList<Permission>();
+            }
+        }
+
+
     }
 }
