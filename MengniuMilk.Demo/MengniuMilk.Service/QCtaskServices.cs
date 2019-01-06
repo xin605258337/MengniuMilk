@@ -12,7 +12,7 @@ namespace MengniuMilk.Service
     using Oracle.ManagedDataAccess.Client;
     using Oracle.ManagedDataAccess;
     using System.Configuration;
-    public class QCtaskServices
+    public class QCtaskServices:IQCtaskServices
     {
         /// <summary>
         /// 添加质检任务信息

@@ -48,7 +48,7 @@ namespace MengniuMilk.Api
             container.RegisterType<IPermissionServices, PermissionServices>();
             container.RegisterType<IDataGatherServices, DataGatherServices>();
             container.RegisterType<ISampleServices, SampleServices>();
-            container.RegisterType<IQCPlanServices, QCPlanServices>();
+            container.RegisterType<IQCtaskServices, QCtaskServices>();
         }
     }
 }
