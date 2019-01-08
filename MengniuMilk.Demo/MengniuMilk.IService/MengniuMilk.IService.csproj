@@ -46,6 +46,7 @@
     <Compile Include="IQCPlanServices.cs" />
     <Compile Include="IQCtaskServices.cs" />
     <Compile Include="ISampleServices.cs" />
+    <Compile Include="ITargetServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

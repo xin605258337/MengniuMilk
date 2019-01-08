@@ -118,18 +118,6 @@ namespace MengniuMilk.Api.Controllers
         }
 
         /// <summary>
-        /// 获取指标项名称
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("GetTargets")]
-        public List<Target> GetTargets()
-        {
-            var result = qcPlanServices.GetTargets();
-            return result;
-        }
-
-        /// <summary>
         /// 获取指标项分类
         /// </summary>
         /// <returns></returns>
