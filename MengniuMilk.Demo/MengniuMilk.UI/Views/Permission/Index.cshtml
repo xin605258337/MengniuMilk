@@ -13,21 +13,66 @@
     <script type="text/javascript">
         $(function () {
 
-
+            $.ajax({
+                url: 'http://localhost:8103/GetPermissions',
+                type: 'get',          
+                success: function (data) {                 
+                    $(data).each(function (index, data) {
+                        var str = "<tr>";
+                        str += "<td style='text-align: center'>" + data.PermissionID + "</td>";
+                        str += "<td style='text-align: center'>" + data.PermissionName + "</td>";
+                        str += "<td style='text-align: center'><a href='#'>" + data.PermissionURL + "</a></td>";
+                      
+                        str += "<td style='text-align: center'>" + data.PermissionRemark + "</td>";
+                        str += "<td style='text-align: center'>" + (data.PermissionEnabel == 0 ? "启用" : "禁用") + "</td>";
+                       
+                        str += "<td style='text-align: center'><a href='#' onclick=Delete(" + data.PermissionID + ",this)>删除</a>&nbsp;&nbsp;<a href='/Permission/UpdatePermission?ID=" + data.PermissionID + "'>修改</a></td>";
+                        str += "</tr>";
+                        $("#tab").append(str);
+                    })
+                }
+            });
         })
+
+        //删除
+        function Delete(ID, obj) {
+            if (confirm("确定删除吗?")) {
+                $.ajax({
+                    url: 'http://localhost:8103/DeletePermission',
+                    type: 'get',
+                    data: {
+                        id: ID
+                    },
+                    success: function (data) {
+                        if (data > 0) {
+                           
+                            $(obj).parent().parent().remove();
+                        }
+                        else {
+                            alert("删除失败");
+                        }
+                    }
+
+                });
+            };
+
+        }
 
     </script>
 </head>
 <body>
     <div>
-    <table style="width:700px">
-        <tr>
-            <th>权限名称</th>
-            <th>地址URL</th>
-            <th>是否启用</th>
-            <th>描述</th>
-        </tr>
-    </table>
+        <input type="button" value="添加权限" onclick="location.href='/Permission/AddPermission'" class="btn btn-danger" />
+        <table id="tab" class="table table-bordered table-hover" style="width:800px">
+            <tr>
+                <th style="text-align:center">权限ID</th>
+                <th style="text-align:center">权限名称</th>
+                <th style="text-align:center">地址URL</th>
+                <th style="text-align:center">描述</th>
+                <th style="text-align:center">是否启用</th>             
+                <th style="text-align:center">操作</th>
+            </tr>
+        </table>
     </div>
 </body>
 </html>

@@ -186,6 +186,7 @@
     <Compile Include="Controllers\DataGatherController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\QCPlanController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -218,6 +219,13 @@
     <Content Include="Views\DataGather\Index.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
+    <Content Include="Views\Permission\UpdatePermission.cshtml" />
+    <Content Include="Views\Roles\AddRoles.cshtml" />
+    <Content Include="Views\Users\AddUsers.cshtml" />
+    <Content Include="Views\Users\ShowUser.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Users\UpdateUsers.cshtml" />
+    <Content Include="Views\Roles\UpdateRoles.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

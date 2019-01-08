@@ -1,0 +1,79 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
+
+
+    <script type="text/javascript">
+        $(function () {
+            LoadData();
+
+        })
+        //页面加载
+        function LoadData() {
+            $.ajax({
+                url: 'http://localhost:8103/GetRoles',
+                type: 'get',
+                success: function (data) {
+                    $(data).each(function (index, data) {
+                        var str = "<tr>";
+                        str += "<td style='text-align: center'>" + data.RolesName + "</td>";
+                        str += "<td style='text-align: center'>" + data.PermissionName + "</td>";                    
+                        str += "<td style='text-align: center'>" + data.RolesRemark + "</td>";                
+                        str += "<td style='text-align: center'><a href='#' onclick=Delete(" + data.RolesID + ",this)>删除</a>&nbsp;&nbsp;<a href='/Roles/UpdateRoles?ID=" + data.RolesID + "'>修改</a></td>";
+                        str += "</tr>";
+                        $("#tab").append(str);
+                    })
+                }
+            });
+        }
+
+        //删除角色
+        function Delete(ID, obj) {
+            if (confirm("确定删除吗?")) {
+                $.ajax({
+                    url: 'http://localhost:8103/DeleteRoles',
+                    type: 'get',
+                    data: {
+                        id: ID
+                    },
+                    success: function (data) {
+                        if (data > 0) {
+                            alert("删除成功");
+                            $(obj).parent().parent().remove();
+                        }
+                        else {
+                            alert("删除失败");
+                        }
+                    }
+
+                });
+            };
+
+        }
+
+    </script>
+
+</head>
+<body>
+    <div style="margin-left:150px">
+        <input type="button" value="添加角色" class="btn btn-danger" onclick="location.href='/Roles/AddRoles'" />
+        <table id="tab" class="table table-bordered table-hover" style="width:1200px">
+            <tr style="background-color:skyblue;color:white;">
+                <th style="text-align:center">角色名称</th>
+                <th style="text-align:center">拥有权限</th>
+                <th style="text-align:center">描述</th>
+                <th style="text-align:center">操作</th>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

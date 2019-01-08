@@ -14,6 +14,27 @@
     <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
     <script type="text/javascript">
         $(function () {
+            //反填
+            $.ajax({
+                url: 'http://localhost:8103/GetPermissionByID',
+                type: 'get',
+                data: {
+                    id:'@Request.QueryString["ID"]'
+                },
+                success: function (data) {
+                    $("input[name=PermissionID]").val(data[0].PermissionID);
+                    $("input[name=PermissionName]").val(data[0].PermissionName);
+                    $("input[name=PermissionURL]").val(data[0].PermissionURL);
+                    $("input[name=PermissionEnabel][value=" + data[0].PermissionEnabel + "]").attr("checked", "checked");
+                   
+                    //alert(data[0].pID)
+                    $("select[name=pID]").val(data[0].pID);
+                    $("textarea[name=PermissionRemark]").val(data[0].PermissionRemark);
+                }
+
+            })
+
+            //判断是否是父节点，如果不是显示出要选择的父节点，如果是则隐藏父节点
             $("input[name=isPid]").click(function () {
                 if ($("input[name=isPid]:checked").val() == "1") {
                     $("#pIDShow").show();
@@ -27,6 +48,7 @@
             $.ajax({
                 url: 'http://localhost:8103/GetPermissionsPid',
                 type: 'get',
+                async: false,
                 success: function (data) {
                     $(data).each(function (index, data) {
                         $("#pID").append("<option value='" + data.PermissionID + "'>" + data.PermissionName + "</option>");
@@ -36,15 +58,15 @@
             });
 
 
-            //添加权限
+            //修改权限
             $("#btnAdd").click(function () {
                 $.ajax({
-                    url: 'http://localhost:8103/AddPermission',
+                    url: 'http://localhost:8103/UpdatePermission',
                     type: 'post',
                     data: $("#formData").serialize(),
                     success: function (data) {
                         if (data > 0) {
-                            alert("添加成功");
+                            alert("修改成功");
                         }
                     }
                 })
@@ -55,14 +77,15 @@
 </head>
 <body>
     <div style="margin-left:400px">
-        <h2>添加权限</h2>
+        <h2>修改权限</h2>
         <form id="formData" enctype="multipart/form-data" method="post">
+            <input type="hidden" name="PermissionID"/>
             <table class="table-bordered table table-hover" style="width:700px">
 
                 <tr>
                     <td>权限名称</td>
                     <td>
-                        <input type="text" name="PermissionName"  />
+                        <input type="text" name="PermissionName" />
                     </td>
                 </tr>
                 <tr>
@@ -74,7 +97,7 @@
                 <tr>
                     <td>是否启用</td>
                     <td>
-                        <input type="radio" name="PermissionEnabel" value="0" checked="checked" />启用
+                        <input type="radio" name="PermissionEnabel" value="0"  />启用
                         <input type="radio" name="PermissionEnabel" value="1" />禁用
                     </td>
                 </tr>
@@ -91,7 +114,7 @@
                     <td>
                         <select name="pID" id="pID">
                             <option value="0">=请选择=</option>
-                            
+
 
                         </select>
                     </td>
@@ -105,7 +128,7 @@
                 </tr>
 
                 <tr>
-                    <td><input type="button" id="btnAdd" class="btn btn-info" value="新增权限" /></td>
+                    <td><input type="button" id="btnAdd" class="btn btn-info" value="修改权限" /></td>
                     <td>
                         <input type="button" onclick="location.href='/Permission/Index'" class="btn btn-danger" value="权限列表" />
 

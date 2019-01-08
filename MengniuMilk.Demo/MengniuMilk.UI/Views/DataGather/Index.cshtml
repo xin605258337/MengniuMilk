@@ -25,8 +25,9 @@
         <input id="Button1" type="button" value="添加" onclick="location.href='AddDataGather'" class="btn btn-danger" />
         <table v-show="list.length" class="table-condensed table table-hover table-bordered" border="1" style="width:1200px">
             <tr>
+                <th>ID</th>
                 <th>检验工序</th>
-                <th>质检设备</th>            
+                <th>质检设备</th>
                 <th>检验人</th>
                 <th>检验时间</th>
                 <th>参数值</th>
@@ -34,7 +35,7 @@
                 <th>编辑</th>
             </tr>
             <tr v-for="item in list ">
-
+                <td>{{item.ID}}</td>
                 <td>
                     <select id="Select3" v-model="item.Process_ID">
                         <option value="请选择">--请选择--</option>

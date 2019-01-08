@@ -9,7 +9,7 @@ namespace MengniuMilk.Entity
     public class User_Roles
     {
         /// <summary>
-        /// 住家ID
+        /// 主键ID
         /// </summary>
         public int Users_RolesID { get; set; }
 
