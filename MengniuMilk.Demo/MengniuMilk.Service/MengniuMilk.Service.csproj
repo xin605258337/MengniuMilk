@@ -62,6 +62,7 @@
     <Compile Include="RolesServices.cs" />
     <Compile Include="SampleServices.cs" />
     <Compile Include="UsersServices.cs" />
+    <Compile Include="TargetServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MengniuMilk.Entity\MengniuMilk.Entity.csproj">

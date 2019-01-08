@@ -187,7 +187,9 @@
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\QCPlanController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\QCtaskController.cs" />
     <Compile Include="Controllers\SampleController.cs" />
+    <Compile Include="Controllers\TargetController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -226,6 +228,10 @@
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Users\UpdateUsers.cshtml" />
     <Content Include="Views\Roles\UpdateRoles.cshtml" />
+    <Content Include="Views\QCtask\AddQCtask.cshtml" />
+    <Content Include="Views\QCtask\Index.cshtml" />
+    <Content Include="Views\Target\AddTarget.cshtml" />
+    <Content Include="Views\Target\GetTarget.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

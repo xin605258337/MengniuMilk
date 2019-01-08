@@ -23,6 +23,12 @@ namespace MengniuMilk.IService
         List<QCtask> GetQCtasks();
 
         /// <summary>
+        /// 获取之间计划名称
+        /// </summary>
+        /// <returns></returns>
+        List<QCPlan> GetQCPlansName();
+
+        /// <summary>
         /// 删除质检任务
         /// </summary>
         /// <param name="id"></param>

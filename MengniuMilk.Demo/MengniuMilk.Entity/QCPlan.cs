@@ -9,7 +9,7 @@ namespace MengniuMilk.Entity
     /// <summary>
     /// 质检计划表
     /// </summary>
-  public class QCPlan
+  public class QCPlan:Target
     {
         /// <summary>
         /// 质检计划ID
@@ -48,21 +48,6 @@ namespace MengniuMilk.Entity
         /// 指标项分类
         /// </summary>
         public int TargetType_ID { get; set; }
-        /// <summary>
-        /// 指标项名
-        /// </summary>
-        public int Target_ID { get; set; }
-        /// <summary>
-        /// 标准值
-        /// </summary>
-        public decimal StandardValues { get; set; }
-        /// <summary>
-        /// 标准值上限
-        /// </summary>
-        public decimal StandardValuesMax { get; set; }
-        /// <summary>
-        /// 标准值下限
-        /// </summary>
-        public decimal StandardValuesMin { get; set; }
+
     }
 }

@@ -74,10 +74,5 @@ namespace MengniuMilk.IService
         /// <returns></returns>
         List<TargetType> GetTargetTypes();
 
-        /// <summary>
-        /// 获取指标项名称
-        /// </summary>
-        /// <returns></returns>
-        List<Target> GetTargets(); 
     }
 }
