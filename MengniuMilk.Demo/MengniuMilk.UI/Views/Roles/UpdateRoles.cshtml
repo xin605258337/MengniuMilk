@@ -1,0 +1,127 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(function () {
+            //反填
+            $.ajax({
+                url: 'http://localhost:8103/GetRolesByID',
+                type: 'get',
+                data: {
+                    id: '@Request.QueryString["ID"]'
+                },
+                success: function (data) {
+                    $("input[name=RolesID]").val(data[0].RolesID);
+                    $("input[name=RolesName]").val(data[0].RolesName);
+                    $("textarea[name=RolesRemark]").val(data[0].RolesRemark);
+                    //反填复选框
+                    $(data[0].PermissionIDs.split(',')).each(function (index, data) {
+                        $("input[name=PermissionName][value=" + this + "]").attr("checked", "checked");
+                    })
+                }
+
+               })
+
+
+            //加载权限
+            $.ajax({
+                url: 'http://localhost:8103/GetPermissions',
+                type: 'get',
+                success: function (data) {
+                    $(data).each(function (index, data) {
+
+                        var str = "<tr>";
+                        str += "<td><input type='checkbox' name='PermissionName' value=" + data.PermissionID + ">" + data.PermissionName + "</td>"
+                        str += "</tr>";
+                        $("#div1").append(str);
+                    })
+                }
+            });
+
+            //修改角色
+            $("#btnAdd").click(function () {
+
+                var IDs = [];
+                $("input[name=PermissionName]:checked").each(function () {
+                    IDs.push($(this).val());
+                })
+                var Names = [];
+                $("input[name=PermissionName]:checked").each(function () {
+                    Names.push($(this).parent().text());
+                })
+
+                //修改角色
+                $.ajax({
+                    url: 'http://localhost:8103/UpdateRoles',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        RolesID: $("input[name=RolesID]").val(),
+                        RolesName: $("input[name=RolesName]").val(),
+                        RolesRemark: $("textarea[name=RolesRemark]").val(),
+                        PermissionIDs: IDs.join(','),
+                        PermissionName: Names.join(',')
+                    },
+                   
+                    success: function (data) {
+                        if (data > 0) {
+                            alert("修改成功");
+
+                        }
+                        else {
+                            alert("修改失败");
+                        }
+                    }
+                });
+            });
+        })
+
+    </script>
+</head>
+<body>
+    <div style="margin-left:400px">
+        <form id="formData" enctype="multipart/form-data" method="post">
+            <input type="hidden" name="RolesID"/>
+            <h2>修改角色</h2>
+            <table class="table table-bordered table-hover" style="width:600px">
+                <tr>
+                    <td>角色名称</td>
+                    <td>
+                        <input type="text" name="RolesName" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>描述</td>
+                    <td>
+                        <textarea name="RolesRemark" rows="4" cols="25"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>权限</td>
+                    <td>
+                        <div id="div1"></div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="button" id="btnAdd" value="修改角色" class="btn btn-info" /></td>
+                    <td>
+                        <input type="button" onclick="location.href='/Roles/Index'" class="btn btn-danger" value="查看角色" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

@@ -17,5 +17,20 @@ namespace MengniuMilk.UI.Controllers
         {
             return View();
         }
+
+        public ActionResult AddUsers() 
+        {
+            return View();
+        }
+
+        public ActionResult ShowUser()
+        {
+            return View();
+        }
+
+        public ActionResult UpdateUsers()
+        {
+            return View();
+        }
     }
 }

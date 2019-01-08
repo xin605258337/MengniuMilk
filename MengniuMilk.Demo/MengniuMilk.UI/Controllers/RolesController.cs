@@ -6,19 +6,20 @@ using System.Web.Mvc;
 
 namespace MengniuMilk.UI.Controllers
 {
-    public class PermissionController : Controller
+    public class RolesController : Controller
     {
-        // GET: Permission
+        // GET: Roles
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult AddPermission()
+        public ActionResult AddRoles()
         {
             return View();
         }
-        public ActionResult UpdatePermission()
+
+        public ActionResult UpdateRoles()
         {
             return View();
         }

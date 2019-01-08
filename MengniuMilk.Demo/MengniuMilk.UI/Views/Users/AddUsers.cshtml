@@ -1,0 +1,129 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(function () {
+
+            //加载角色
+            $.ajax({
+                url: 'http://localhost:8103/GetRoles',
+                type: 'get',
+                success: function (data) {
+                    $(data).each(function (index, data) {
+
+                        var str = "<tr>";
+                        str += "<td><input type='checkbox' name='RolesName' value=" + data.RolesID + ">" + data.RolesName + "</td>"
+                        str += "</tr>";
+                        $("#div1").append(str);
+                    })
+                }
+            });
+
+            //新增用户
+            $("#btnAdd").click(function () {
+              
+                var IDs = [];
+                $("input[name=RolesName]:checked").each(function () {
+                    IDs.push($(this).val());
+                })
+                var Names = [];
+                $("input[name=RolesName]:checked").each(function () {
+                    Names.push($(this).parent().text());
+                })
+
+                //添加用户
+                $.ajax({
+                    url: 'http://localhost:8103/AddUsers',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {                       
+                        UsersName: $("input[name=UsersName]").val(),
+                        UsersPwd: $("input[name=UsersPwd]").val(),
+                        UsersTel: $("input[name=UsersTel]").val(),
+                        Gender: $("input[name=Gender]:checked").val(),
+                        UsersRemark: $("textarea[name=UsersRemark]").val(),
+                        RolesIDs: IDs.join(','),
+                        RolesName: Names.join(',')
+                    },
+                  
+                    success: function (data) {
+                     
+                        if (data > 0) {
+                            alert("添加成功");
+
+                        }
+                        else {
+                            alert("添加失败");
+                        }
+                    }
+                });
+            });
+        })
+
+    </script>
+</head>
+<body>
+    <div style="margin-left:400px">
+        <form id="formData" enctype="multipart/form-data" method="post">
+            <h2>添加用户</h2>
+            <table class="table table-bordered table-hover" style="width:600px">
+                <tr>
+                    <td>用户名</td>
+                    <td>
+                        <input type="text" name="UsersName" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>密码</td>
+                    <td>
+                        <input type="password" name="UsersPwd" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>性别</td>
+                    <td>
+                        <input type="radio" name="Gender" value="0" checked="checked" /> 男
+                        <input type="radio" name="Gender" value="1" /> 女
+                    </td>
+                </tr>
+                <tr>
+                    <td>电话</td>
+                    <td>
+                        <input type="text" name="UsersTel" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>描述</td>
+                    <td>
+                        <textarea name="UsersRemark" rows="4" cols="25"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>角色</td>
+                    <td>
+                        <div id="div1"></div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="button" id="btnAdd" value="新增用户" class="btn btn-info" /></td>
+                    <td>
+                        <input type="button" onclick="location.href='/Users/ShowUser'" class="btn btn-danger" value="查看用户" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

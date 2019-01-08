@@ -1,0 +1,106 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+   
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(function () {
+
+            //加载权限
+            $.ajax({
+                url: 'http://localhost:8103/GetPermissions',
+                type: 'get',
+                success: function (data) {
+                    $(data).each(function (index, data) {
+
+                        var str = "<tr>";
+                        str += "<td><input type='checkbox' name='PermissionName' value=" + data.PermissionID + ">" + data.PermissionName + "</td>"
+                        str += "</tr>";
+                        $("#div1").append(str);
+                    })
+                }
+            });
+
+            //新增角色
+            $("#btnAdd").click(function () {
+
+                var IDs = [];
+                $("input[name=PermissionName]:checked").each(function () {
+                    IDs.push($(this).val());
+                })
+                var Names = [];
+                $("input[name=PermissionName]:checked").each(function () {
+                    Names.push($(this).parent().text());
+                })
+
+                //添加角色
+                $.ajax({
+                    url: 'http://localhost:8103/AddRoles',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        RolesName: $("input[name=RolesName]").val(),
+                        RolesRemark: $("textarea[name=RolesRemark]").val(),
+                        PermissionIDs: IDs.join(','),
+                        PermissionName: Names.join(',')
+                    },
+                    /*$("#formData").serialize(),*/
+                    success: function (data) {
+                        if (data > 0) {
+                            alert("添加成功");
+
+                        }
+                        else {
+                            alert("添加失败");
+                        }
+                    }
+                });
+            });
+        })
+
+    </script>
+</head>
+<body>
+    <div style="margin-left:400px">
+        <form id="formData" enctype="multipart/form-data" method="post">
+            <h2>添加角色</h2>
+            <table class="table table-bordered table-hover" style="width:600px">
+                <tr>
+                    <td>角色名称</td>
+                    <td>
+                        <input type="text" name="RolesName" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>描述</td>
+                    <td>
+                        <textarea name="RolesRemark" rows="4" cols="25"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>权限</td>
+                    <td>
+                        <div id="div1"></div>
+                       
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="button" id="btnAdd" value="新增角色" class="btn btn-info" /></td>
+                    <td>
+                        <input type="button" onclick="location.href='/Roles/Index'" class="btn btn-danger" value="查看角色" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
