@@ -60,6 +60,7 @@
     <Compile Include="QCPlanServices.cs" />
     <Compile Include="QCtaskServices.cs" />
     <Compile Include="SampleServices.cs" />
+    <Compile Include="TargetServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MengniuMilk.Entity\MengniuMilk.Entity.csproj">

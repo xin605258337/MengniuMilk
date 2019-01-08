@@ -128,6 +128,7 @@
     <Compile Include="Controllers\QCPlanServicesController.cs" />
     <Compile Include="Controllers\QCtaskServicesController.cs" />
     <Compile Include="Controllers\SampleServicesController.cs" />
+    <Compile Include="Controllers\TargetServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
