@@ -52,8 +52,8 @@
                     {{item.InformTime}}
                 </td>
                 <td>
-                    <input id="Radio1" type="radio" v-model="item.State" name="QCPlan_State" value="1" checked>有效
-                    <input id="Radio1" type="radio" v-model="item.State" name="QCPlan_State" value="0" />无效
+                    <input id="Radio1" type="radio" v-model="item.State" name="QCPlan_State" value="1" checked>已检验
+                    <input id="Radio1" type="radio" v-model="item.State" name="QCPlan_State" value="0" />未检验
                 </td>
                 <td>
                     <div v-if="item.QCtask_ID!=''">
@@ -127,7 +127,7 @@
                             this.Sample1.push(response.data[i]);
                         }
                     },
-                    (response) => {
+                    (response) => { 
                         alert(response.status + "1");
                     }
                 ).catch(function (response) {

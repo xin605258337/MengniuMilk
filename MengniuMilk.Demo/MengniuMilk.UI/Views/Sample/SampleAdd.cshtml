@@ -9,6 +9,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>SampleAdd</title>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
     <script src="~/Scripts/axios.js"></script>
     <script src="~/Scripts/vue.js"></script>
     <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
@@ -38,15 +39,24 @@
 </body>
 </html>
 <script type="text/javascript">
+
+    function guid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
     var vm = new Vue({
         el: "#add",
         data: {
 
         },
         mounted() {
-
+           
         },
         methods: {
+           
 
             AddSample: function (Name, Code) {
                 var params = new URLSearchParams();
