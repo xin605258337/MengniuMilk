@@ -186,6 +186,7 @@
     <Compile Include="Controllers\DataGatherController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\QCPlanController.cs" />
+    <Compile Include="Controllers\QCtaskController.cs" />
     <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -218,6 +219,8 @@
     <Content Include="Views\DataGather\Index.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
+    <Content Include="Views\QCtask\AddQCtask.cshtml" />
+    <Content Include="Views\QCtask\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

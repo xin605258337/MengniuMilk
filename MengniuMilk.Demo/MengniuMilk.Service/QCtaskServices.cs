@@ -24,11 +24,26 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"insert into QCtask(QCPlan_ID,QCPlanType,StartDate,EndDate) values(:QCPlan_ID,:QCPlanType,:StartDate,:EndDate)";
+                string sql = @"insert into QCtask(QCPLAN_ID,QCPlanType,InformTime,State,SAMPIEID) values(:QCPlan_ID,:QCPlanType,sysdate,:State,:SAMPIEID)";
                 int result = conn.Execute(sql, qCtask);
-                return result;
+                return result; 
             }
         }
+        /// <summary>
+        /// 获取质检名称
+        /// </summary>
+        /// <returns></returns>
+        public List<QCPlan> GetQCPlansName()
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                conn.Open();
+                string sql = @"select * from QCPlan ";
+               var result = conn.Query<QCPlan>(sql, null);
+                return result.ToList<QCPlan>();
+            }
+        }
+
         /// <summary>
         /// 获取质检任务信息
         /// </summary>
@@ -38,7 +53,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"select q.*,p.Name,t.Type_Name from QCtask q left join QCPlan p on q.QCPlan_ID =p.ID left join QCPlanType t on q.QCPlanType =p.Type_ID";
+                string sql = @"select q.*,p.Name,t.Type_Name from QCtask q left join QCPlan p on q.QCPlan_ID =p.ID left join QCPlanType t on q.QCPlanType =t.Type_ID left join  Sample s on q.SAMPIEID=s.ID ";
                 var result = conn.Query<QCtask>(sql, null);
                 return result.ToList<QCtask>();
             }
@@ -69,7 +84,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"update QCtask set QCPlan_ID=:QCPlan_ID,QCPlanType=:QCPlanType,StartDate=:StartDate,EndDate=:EndDate where QCtask_ID=:QCtask_ID";
+                string sql = @"update QCtask set QCPlan_ID=:QCPlan_ID,QCPlanType=:QCPlanType,State=:State,SAMPIEID=:SAMPIEID where QCtask_ID=:QCtask_ID";
                 var result = conn.Execute(sql, qCtask);
                 return result;
             }

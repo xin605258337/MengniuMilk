@@ -38,6 +38,18 @@ namespace MengniuMilk.Api.Controllers
         {
             return QCtaskServices.GetQCtasks();
         }
+
+        /// <summary>
+        /// 获取质检名称
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetQCPlansName")]
+        public List<QCPlan> GetQCPlansName()
+        {
+
+            return QCtaskServices.GetQCPlansName();
+        }
         /// <summary>
         /// 删除质检任务
         /// </summary>

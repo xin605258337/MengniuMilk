@@ -16,19 +16,24 @@ namespace MengniuMilk.Entity
         /// <summary>
         /// 质检计划
         /// </summary>
-        public int QCPlan_ID { get; set; }
+        public int QCPLAN_ID { get; set; }
         /// <summary>
         /// 质检类型
         /// </summary>
-        public int QCPlanType { get; set;}
+        public string QCPlanType { get; set;}
         /// <summary>
-        /// 开始日期
+        /// 状态
         /// </summary>
-        public string StartDate { get; set; }
+        public int State { get; set; }
         /// <summary>
-        /// 结束日期
+        /// 样品ID
         /// </summary>
-        public string EndDate { get; set; }
+        public int SAMPIEID { get; set; }
+        /// <summary>
+        /// 通知时间
+        /// </summary>
+
+        public string InformTime { get; set; }
 
     }
 }
