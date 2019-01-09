@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MengniuMilk.Entity
 {
     //指标项名称表
-    public class Target
+    public class Target:Sample
     {
         /// <summary>
         /// 指标项ID
