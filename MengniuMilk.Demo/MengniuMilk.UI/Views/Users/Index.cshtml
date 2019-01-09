@@ -66,6 +66,26 @@
                 }
             }
         }
+
+        //循环遍历菜单栏
+        $(function () {
+            $.ajax({
+                url: 'http://localhost:8103/GetUsersPermissionUrls',
+                type: 'get',
+                data: {
+                    id:39
+                },
+                success: function (data) {
+                    $(data).each(function (index, data) {
+                        if (data.pID == 0) {
+                            $("ul").append("<ul>" + data.PermissionName + "</ul>");
+                        }
+                    })
+                }
+            })
+
+        })
+
     </script>
     <title>首页</title>
 </head>
@@ -92,7 +112,10 @@
         </div>
         <div id="side_here">
             <div id="side_here_l" class="fl"></div>
-            <div id="here_area" class="fl">当前位置：</div>
+            <div id="here_area" class="fl">当前位置：
+             
+
+            </div>
         </div>
     </div>
     <div class="side">

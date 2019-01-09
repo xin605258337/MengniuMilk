@@ -96,6 +96,8 @@
     <Content Include="bootstrap-3.3.7-dist\bootstrap337\js\bootstrap.js" />
     <Content Include="bootstrap-3.3.7-dist\bootstrap337\js\bootstrap.min.js" />
     <Content Include="bootstrap-3.3.7-dist\bootstrap337\js\npm.js" />
+    <Content Include="Content\yzmJS.js" />
+    <Content Include="Content\yzmStyle.css" />
     <Content Include="css\common.css" />
     <Content Include="css\login.css" />
     <Content Include="css\main.css" />

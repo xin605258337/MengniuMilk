@@ -55,6 +55,12 @@ namespace MengniuMilk.IService
         /// <returns></returns>
         Users Login(string UsersName, string UsersPwd);
 
+        /// <summary>
+        /// 根据登录时的用户ID获取该管理员权限(url)
+        /// </summary>
+        /// <returns></returns>
+        List<Users> GetUsersPermissionUrls(int id);
+
 
     }
 }

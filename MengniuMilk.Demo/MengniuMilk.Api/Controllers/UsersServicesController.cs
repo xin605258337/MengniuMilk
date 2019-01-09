@@ -90,12 +90,27 @@ namespace MengniuMilk.Api.Controllers
         /// <param name="UsersName"></param>
         /// <param name="UsersPwd"></param>
         /// <returns></returns>
+        [HttpGet]
+        [Route("Login")]
         public Users Login(string UsersName, string UsersPwd)
         {
             // 对用户输入的密码进行MD5加密  
             UsersPwd = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(UsersPwd, "MD5");
             var result = UsersServices.Login(UsersName, UsersPwd);
             return result;
+        }
+
+        /// <summary>
+        /// 根据登录时的用户ID获取该管理员权限(url)
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetUsersPermissionUrls")]
+        public List<Users> GetUsersPermissionUrls(int id)
+        {
+            var result = UsersServices.GetUsersPermissionUrls(id);
+            return result;
+            
         }
     }
 }

@@ -69,6 +69,12 @@ namespace MengniuMilk.Service
                 conn.Open();
                 string sql = @"delete from Roles where RolesID=:RolesID";
                 var result = conn.Execute(sql, new { RolesID = id });
+                if (result > 0)
+                {
+                    string sql2 = @"delete from Permission_Roles where RolesID=:RolesID";
+                    var result2 = conn.Execute(sql2, new { RolesID = id });
+                }
+
                 return result;
             }
         }

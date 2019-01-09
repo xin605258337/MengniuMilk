@@ -15,6 +15,8 @@
         var permissionId = 0;
         var list = [];
         function PermisionShow(obj) {
+
+            //判断选中权限父节点追加权限子节点
             if ($(obj).prop("checked")) {
                 $(list).each(function (index, data) {
                     var str = "<tr>";

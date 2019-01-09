@@ -65,6 +65,11 @@ namespace MengniuMilk.Service
                 conn.Open();
                 string sql = @"delete  from Users where UsersID=:UsersID";
                 var result = conn.Execute(sql, new { UsersID = id });
+                if (result > 0)
+                {
+                    string sql2 = @"delete from User_Roles where UsersID=:UsersID";
+                    var result2 = conn.Execute(sql2, new { UsersID = id });
+                }
                 return result;
             }
         }
@@ -130,19 +135,37 @@ namespace MengniuMilk.Service
             {
                 string sql = @"select * from Users where UsersName=:UsersName and UsersPwd=:UsersPwd";
                 var result = conn.Query<Users>(sql, new { UsersName = UsersName, UsersPwd = UsersPwd }).FirstOrDefault();
-
-                if (result != null)
-                {
-                    string sql2 = @"select * from Permission where PermissionID in(select  PermissionID  from PERMISSION_ROLES where RolesID in(select RolesID from USER_ROLES where UsersID=(select UsersID from Users where UsersName='UsersName' and UsersPwd='UsersPwd')))";
-                    var result2 = conn.Query<Permission>(sql2, null);
-                    return result;
-                }
-                else
-                {
-                    return null;
-                }
+                return result;
             }
         }
+
+
+        /// <summary>
+        /// 根据登录时的用户ID获取该管理员权限(url)
+        /// </summary>
+        /// <returns></returns>
+        public List<Users> GetUsersPermissionUrls(int id)
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                string sql = @"select * from Permission where PermissionID in(select  PermissionID  from PERMISSION_ROLES where RolesID in(select RolesID from USER_ROLES where UsersID=(select UsersID from Users where UsersID=:UsersID)))";
+                var result = conn.Query<Users>(sql, new { UsersID = id });
+                return result.ToList<Users>();
+            }
+        }
+
+
+        //if (result != null)
+        //        {
+        //            string sql2 = @"select * from Permission where PermissionID in(select  PermissionID  from PERMISSION_ROLES where RolesID in(select RolesID from USER_ROLES where UsersID=(select UsersID from Users where UsersName='UsersName' and UsersPwd='UsersPwd')))";
+        //var result2 = conn.Query<Permission>(sql2, null);
+        //            return result;
+        //        }
+        //        else
+        //        {
+        //            return null;
+        //        }
+
 
     }
 }

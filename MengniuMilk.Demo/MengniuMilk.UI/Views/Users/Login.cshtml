@@ -10,16 +10,72 @@
     <meta name="viewport" content="width=device-width" />
     <link href="~/css/login.css" rel="stylesheet" />
     <script src="~/js/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Content/yzmJS.js"></script>
+    <link href="~/Content/yzmStyle.css" rel="stylesheet" />
     <title>后台登陆</title>
+    <script type="text/javascript">
+        $(function () {
+            $("#sub_btn").click(function () {
+                //验证用户名
+                if ($("input[name=UsersName]").val().trim().length <= 0) {
+                    alert("用户名不可为空!");
+                    return;
+                }
+
+                //验证密码
+                if ($("input[name=UsersPwd]").val().trim().length <= 0) {
+                    alert("密码不可为空!");
+                    return;
+                }
+
+                //验证码
+                var value = $("#YZM").val().toUpperCase();
+                if (value == 0) {
+                    alert("请输入验证码!");
+                    return;
+                }
+                else if (value != code) {
+                    alert("验证码错误!");
+                   
+                    return;
+                }
+
+                else {
+                    $.ajax({
+                        url: 'http://localhost:8103/Login',
+                        type: 'get',
+                        data: {
+                            UsersName: $("input[name=UsersName]").val(),
+                            UsersPwd: $("input[name=UsersPwd]").val()
+                        },
+                        success: function (data) {
+
+                            if (data != null) {
+
+                                location.href = '/Users/Index';
+                            }
+                            else {
+                                alert("密码或账号错误！");
+                            }
+                        }
+                    });
+                }
+
+            });
+
+        })
+
+    </script>
 </head>
 <body>
     <div id="login_top">
         <div id="welcome">
-            欢迎蒙牛质量检查管理系统
+            欢迎蒙牛质量检查管理系统   (Welcome Mengniu Quality Inspection Management System)
         </div>
         <div id="back">
             <a href="#">返回首页</a>&nbsp;&nbsp; | &nbsp;&nbsp;
-            <a href="#">帮助</a>
+            <a href="#" >帮助</a>
         </div>
     </div>
     <div id="login_center">
@@ -27,21 +83,27 @@
             <div id="login_form">
                 <form action="index.html" method="post">
                     <div id="login_tip">
-                        用户登录&nbsp;&nbsp;UserLogin
+                        用户登录&nbsp;&nbsp;
                     </div>
-                    <div><input type="text" class="username"></div>
-                    <div><input type="text" class="pwd"></div>
+                    <div><input type="text" class="username" name="UsersName" placeholder="账号/用户名"></div>
+                    <div><input type="password" class="pwd" name="UsersPwd" placeholder="密码"></div>
                     <div id="btn_area">
-                        <input type="submit" name="submit" id="sub_btn" value="登&nbsp;&nbsp;录">&nbsp;&nbsp;
-                        <input type="text" class="verify">
-                        <img src="images/login/verify.png" alt="" width="80" height="40">
+                        <input type="button" name="submit" id="sub_btn" value="登&nbsp;&nbsp;录">&nbsp;&nbsp;
+                        <input type="text"  class="verify" style="width:100px" placeholder="请输入验证码" id="YZM" />
+                        <input type="button" id="code" onclick="createCode()" />
+                        <a href="javascript:void(0)" onclick="createCode()">换一张?</a>
+
+                        @*<img src="~/images/login/verify.png" alt="" width="80" height="40">*@
                     </div>
+                  
+                       
+                  
                 </form>
             </div>
         </div>
     </div>
     <div id="login_bottom">
-        版权所有
+       
     </div>
 </body>
 </html>
