@@ -41,6 +41,22 @@ namespace MengniuMilk.IService
         /// <param name="qCtask"></param>
         /// <returns></returns>
         int UptQCtask(QCtask qCtask);
-        
-    }
+
+        /// <summary>
+        /// 根据质检任务ID获取质检任务中样品ID把质检任务样品ID添加到质检结果录入表
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        int GetQCtaskbyID(int id);
+
+        /// <summary>
+        /// 把质检任务ID添加到生乳质量检验表
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        int GetQCtaskbyName(int id);
+
+
+
+        }
 }

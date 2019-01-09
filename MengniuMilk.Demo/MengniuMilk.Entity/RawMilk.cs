@@ -6,22 +6,24 @@ using System.Threading.Tasks;
 
 namespace MengniuMilk.Entity
 {
-    /// <summary>
-    /// 采样表
-    /// </summary>
-   public class Sample
+    //生乳质量检验表
+    public class RawMilk:QCtask
     {
         /// <summary>
-        /// ID
+        /// 主键ID
         /// </summary>
         public int ID { get; set; }
         /// <summary>
-        /// 样品名称    
+        /// 质检任务ID
         /// </summary>
-        public string Name { get; set; }
+        public int QCtaskID { get; set; }
         /// <summary>
-        /// 样品编号
+        /// 检验结果值
         /// </summary>
-        public string Code { get; set; }
+        public int ResultValue { get; set;  }
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public int State { get; set; }
     }
 }

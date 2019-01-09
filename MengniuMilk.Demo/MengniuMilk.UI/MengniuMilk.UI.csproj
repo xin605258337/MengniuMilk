@@ -188,6 +188,7 @@
     <Compile Include="Controllers\DataGatherController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\QCPlanController.cs" />
+    <Compile Include="Controllers\RawMilkController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\QCtaskController.cs" />
     <Compile Include="Controllers\SampleController.cs" />
@@ -234,6 +235,7 @@
     <Content Include="Views\QCtask\Index.cshtml" />
     <Content Include="Views\Target\AddTarget.cshtml" />
     <Content Include="Views\Target\GetTarget.cshtml" />
+    <Content Include="Views\RawMilk\RawMilkIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

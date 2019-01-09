@@ -27,7 +27,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"insert into QCPlan(Code,Name,Type_ID,ObjType_ID,Process_ID,Facility_ID,QCPlan_State,TargetType_ID) values(:Code,:Name,:Type_ID,:ObjType_ID,:Process_ID,:Facility_ID,:QCPlan_State,:TargetType_ID)";
+                string sql = @"insert into QCPlan(Code,QCPlanName,Type_ID,ObjType_ID,Process_ID,Facility_ID,QCPlan_State,TargetType_ID) values(:Code,:QCPlanName,:Type_ID,:ObjType_ID,:Process_ID,:Facility_ID,:QCPlan_State,:TargetType_ID)";
                 int result = conn.Execute(sql, qcPlan);
                 return result;
             }
@@ -105,7 +105,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = "select q.ID,q.Code,q.Name,t.Type_Name,p.Process_Name,o.ObjType_Name,f.Facility_Name,r.TargetType_Name,q.QCPlan_State,q.Type_ID,q.ObjType_ID,q.Process_ID,q.Facility_ID,q.TargetType_ID from QCPlan q left join QCPlanType t on q.Type_ID=t.Type_ID left join Process p on q.Process_ID=p.Process_ID left join QCPlanObjType o on q.ObjType_ID=o.ObjType_ID left join Facility f on q.Facility_ID=f.Facility_ID left join TargetType r on q.TargetType_ID=r.TargetType_ID";
+                string sql = "select q.ID,q.Code,q.QCPlanName,t.Type_Name,p.Process_Name,o.ObjType_Name,f.Facility_Name,r.TargetType_Name,q.QCPlan_State,q.Type_ID,q.ObjType_ID,q.Process_ID,q.Facility_ID,q.TargetType_ID from QCPlan q left join QCPlanType t on q.Type_ID=t.Type_ID left join Process p on q.Process_ID=p.Process_ID left join QCPlanObjType o on q.ObjType_ID=o.ObjType_ID left join Facility f on q.Facility_ID=f.Facility_ID left join TargetType r on q.TargetType_ID=r.TargetType_ID";
                 var result = conn.Query<QCPlan>(sql, null);
                 return result.ToList<QCPlan>();
             }
@@ -168,7 +168,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"update QCPlan set Code=:Code,Name=:Name,Type_ID=:Type_ID,ObjType_ID=:ObjType_ID,Process_ID=:Process_ID,Facility_ID=:Facility_ID,QCPlan_State=:QCPlan_State,TargetType_ID=:TargetType_ID where ID=:ID";
+                string sql = @"update QCPlan set Code=:Code,QCPlanName=:QCPlanName,Type_ID=:Type_ID,ObjType_ID=:ObjType_ID,Process_ID=:Process_ID,Facility_ID=:Facility_ID,QCPlan_State=:QCPlan_State,TargetType_ID=:TargetType_ID where ID=:ID";
                 var result = conn.Execute(sql, qcPlan);
                 return result;
             }

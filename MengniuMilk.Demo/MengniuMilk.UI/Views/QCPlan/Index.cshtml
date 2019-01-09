@@ -25,7 +25,7 @@
             </tr>
             <tr>
                 <td>质检计划名称:</td>
-                <td><input type="text" v-model="Name" /></td>
+                <td><input type="text" v-model="QCPlanName" /></td>
             </tr>
             <tr>
                 <td>
@@ -94,7 +94,7 @@
                 </td>
             </tr>
             <tr>
-                <td><a href="javascript:;" v-on:click="AddQCPlan1(Code,Name,Type_ID,ObjType_ID,Process_ID,Facility_ID,QCPlan_State,TargetType_ID)">添加</a></td>
+                <td><a href="javascript:;" v-on:click="AddQCPlan1(Code,QCPlanName,Type_ID,ObjType_ID,Process_ID,Facility_ID,QCPlan_State,TargetType_ID)">添加</a></td>
                 <td><a href="#" onclick="location.href='ShowIndex'">显示</a></td>
             </tr>
         </table>
@@ -236,7 +236,7 @@
             AddQCPlan1: function (code, name, type_ID, objType_ID, process_ID, facility_ID, qCPlan_State, targetType_ID) {
                 var params = new URLSearchParams();
                 params.append('Code', code);
-                params.append('Name', name);
+                params.append('QCPlanName', name);
                 params.append('Type_ID', type_ID);
                 params.append('ObjType_ID', objType_ID);
                 params.append('Process_ID', process_ID );

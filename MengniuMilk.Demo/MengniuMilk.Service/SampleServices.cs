@@ -23,6 +23,8 @@ namespace MengniuMilk.Service
         {
             using (OracleConnection conn=DapperHelper.GetConnString())
             {
+                var uuidN = Guid.NewGuid().ToString("N");
+                sample.Code = uuidN;
                 conn.Open();
                 string sql = @"insert into Sample(Name,Code) values(:Name,:Code)";
                 int result = conn.Execute(sql, sample);

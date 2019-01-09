@@ -33,7 +33,7 @@
             <tr v-for="item in list ">
                 <td>{{item.ID}}</td>
                 <td><input type="text" v-model="item.Code" /></td>
-                <td><input type="text" v-model="item.Name" /></td>
+                <td><input type="text" v-model="item.QCPlanName" /></td>
                 <td>
                     <select id="Select1" v-model="item.Type_ID">
                         <option value="请选择">--请选择--</option>
@@ -75,7 +75,7 @@
                 <td>
                     <div v-if="item.ID!=''">
                         <a href="#" v-on:click="DelQCPlan(item.ID)">删除</a>
-                        <a href="#" v-on:click="UptQCPlan(item.ID,item.Code,item.Name,item.Type_ID,item.ObjType_ID,item.Process_ID,item.Facility_ID,item.TargetType_ID,item.QCPlan_State)">修改</a>
+                        <a href="#" v-on:click="UptQCPlan(item.ID,item.Code,item.QCPlanName,item.Type_ID,item.ObjType_ID,item.Process_ID,item.Facility_ID,item.TargetType_ID,item.QCPlan_State)">修改</a>
                     </div>
                 </td>
             </tr>
@@ -223,7 +223,7 @@
                 var params = new URLSearchParams();
                 params.append('ID', Id);
                 params.append('Code', code);
-                params.append('Name', name);
+                params.append('QCPlanName', name);
                 params.append('Type_ID', type_ID);
                 params.append('ObjType_ID', objType_ID);
                 params.append('Process_ID', process_ID);

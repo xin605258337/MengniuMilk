@@ -45,6 +45,7 @@
     <Compile Include="IPermissionServices.cs" />
     <Compile Include="IQCPlanServices.cs" />
     <Compile Include="IQCtaskServices.cs" />
+    <Compile Include="IRawMilkServices.cs" />
     <Compile Include="IRolesServices.cs" />
     <Compile Include="ISampleServices.cs" />
     <Compile Include="IUsersServices.cs" />
