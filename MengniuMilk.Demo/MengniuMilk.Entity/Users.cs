@@ -9,7 +9,7 @@ namespace MengniuMilk.Entity
     /// <summary>
     /// 用户表
     /// </summary>
-    public  class Users
+    public  class Users:Permission
     {
         /// <summary>
         /// 用户ID

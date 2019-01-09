@@ -11,9 +11,29 @@
     <link href="~/css/common.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet" />
     <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/jquery.SuperSlide.js"></script>
     <script type="text/javascript">
         $(function () {
+            //循环遍历菜单栏
+            $.ajax({
+                url: 'http://localhost:8103/GetUsersPermissionUrls',
+                type: 'get',
+                async: false,
+                data: {
+                    id: "@Request.QueryString["userId"]",
+                },
+                success: function (data) {
+                    $(data).each(function (index, data) {
+                        if (data.pID == 0) {
+                            $("#permissionList").append("<h3>" + data.PermissionName + "</h3><ul id='Permision" + data.PermissionID + "'></ul>");
+                        }
+                    })
+                    $(data).each(function (index, data) {
+                        if (data.pID != 0) {
+                            $("#Permision" + data.pID).append("<li src='" + data.PermissionURL + "'>" + data.PermissionName + "</li>");
+                        }
+                    })
+                }
+            })
             $(".sideMenu").slide({
                 titCell: "h3",
                 targetCell: "ul",
@@ -67,24 +87,7 @@
             }
         }
 
-        //循环遍历菜单栏
-        $(function () {
-            $.ajax({
-                url: 'http://localhost:8103/GetUsersPermissionUrls',
-                type: 'get',
-                data: {
-                    id:39
-                },
-                success: function (data) {
-                    $(data).each(function (index, data) {
-                        if (data.pID == 0) {
-                            $("ul").append("<ul>" + data.PermissionName + "</ul>");
-                        }
-                    })
-                }
-            })
-
-        })
+        
 
     </script>
     <title>首页</title>
@@ -112,51 +115,21 @@
         </div>
         <div id="side_here">
             <div id="side_here_l" class="fl"></div>
-            <div id="here_area" class="fl">当前位置：
-             
+            <div id="here_area" class="fl">
+                当前位置：
+
 
             </div>
         </div>
     </div>
     <div class="side">
-        <div class="sideMenu" style="margin:0 auto">
+        <div id="permissionList" class="sideMenu" style="margin:0 auto">
             <h3>导航菜单</h3>
             <ul>
                 <li>导航菜单</li>
                 <li>导航菜单</li>
                 <li>导航菜单</li>
                 <li class="on">导航菜单</li>
-                <li>导航菜单</li>
-            </ul>
-            <h3> 导航菜单</h3>
-            <ul>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-            </ul>
-            <h3> 导航菜单</h3>
-            <ul>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
                 <li>导航菜单</li>
             </ul>
             <h3>导航菜单</h3>
@@ -167,22 +140,6 @@
                 <li class="on">导航菜单</li>
                 <li>导航菜单</li>
             </ul>
-            <h3> 导航菜单</h3>
-            <ul>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-            </ul>
-            <h3> 导航菜单</h3>
-            <ul>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-            </ul>
-
 
 
 
@@ -200,3 +157,5 @@
     </div>
 </body>
 </html>
+
+<script src="~/js/jquery.SuperSlide.js"></script>
