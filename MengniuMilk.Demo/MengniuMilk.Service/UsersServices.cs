@@ -116,5 +116,33 @@ namespace MengniuMilk.Service
             }
         }
 
+
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="UsersName"></param>
+        /// <param name="UsersPwd"></param>
+        /// <returns></returns>
+        public Users Login(string UsersName, string UsersPwd)
+        {
+           
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                string sql = @"select * from Users where UsersName=:UsersName and UsersPwd=:UsersPwd";
+                var result = conn.Query<Users>(sql, new { UsersName = UsersName, UsersPwd = UsersPwd }).FirstOrDefault();
+
+                if (result != null)
+                {
+                    string sql2 = @"select * from Permission where PermissionID in(select  PermissionID  from PERMISSION_ROLES where RolesID in(select RolesID from USER_ROLES where UsersID=(select UsersID from Users where UsersName='UsersName' and UsersPwd='UsersPwd')))";
+                    var result2 = conn.Query<Permission>(sql2, null);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
     }
 }

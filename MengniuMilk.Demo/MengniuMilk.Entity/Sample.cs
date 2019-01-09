@@ -22,6 +22,6 @@ namespace MengniuMilk.Entity
         /// <summary>
         /// 样品编号
         /// </summary>
-        public int Code { get; set; }
+        public string Code { get; set; }
     }
 }

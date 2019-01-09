@@ -11,6 +11,7 @@ namespace MengniuMilk.Api.Controllers
     using MengniuMilk.Service;
     using MengniuMilk.IService;
     using Unity.Attributes;
+  
 
     public class UsersServicesController : ApiController
     {
@@ -26,8 +27,9 @@ namespace MengniuMilk.Api.Controllers
         [Route("AddUsers")]
         public int AddUsers(Users users)
         {
+            // 对用户输入的密码进行MD5加密  
+            users.UsersPwd = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(users.UsersPwd, "MD5");
             var result = UsersServices.AddUsers(users);
-            users.UsersPwd = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile("UsersPwd", "MD5") + "";
             return result;
         }
 
@@ -79,6 +81,20 @@ namespace MengniuMilk.Api.Controllers
         public int UpdateUsers(Users users)
         {
             var result = UsersServices.UpdateUsers(users);
+            return result;
+        }
+
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="UsersName"></param>
+        /// <param name="UsersPwd"></param>
+        /// <returns></returns>
+        public Users Login(string UsersName, string UsersPwd)
+        {
+            // 对用户输入的密码进行MD5加密  
+            UsersPwd = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(UsersPwd, "MD5");
+            var result = UsersServices.Login(UsersName, UsersPwd);
             return result;
         }
     }

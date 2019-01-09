@@ -8,10 +8,27 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title></title>
-   
+
     <script src="~/Scripts/jquery-3.1.1.js"></script>
     <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
     <script type="text/javascript">
+        var permissionId = 0;
+        var list = [];
+        function PermisionShow(obj) {
+            if ($(obj).prop("checked")) {
+                $(list).each(function (index, data) {
+                    var str = "<tr>";
+                    if (data.pID == $(obj).val()) {
+                        str += "<td><input type='checkbox' class='cks'  name='PermissionName' value=" + data.PermissionID + ">" + data.PermissionName + "</td>";
+                    }
+                    str += "</tr>";
+                    $(obj).parent().next().append(str)
+                })
+            }
+            else {
+                $(obj).parent().next().empty();
+            }
+        }
         $(function () {
 
             //加载权限
@@ -19,18 +36,23 @@
                 url: 'http://localhost:8103/GetPermissions',
                 type: 'get',
                 success: function (data) {
+                    list = data;
                     $(data).each(function (index, data) {
 
-                        var str = "<tr>";
-                        str += "<td><input type='checkbox' name='PermissionName' value=" + data.PermissionID + ">" + data.PermissionName + "</td>"
-                        str += "</tr>";
+                        var str = "<dl>";
+                        if (data.pID == 0) {
+                            str += "<dt><input type='checkbox' class='cks' onclick='PermisionShow(this)' name='PermissionName' value=" + data.PermissionID + ">" + data.PermissionName + "</dt><dl></dl>"
+                        }
+                        str += "</dl>";
                         $("#div1").append(str);
                     })
+
                 }
             });
 
             //新增角色
             $("#btnAdd").click(function () {
+
 
                 var IDs = [];
                 $("input[name=PermissionName]:checked").each(function () {
@@ -90,7 +112,7 @@
                     <td>权限</td>
                     <td>
                         <div id="div1"></div>
-                       
+
                     </td>
                 </tr>
                 <tr>

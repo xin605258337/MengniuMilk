@@ -24,7 +24,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"insert into QCtask(QCPLAN_ID,QCPlanType,InformTime,State,SAMPIEID) values(:QCPlan_ID,:QCPlanType,sysdate,:State,:SAMPIEID)";
+                string sql = @"insert into QCtask(QCPLAN_ID,InformTime,State,SAMPIEID) values(:QCPlan_ID,sysdate,:State,:SAMPIEID)";
                 int result = conn.Execute(sql, qCtask);
                 return result; 
             }
@@ -53,7 +53,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"select q.*,p.Name,t.Type_Name from QCtask q left join QCPlan p on q.QCPlan_ID =p.ID left join QCPlanType t on q.QCPlanType =t.Type_ID left join  Sample s on q.SAMPIEID=s.ID ";
+                string sql = @"select q.*,p.Name from QCtask q left join QCPlan p on q.QCPlan_ID =p.ID left join  Sample s on q.SAMPIEID=s.ID ";
                 var result = conn.Query<QCtask>(sql, null);
                 return result.ToList<QCtask>();
             }
@@ -84,11 +84,43 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"update QCtask set QCPlan_ID=:QCPlan_ID,QCPlanType=:QCPlanType,State=:State,SAMPIEID=:SAMPIEID where QCtask_ID=:QCtask_ID";
+                string sql = @"update QCtask set QCPlan_ID=:QCPlan_ID,State=:State,SAMPIEID=:SAMPIEID where QCtask_ID=:QCtask_ID";
                 var result = conn.Execute(sql, qCtask);
                 return result;
             }
 
         }
+        /// <summary>
+        /// 根据质检任务ID获取质检任务中样品ID把质检任务样品ID添加到质检结果录入表
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int GetQCtaskbyName(int id)
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                conn.Open();
+                string sql = @"insert  into RESULTEENTER(Sample_ID) select SAMPIEID from QCtask where  QCtask_ID=:QCtask_ID ";
+                var result = conn.Execute(sql,new { QCtask_ID = id});
+                return result;
+            }
+        }
+        /// <summary>
+        /// 把质检任务ID添加到生乳质量检验表
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int GetQCtaskbyID(int id)
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                conn.Open();
+                string sql = @"insert  into RawMilk(QCTASKID) select QCTASK_ID from QCtask where  QCtask_ID=:QCtask_ID";
+                var result = conn.Execute(sql, new { QCtask_ID = id });
+                return result;
+            }
+        }
+
+        
     }
 }

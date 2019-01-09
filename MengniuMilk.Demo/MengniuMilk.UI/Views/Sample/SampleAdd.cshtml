@@ -26,10 +26,10 @@
                     <td>样品名称:</td>
                     <td><input type="text" v-model="Name" /></td>
                 </tr>
-                <tr>
+                @*<tr>
                     <td>样品编号:</td>
-                    <td><input type="text" v-model="Code" /></td>
-                </tr>
+                    <td>{{item}}</td>
+                </tr>*@
                 <tr>
                     <td><a href="javascript:;" v-on:click="AddSample(Name,Code)">添加</a></td>
                 </tr>
@@ -40,18 +40,13 @@
 </html>
 <script type="text/javascript">
 
-    function guid() {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
-        }
+
 
     var vm = new Vue({
         el: "#add",
         data: {
-            Name: ""
-           
+            Name: "",
+           Code:""
             
         },
         mounted() {

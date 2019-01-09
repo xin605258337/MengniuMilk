@@ -20,7 +20,6 @@
             <tr>
                 <td>ID</td>
                 <td>质检计划名称</td>
-                <td>质检类型</td>
                 <td>采样名称</td>
                 <td>通知时间</td>
                 <td>状态</td>
@@ -36,12 +35,12 @@
                         <option v-for="type1 in QCPlan1" v-bind:value="type1.ID">{{type1.Name}}</option>
                     </select>
                 </td>
-                <td>
+                @*<td>
                     <select id="Select1" v-model="item.QCPlanType">
                         <option value="请选择">--请选择--</option>
                         <option v-for="type in QCPlanType1" v-bind:value="type.Type_ID">{{type.Type_Name}}</option>
                     </select>
-                </td>
+                </td>*@
                 <td>
                     <select id="Select1" v-model="item.SAMPIEID">
                         <option value="请选择">--请选择--</option>
@@ -52,13 +51,15 @@
                     {{item.InformTime}}
                 </td>
                 <td>
-                    <input id="Radio1" type="radio" v-model="item.State" name="QCPlan_State" value="1" checked>已检验
-                    <input id="Radio1" type="radio" v-model="item.State" name="QCPlan_State" value="0" />未检验
+                    <input id="Radio1" type="radio" v-model="item.State"  value="1" checked>已检验
+                    <input id="Radio1" type="radio" v-model="item.State"  value="0" />未检验
                 </td>
                 <td>
                     <div v-if="item.QCtask_ID!=''">
                         <a href="#" v-on:click="Del(item.QCtask_ID)">删除</a>
                         <a href="#" v-on:click="UptQCtask(item.QCtask_ID,item.QCPLAN_ID,item.QCPlanType,item.State,item.SAMPIEID)">修改</a>
+                        <a href="#" v-on:click="GetQCtaskbyName(item.QCtask_ID)">发送</a>
+                        
                     </div>
                 </td>
             </tr>
@@ -71,35 +72,35 @@
     var vx = new Vue({
         el: "#app",
         data: {
-            QCPlanType1: [],
+            //QCPlanType1: [],
             Sample1: [],
             QCPlan1: [],
             list: [],
         },
         mounted() {
-            this.getQCPlanType1();
+            //this.getQCPlanType1();
             this.getQCPlanName();
             this.getSampleName();
             this.getList();
         },
         methods: {
             //获取质检类型表
-            getQCPlanType1: function () {
-                axios.get('http://localhost:8103/GetQCPlanTypes').then(
-                    (response) => {
-                        this.QCPlanType1 = [];
-                        for (var i = 0; i < response.data.length; i++) {
-                            this.QCPlanType1.push(response.data[i]);
-                        }
-                    },
-                    (response) => {
-                        alert(response.status + "1");
-                    }
-                ).catch(function (response) {
-                    alert(response);
-                });
+            //getQCPlanType1: function () {
+            //    axios.get('http://localhost:8103/GetQCPlanTypes').then(
+            //        (response) => {
+            //            this.QCPlanType1 = [];
+            //            for (var i = 0; i < response.data.length; i++) {
+            //                this.QCPlanType1.push(response.data[i]);
+            //            }
+            //        },
+            //        (response) => {
+            //            alert(response.status + "1");
+            //        }
+            //    ).catch(function (response) {
+            //        alert(response);
+            //    });
 
-            },
+            //},
 
             //质检计划名称
             getQCPlanName: function () {
@@ -142,6 +143,7 @@
                     for (var i = 0; i < response.data.length; i++) {
                         this.list.push(response.data[i]);
                     }
+                
                 },
                     (response) => {
                         alert(response.status);
@@ -190,6 +192,40 @@
                     alert(response);
                 });
             },
+
+            //根据质检任务ID获取质检任务中样品ID把质检任务样品ID添加到质检结果录入表
+           
+
+            GetQCtaskbyName: function (ID) {
+                axios.get('http://localhost:8103/GetQCtaskbyName?id=' + ID).then((respose) => {
+                    if (respose.data > 0) {
+                        alert("已发送至质检结果录入表!!!");
+                        //把质检任务ID添加到生乳质量检验表
+                        axios.get('http://localhost:8103/GetQCtaskbyID?id=' + ID).then((respose) => {
+                            if (respose.data > 0) {
+                                alert("已发送至生乳质量检测表!!!");
+                                this.getList();
+
+                            }
+                        },
+                            (response) => {
+                                alert(response.status);
+                            }
+                        ).catch(function (response) {
+                            alert(response);
+                        });
+                        this.getList();
+
+                    }
+                },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            },
+           
 
 
         },
