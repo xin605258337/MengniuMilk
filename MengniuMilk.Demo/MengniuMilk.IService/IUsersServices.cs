@@ -46,6 +46,15 @@ namespace MengniuMilk.IService
         /// <param name="user"></param>
         /// <returns></returns>
         int UpdateUsers(Users users);
-       
+
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="UsersName"></param>
+        /// <param name="UsersPwd"></param>
+        /// <returns></returns>
+        Users Login(string UsersName, string UsersPwd);
+
+
     }
 }
