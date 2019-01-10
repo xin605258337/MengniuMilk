@@ -19,7 +19,7 @@
                 success: function (data) {                 
                     $(data).each(function (index, data) {
                         var str = "<tr>";
-                        str += "<td style='text-align: center'>" + data.PermissionID + "</td>";
+                        str += "<td style='text-align: center'>" + (index + 1) + "</td>";
                         str += "<td style='text-align: center'>" + data.PermissionName + "</td>";
                         str += "<td style='text-align: center'><a href='#'>" + data.PermissionURL + "</a></td>";
                       

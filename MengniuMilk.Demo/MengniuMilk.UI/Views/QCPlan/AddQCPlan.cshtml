@@ -55,7 +55,7 @@
                     检验工序:
                 </td>
                 <td>
-                    <select id="Select3"  v-model="Process_ID">
+                    <select id="Select3" v-model="Process_ID">
                         <option value="请选择">--请选择--</option>
                         <option v-for="pro in Process" v-bind:value="pro.Process_ID">{{pro.Process_Name}}</option>
 
@@ -78,8 +78,10 @@
                 <td>
                     状态:
                 </td>
-                <td><input id="Radio1" type="radio" v-model="QCPlan_State" name="QCPlan_State" value="1" checked>有效
-                <input id="Radio1" type="radio" v-model="QCPlan_State" name="QCPlan_State"  value="0" />无效</td>
+                <td>
+                    <input id="Radio1" type="radio" v-model="QCPlan_State" name="QCPlan_State" value="1" checked>有效
+                    <input id="Radio1" type="radio" v-model="QCPlan_State" name="QCPlan_State" value="0" />无效
+                </td>
             </tr>
             <tr>
                 <td>
@@ -164,7 +166,7 @@
                 });
 
             },
-            //获取检验工序表         
+            //获取检验工序表
             getProcesses: function () {
                 axios.get('http://localhost:8103/GetProcess').then(
                     (response) => {
@@ -242,14 +244,14 @@
                 params.append('Process_ID', process_ID );
                 params.append('Facility_ID', facility_ID);
                 params.append('QCPlan_State', qCPlan_State);
-                params.append('TargetType_ID', targetType_ID);               
+                params.append('TargetType_ID', targetType_ID);
                 axios.post('http://localhost:8103/AddQCPlan', params).then(
                     (response) => {
                         alert(response)
-                        
+
                             alert("添加成功")
-                          
-                         
+
+
                         },
                         (response) => {
                             alert(response.status);
@@ -265,3 +267,4 @@
 
     });
 </script>
+
