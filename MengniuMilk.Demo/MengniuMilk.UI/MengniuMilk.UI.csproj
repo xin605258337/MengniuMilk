@@ -103,6 +103,7 @@
     <Content Include="css\main.css" />
     <Content Include="css\style.css" />
     <Content Include="Global.asax" />
+    <Content Include="images\111.jpg" />
     <Content Include="images\111111.gif" />
     <Content Include="images\9.gif" />
     <Content Include="images\99.gif" />
@@ -146,6 +147,7 @@
     <Content Include="images\login\login.gif" />
     <Content Include="images\login\logoBg.gif" />
     <Content Include="images\login\pwd.gif" />
+    <Content Include="images\login\timg.jpg" />
     <Content Include="images\login\topBg.gif" />
     <Content Include="images\login\topleft.gif" />
     <Content Include="images\login\username.gif" />
@@ -169,6 +171,7 @@
     <Content Include="images\tab2.gif" />
     <Content Include="images\titleBg.gif" />
     <Content Include="images\top.gif" />
+    <Content Include="images\u=391584604,1494439289&amp;fm=214&amp;gp=0.jpg" />
     <Content Include="images\user.gif" />
     <Content Include="images\userBG.gif" />
     <Content Include="images\user_info.png" />
@@ -212,7 +215,6 @@
     <Content Include="bootstrap-3.3.7-dist\bootstrap337\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="images\login\pwd.psd" />
     <None Include="packages.config" />
-    <Content Include="Views\QCPlan\Index.cshtml" />
     <Content Include="Scripts\axios.min.map" />
     <Content Include="Scripts\axios.map" />
     <Content Include="Views\QCPlan\ShowIndex.cshtml" />
@@ -236,6 +238,7 @@
     <Content Include="Views\Target\AddTarget.cshtml" />
     <Content Include="Views\Target\GetTarget.cshtml" />
     <Content Include="Views\RawMilk\RawMilkIndex.cshtml" />
+    <Content Include="Views\QCPlan\AddQCPlan.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

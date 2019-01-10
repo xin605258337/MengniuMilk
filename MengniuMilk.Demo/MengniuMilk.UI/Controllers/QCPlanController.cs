@@ -9,12 +9,15 @@ namespace MengniuMilk.UI.Controllers
     public class QCPlanController : Controller
     {
         // GET: QCPlan
-        public ActionResult Index()
+        public ActionResult ShowIndex()
         {
             return View();
         }
-
-        public ActionResult ShowIndex()
+        /// <summary>
+        /// 添加质检计划
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AddQCPlan()
         {
             return View();
         }
