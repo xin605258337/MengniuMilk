@@ -13,6 +13,8 @@
     <script src="~/js/jquery.min.js"></script>
     <script type="text/javascript">
         $(function () {
+            
+
             //循环遍历菜单栏
             $.ajax({
                 url: 'http://localhost:8103/GetUsersPermissionUrls',
@@ -29,11 +31,26 @@
                     })
                     $(data).each(function (index, data) {
                         if (data.pID != 0) {
-                            $("#Permision" + data.pID).append("<li src='" + data.PermissionURL + "'>" + data.PermissionName + "</li>");
+                            $("#Permision" + data.pID).append("<li class='on' onclick='goHref(\"" + data.PermissionURL + "\")'>" + data.PermissionName+ "</li>");
                         }
                     })
                 }
-            })
+            });
+
+            $.ajax({
+                url: 'http://localhost:8103/GetUsersByID',
+                type: 'get',
+                
+                data: {
+                    id: "@Request.QueryString["userId"]",
+                },
+                success: function (index, data) {
+                    $(data).each(function (index, data) {
+                        $("#pa").append("<span>" + data.UsersName + "</span>");
+                    });
+                }
+            });
+
             $(".sideMenu").slide({
                 titCell: "h3",
                 targetCell: "ul",
@@ -87,6 +104,11 @@
             }
         }
 
+
+        //跳转页面
+        function goHref(url) {
+            $("#rightMain").attr("src",url); 
+        }
         
 
     </script>
@@ -107,7 +129,9 @@
                         <a href="3" id="out">&nbsp;</a>
                     </div>
                     <div class="info_center">
-                        admin
+                        <div id="pa">@ViewBag.UsersName</div>
+                        @*admin*@
+
                         <span id="nt">通知</span><span><a href="#" id="notice">3</a></span>
                     </div>
                 </div>
@@ -124,13 +148,9 @@
     </div>
     <div class="side">
         <div id="permissionList" class="sideMenu" style="margin:0 auto">
-            <h3>导航菜单</h3>
+            @*<h3>导航菜单</h3>
             <ul>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li>导航菜单</li>
-                <li class="on">导航菜单</li>
-                <li>导航菜单</li>
+                <li class="on" onclick="goHref()">导航菜单</li>
             </ul>
             <h3>导航菜单</h3>
             <ul>
@@ -139,14 +159,11 @@
                 <li>导航菜单</li>
                 <li class="on">导航菜单</li>
                 <li>导航菜单</li>
-            </ul>
-
-
-
+            </ul>*@
         </div>
     </div>
     <div class="main">
-        <iframe name="right" id="rightMain" src="main.html" frameborder="no" scrolling="auto" width="100%" height="auto" allowtransparency="true"></iframe>
+        <iframe name="right" id="rightMain" src="" frameborder="no" scrolling="auto" width="100%" height="auto" allowtransparency="true"></iframe>
     </div>
     <div class="bottom">
         <div id="bottom_bg">版权</div>

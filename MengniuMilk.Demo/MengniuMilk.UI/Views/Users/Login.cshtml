@@ -48,12 +48,16 @@
                         data: {
                             UsersName: $("input[name=UsersName]").val(),
                             UsersPwd: $("input[name=UsersPwd]").val()
+                            
                         },
                         success: function (data) {
 
                             if (data != null) {
 
+                                //request.getSession().setAttribute("u", name);
                                 location.href = '/Users/Index?userId=' + data.UsersID;
+                                
+                                
                             }
                             else {
                                 alert("密码或账号错误！");

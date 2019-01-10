@@ -248,6 +248,12 @@
     <Folder Include="Models\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MengniuMilk.Entity\MengniuMilk.Entity.csproj">
+      <Project>{99167ffe-4c94-4f81-b962-a117567921ef}</Project>
+      <Name>MengniuMilk.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

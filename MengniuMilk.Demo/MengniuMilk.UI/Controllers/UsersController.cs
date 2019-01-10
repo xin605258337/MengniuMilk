@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace MengniuMilk.UI.Controllers
 {
+    using MengniuMilk.Entity;
     public class UsersController : Controller
     {
         // GET: Users
@@ -13,8 +14,11 @@ namespace MengniuMilk.UI.Controllers
         {
             return View();
         }
+        
+
         public ActionResult Login()
-        {
+        {       
+          
             return View();
         }
 

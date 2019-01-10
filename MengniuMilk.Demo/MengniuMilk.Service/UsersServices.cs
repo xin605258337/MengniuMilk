@@ -135,6 +135,7 @@ namespace MengniuMilk.Service
             {
                 string sql = @"select * from Users where UsersName=:UsersName and UsersPwd=:UsersPwd";
                 var result = conn.Query<Users>(sql, new { UsersName = UsersName, UsersPwd = UsersPwd }).FirstOrDefault();
+                
                 return result;
             }
         }

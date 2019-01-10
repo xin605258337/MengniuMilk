@@ -11,7 +11,7 @@ namespace MengniuMilk.Api.Controllers
     using MengniuMilk.Service;
     using MengniuMilk.IService;
     using Unity.Attributes;
-  
+
 
     public class UsersServicesController : ApiController
     {
@@ -97,6 +97,7 @@ namespace MengniuMilk.Api.Controllers
             // 对用户输入的密码进行MD5加密  
             UsersPwd = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(UsersPwd, "MD5");
             var result = UsersServices.Login(UsersName, UsersPwd);
+           
             return result;
         }
 
