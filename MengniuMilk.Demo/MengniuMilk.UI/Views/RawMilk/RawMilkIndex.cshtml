@@ -45,7 +45,7 @@
                     </select>
                 </td>
                 <td>
-                    <input id="Text1" type="text" v-model="item.ResultValue" />
+                    <input id="result" type="text" v-model="item.ResultValue" />
                 </td>
                 <td>
                     <select id="Select5" v-model="item.TargetType_ID">
@@ -61,12 +61,12 @@
                 <td>{{item.StandardValuesMax}}</td>
                 <td>{{item.StandardValuesMin}}</td>
                 <td>
-                    <input id="Radio1" type="radio" v-model="item.State" value="1" />已检验
-                    <input id="Radio1" type="radio" v-model="item.State" value="0" />未检验
+                    {{item.State==0?"未检验":(item.State==1?"合格":"不合格")}}
                 </td>
                 <td>
-                    <div v-if="item.ID!=''">                        
-                        <a href="#" v-on:click="UptRawMilk(item.ID,item.ResultValue,item.State)">保存</a>
+                    <div v-if="item.ID!=''">
+                        <a href="#" v-on:click="UptRawMilk(item.ID,item.ResultValue,item.StandardValuesMax,item.StandardValuesMin)">保存</a>
+                        <a href="#" v-on:click="DelQCPlan(item.ID)">删除</a>
                     </div>
                 </td>
             </tr>
@@ -78,9 +78,11 @@
     var vm = new Vue({
         el: "#app",
         data: {
+            ResultValue:"",
             QCPlanType: [],
             TargetType: [],
             list: [],
+            
         },
         mounted() {
             this.getQCPlanType();
@@ -88,6 +90,7 @@
             this.getList();
         },
         methods: {
+           
             //获取质检类型表
             getQCPlanType: function () {
                 axios.get('http://localhost:8103/GetQCPlanTypes').then(
@@ -153,16 +156,23 @@
                 });
             },
             //修改生乳质检信息
-            UptRawMilk: function (Id, ResultValue,State) {
+            UptRawMilk: function (Id, ResultValue, max, min) {
+                var state = 0;
+                if (ResultValue <= max && ResultValue >= min) {
+                    state = 1;
+                }
+                else {
+                    state = 2;
+                }
                 var params = new URLSearchParams();
                 params.append('ID', Id);
                 params.append('ResultValue', ResultValue);
-                params.append('State', State);
+                params.append('State', state);                
                 axios.post('http://localhost:8103/UptRawMilk', params).then(
                     (response) => {
                         console.log(response.data);
                         if (response.data > 0) {
-                            alert("修改成功!!!");
+                            alert("保存成功!!!");
                             this.getList();
                         }
                     },
