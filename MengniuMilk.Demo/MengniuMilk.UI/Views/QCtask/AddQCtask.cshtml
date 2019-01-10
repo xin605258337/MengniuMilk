@@ -23,7 +23,7 @@
                 <td>
                     <select id="Select1" v-model="QCPLAN_ID">
                         <option value="请选择">--请选择--</option>
-                        <option v-for="type1 in QCPlan1" v-bind:value="type1.ID">{{type1.Name}}</option>
+                        <option v-for="type1 in QCPlan1" v-bind:value="type1.ID">{{type1.QCPlanName}}</option>
                     </select>
                 </td>
             </tr>
@@ -68,6 +68,9 @@
         el: "#add",
         data:
         {
+            QCPLAN_ID: "",
+            SAMPIEID: "",
+            State:"",
             QCPlanType1: [],
             Sample1: [],
             QCPlan1:[]
