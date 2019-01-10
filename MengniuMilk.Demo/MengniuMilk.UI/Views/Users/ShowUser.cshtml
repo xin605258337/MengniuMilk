@@ -26,7 +26,7 @@
                     $(data).each(function (index, data) {
                         var str = "<tr>";
                         str += "<td style='text-align: center'>" + data.UsersName + "</td>";
-                        str += "<td style='text-align: center'>" + data.UsersPwd + "</td>";
+                        //str += "<td style='text-align: center'>" + data.UsersPwd + "</td>";
                         str += "<td style='text-align: center'>" + (data.Gender == 0 ? "男" : "女") + "</td>";
                         str += "<td style='text-align: center'>" + data.UsersTel + "</td>";
                         str += "<td style='text-align: center'>" + data.RolesName + "</td>";
@@ -72,7 +72,7 @@
         <table id="tab" class="table table-bordered table-hover" style="width:1200px">
             <tr style="background-color:skyblue;color:white;">
                 <th style="text-align:center">用户名</th>
-                <th style="text-align:center">密码</th>
+                @*<th style="text-align:center">密码</th>*@
                 <th style="text-align:center">性别</th>
                 <th style="text-align:center">电话</th>
                 <th style="text-align:center">所属角色</th>            
