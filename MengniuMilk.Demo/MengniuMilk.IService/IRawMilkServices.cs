@@ -38,5 +38,12 @@ namespace MengniuMilk.IService
         /// <param name="rawMilk"></param>
         /// <returns></returns>
         int UptRawMilk(RawMilk rawMilk);
+
+        /// <summary>
+        /// 修改质检任务状态
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        int ChangeState(int id);
     }
 }

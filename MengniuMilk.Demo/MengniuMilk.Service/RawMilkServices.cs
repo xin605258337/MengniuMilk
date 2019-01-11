@@ -94,5 +94,23 @@ namespace MengniuMilk.Service
                 return result;
             }
         }
+
+        /// <summary>
+        /// 修改质检任务状态
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int ChangeState(int id)
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                conn.Open();
+                string sql = @"update QCtask set State=1 where QCtask_ID = (select QCtaskID from RawMilk where ID=:ID)";
+                var result = conn.Execute(sql, new { ID= id});
+                return result;
+            }
+
+        }
+
     }
 }

@@ -36,11 +36,11 @@
                     </select>
                 </td>
                 @*<td>
-                    <select id="Select1" v-model="item.QCPlanType">
-                        <option value="请选择">--请选择--</option>
-                        <option v-for="type in QCPlanType1" v-bind:value="type.Type_ID">{{type.Type_Name}}</option>
-                    </select>
-                </td>*@
+            <select id="Select1" v-model="item.QCPlanType">
+                <option value="请选择">--请选择--</option>
+                <option v-for="type in QCPlanType1" v-bind:value="type.Type_ID">{{type.Type_Name}}</option>
+            </select>
+        </td>*@
                 <td>
                     <select id="Select1" v-model="item.SAMPIEID">
                         <option value="请选择">--请选择--</option>
@@ -51,15 +51,14 @@
                     {{item.InformTime}}
                 </td>
                 <td>
-                    <input id="Radio1" type="radio" v-model="item.State"  value="1" checked>已检验
-                    <input id="Radio1" type="radio" v-model="item.State"  value="0" />未检验
+                   {{ item.State==1?"已检验":"未检验"}}
                 </td>
                 <td>
                     <div v-if="item.QCtask_ID!=''">
                         <a href="#" v-on:click="Del(item.QCtask_ID)">删除</a>
                         <a href="#" v-on:click="UptQCtask(item.QCtask_ID,item.QCPLAN_ID,item.QCPlanType,item.State,item.SAMPIEID)">修改</a>
                         <a href="#" v-on:click="GetQCtaskbyName(item.QCtask_ID)">发送</a>
-                        
+
                     </div>
                 </td>
             </tr>

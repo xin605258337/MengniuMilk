@@ -160,9 +160,39 @@
                 var state = 0;
                 if (ResultValue <= max && ResultValue >= min) {
                     state = 1;
+                    axios.post('http://localhost:8103/ChangeState?id=' + Id).then(
+                        (response) => {
+                            console.log(response.data);
+                            if (response.data > 0) {
+                                alert("状态已更改!!!");
+                               
+
+                            }
+                        },
+                        (response) => {
+                            alert(response.status);
+                        }
+                    ).catch(function (response) {
+                        alert(response);
+                    });
                 }
                 else {
                     state = 2;
+                    axios.post('http://localhost:8103/ChangeState?id=' + Id).then(
+                        (response) => {
+                            console.log(response.data);
+                            if (response.data > 0) {
+                                alert("状态已更改!!!");
+                               
+
+                            }
+                        },
+                        (response) => {
+                            alert(response.status);
+                        }
+                    ).catch(function (response) {
+                        alert(response);
+                    });
                 }
                 var params = new URLSearchParams();
                 params.append('ID', Id);
@@ -174,6 +204,7 @@
                         if (response.data > 0) {
                             alert("保存成功!!!");
                             this.getList();
+
                         }
                     },
                     (response) => {

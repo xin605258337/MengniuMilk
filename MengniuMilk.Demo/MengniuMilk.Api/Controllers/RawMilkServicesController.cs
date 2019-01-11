@@ -71,5 +71,18 @@ namespace MengniuMilk.Api.Controllers
         {
             return RawMilkServices.UptRawMilk(rawMilk);
         }
+
+        /// <summary>
+        /// 修改质检任务状态
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("ChangeState")]
+        public int ChangeState(int id)
+        {
+            return RawMilkServices.ChangeState(id);
+
+        }
     }
 }
