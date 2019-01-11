@@ -143,7 +143,6 @@ namespace MengniuMilk.Service
                 return result.ToList<QCPlanType>();
             }
         }     
-        /// 获取指标项分类
        
 
         /// <summary>
