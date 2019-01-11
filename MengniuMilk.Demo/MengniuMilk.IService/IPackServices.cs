@@ -19,7 +19,7 @@ namespace MengniuMilk.IService
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        int deletePack(int id);
+        int DeletePack(int id);
         /// <summary>
         /// 根据ID获取包装检验信息
         /// </summary>
@@ -31,7 +31,7 @@ namespace MengniuMilk.IService
         /// </summary>
         /// <param name="rawMilk"></param>
         /// <returns></returns>
-        int updatePack(Pack pack);
+        int UpdatePack(Pack pack);
 
         /// <summary>
         /// 修改包装任务状态

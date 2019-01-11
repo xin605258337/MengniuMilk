@@ -37,7 +37,7 @@ namespace MengniuMilk.Service
         /// <param name="id"></param>
         /// <returns></returns>
 
-        public int deletePack(int id)
+        public int DeletePack(int id)
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
@@ -89,7 +89,7 @@ namespace MengniuMilk.Service
         /// </summary>
         /// <param name="Pack"></param>
         /// <returns></returns>
-        public int updatePack(Pack pack)
+        public int UpdatePack(Pack pack)
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
