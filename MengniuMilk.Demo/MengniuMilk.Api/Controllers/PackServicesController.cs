@@ -14,7 +14,7 @@ namespace MengniuMilk.Api.Controllers
     public class PackServicesController : ApiController
     {
         [Dependency]
-        public IPackServices  packServices { get; set; }
+        public IPackServices  PackServices { get; set; }
 
         /// <summary>
         /// 修改质检任务状态
@@ -25,7 +25,7 @@ namespace MengniuMilk.Api.Controllers
         [Route("ChangeState1")]
         public int ChangeState(int id)
         {
-            return packServices.ChangeState(id);
+            return PackServices.ChangeState(id);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace MengniuMilk.Api.Controllers
         [Route("GetPack")]
         public List<Pack> GetPack()
         {
-            return packServices.GetPack();
+            return PackServices.GetPack();
         }
 
         /// <summary>
@@ -45,11 +45,11 @@ namespace MengniuMilk.Api.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("deletePack")]
-        public int deletePack(int id)
+        [Route("DeletePack")]
+        public int DeletePack(int id)
         {
 
-            return packServices.deletePack(id);
+            return PackServices.DeletePack(id);
         }
 
         /// <summary>
@@ -58,11 +58,11 @@ namespace MengniuMilk.Api.Controllers
         /// <param name="Pack"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("updatePack")]
-        public int updatePack(Pack pack)
+        [Route("UpdatePack")]
+        public int UpdatePack(Pack pack)
         {
 
-            return packServices.updatePack(pack);
+            return PackServices.UpdatePack(pack);
         }
 
         }
