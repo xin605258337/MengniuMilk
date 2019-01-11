@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="DataGather.cs" />
     <Compile Include="Facility.cs" />
+    <Compile Include="Pack.cs" />
     <Compile Include="Permission.cs" />
     <Compile Include="Permission_Roles.cs" />
     <Compile Include="Process.cs" />
