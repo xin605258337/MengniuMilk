@@ -1,0 +1,79 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SampleAdd</title>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/axios.js"></script>
+    <script src="~/Scripts/vue.js"></script>
+    <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+    <div style="margin-left:400px">
+        <div>
+            <h3>指标项分类添加页面</h3>
+        </div>
+        <div id="add">
+            <table class="table table-hover table-bordered" style="width:500px">
+                <tr>
+                    <td>指标项分类名称:</td>
+                    <td><input type="text" v-model="TargetType_Name" /></td>
+                </tr>
+              
+                <tr>
+                    <td><input type="button" v-on:click="AddTargetType(TargetType_Name)" value="添加" class="btn btn-info"/></td>
+                    <td><input type="button" onclick="location.href='/TargetType/Index'" value="显示列表" class="btn btn-danger"/></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+
+
+
+    var vm = new Vue({
+        el: "#add",
+        data: {
+            TargetType_Name: "",
+         
+
+        },
+        mounted() {
+
+        },
+        methods: {
+
+
+            AddTargetType: function (targetType_Name) {
+                var params = new URLSearchParams();
+                params.append("TargetType_Name", targetType_Name);
+               
+                axios.post('http://localhost:8103/AddTargetType', params).then(
+                    (response) => {
+                      
+                        location.href = "/TargetType/Index";
+
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+
+            }
+
+        }
+
+    })
+
+</script>

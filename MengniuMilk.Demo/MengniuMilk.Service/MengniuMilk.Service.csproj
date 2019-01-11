@@ -63,6 +63,7 @@
     <Compile Include="RawMilkServices.cs" />
     <Compile Include="RolesServices.cs" />
     <Compile Include="SampleServices.cs" />
+    <Compile Include="TargetTypeServices.cs" />
     <Compile Include="UsersServices.cs" />
     <Compile Include="TargetServices.cs" />
   </ItemGroup>
