@@ -39,20 +39,13 @@
                     {{item.QCPlanName}}
                 </td>
                 <td>
-                    <select id="Select1" v-model="item.Type_ID">
-                        <option value="请选择">--请选择--</option>
-                        <option v-for="type in QCPlanType" v-bind:value="type.Type_ID">{{type.Type_Name}}</option>
-                    </select>
+                    {{item.Type_Name}}
                 </td>
                 <td>
                     <input id="result" type="text" v-model="item.ResultValue" />
                 </td>
                 <td>
-                    <select id="Select5" v-model="item.TargetType_ID">
-                        <option value="请选择">--请选择--</option>
-                        <option v-for="targettype in TargetType" v-bind:value="targettype.TargetType_ID">{{targettype.TargetType_Name}}</option>
-
-                    </select>
+                    {{item.TargetType_Name}}
                 </td>
                 <td>
                     {{item.Target_Name}}

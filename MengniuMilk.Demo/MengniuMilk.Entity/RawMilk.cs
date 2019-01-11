@@ -25,5 +25,13 @@ namespace MengniuMilk.Entity
         /// 状态
         /// </summary>
         public int State { get; set; }
+        /// <summary>
+        /// 指标项分类
+        /// </summary>
+        public string TargetType_Name { get; set; }
+        /// <summary>
+        /// 质检类型
+        /// </summary>
+        public string Type_Name { get; set; }
     }
 }

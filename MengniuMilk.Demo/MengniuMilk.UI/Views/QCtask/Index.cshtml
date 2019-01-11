@@ -22,6 +22,7 @@
                 <td>质检计划名称</td>
                 <td>采样名称</td>
                 <td>通知时间</td>
+                <td>检验工序</td>
                 <td>状态</td>
                 <td>操作</td>
 
@@ -30,20 +31,19 @@
                 <td>{{item.QCtask_ID}}</td>
 
                 <td>
-                    @*<select id="Select1" v-model="item.QCPLAN_ID">
-                        <option value="请选择">--请选择--</option>
-                        <option v-for="type1 in QCPlan1" v-bind:value="type1.ID">{{type1.QCPlanName}}</option>
-                    </select>*@
                     {{item.QCPlanName}}
                 </td>
                 <td>
                     <select id="Select1" v-model="item.SAMPIEID">
                         <option value="请选择">--请选择--</option>
                         <option v-for="type in Sample1" v-bind:value="type.ID">{{type.Name}}</option>
-                    </select>                    
+                    </select>       
                 </td>
                 <td>
                     {{item.InformTime}}
+                </td>
+                <td>
+                    {{item.Process_Name}}
                 </td>
                 <td>
                    {{ item.State==1?"已检验":"未检验"}}
@@ -67,32 +67,34 @@
             //QCPlanType1: [],
             Sample1: [],
             QCPlan1: [],
+            Process: [],
             list: [],
         },
         mounted() {
             //this.getQCPlanType1();
             this.getQCPlanName();
             this.getSampleName();
+            this.getProcesses();
             this.getList();
         },
         methods: {
-            //获取质检类型表
-            //getQCPlanType1: function () {
-            //    axios.get('http://localhost:8103/GetQCPlanTypes').then(
-            //        (response) => {
-            //            this.QCPlanType1 = [];
-            //            for (var i = 0; i < response.data.length; i++) {
-            //                this.QCPlanType1.push(response.data[i]);
-            //            }
-            //        },
-            //        (response) => {
-            //            alert(response.status + "1");
-            //        }
-            //    ).catch(function (response) {
-            //        alert(response);
-            //    });
+            //获取检验工序表
+            getProcesses: function () {
+                axios.get('http://localhost:8103/GetProcess').then(
+                    (response) => {
+                        this.Process = [];
+                        for (var i = 0; i < response.data.length; i++) {
+                            this.Process.push(response.data[i]);
+                        }
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
 
-            //},
+            },
 
             //质检计划名称
             getQCPlanName: function () {

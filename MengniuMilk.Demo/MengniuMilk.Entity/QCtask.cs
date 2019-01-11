@@ -38,6 +38,10 @@ namespace MengniuMilk.Entity
         /// 质检计划名称
         /// </summary>
         public new string QCPlanName { get; set; }
+        /// <summary>
+        /// 检验工序名称
+        /// </summary>
+        public string Process_Name { get; set; }
 
     }
 }
