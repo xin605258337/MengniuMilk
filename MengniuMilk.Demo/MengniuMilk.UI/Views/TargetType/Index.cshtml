@@ -1,0 +1,112 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SampleIndex</title>
+    <script src="~/Scripts/axios.js"></script>
+    <script src="~/Scripts/vue.js"></script>
+    <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app" class="div-td" style="margin-left:300px">
+        <input id="Button1" type="button" value="添加" onclick="location.href='/TargetType/Add'" class="btn btn-danger" />
+        <table v-show="list.length" class="table table-bordered table-hover" style="width:600px">
+            <tr>
+                <th>ID</th>
+                <th>指标项分类名称</th>             
+                <th>操作</th>
+
+            </tr>
+            <tr v-for="item in list ">
+                <td>{{item.TargetType_ID}}</td>
+                <td><input type="text" v-model="item.TargetType_Name" /></td>
+              
+
+                <td>
+                    <div v-if="item.TargetType_ID!=''">
+                        <a href="#" v-on:click="DelQCPlan(item.TargetType_ID)">删除</a>
+                        <a href="#" v-on:click="UptQCPlan(item.TargetType_ID,item.TargetType_Name)">修改</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: "#app",
+        data: {
+
+            list: [],
+        },
+        mounted() {
+            this.getList();
+
+        },
+        methods: {
+            getList: function () {
+                axios.get('http://localhost:8103/GetTargetTypes').then((response) => {
+                    this.list = [];
+                    for (var i = 0; i < response.data.length; i++) {
+                        this.list.push(response.data[i]);
+                    }
+                },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            },
+            //删除指标项信息
+            DelQCPlan: function (TargetType_ID) {
+                axios.get('http://localhost:8103/DeleteTargetType?id=' + TargetType_ID).then((respose) => {
+                    if (respose.data > 0) {
+                   
+                        this.getList();
+                    }
+                },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            },
+
+            //修改指标项信息
+            UptQCPlan: function (targetType_ID, targetType_Name) {
+                var params = new URLSearchParams();
+                params.append('TargetType_ID', targetType_ID);
+                params.append('TargetType_Name', targetType_Name);
+               
+                axios.post('http://localhost:8103/UpdateTargetType', params).then(
+                    (response) => {
+                        console.log(response.data);
+                        if (response.data > 0) {
+                            alert("修改成功!!!");
+                            this.getList();
+                        }
+                        //console.info(this.list);
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            },
+
+
+        },
+
+    })
+</script>

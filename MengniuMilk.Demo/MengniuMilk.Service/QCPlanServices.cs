@@ -143,20 +143,8 @@ namespace MengniuMilk.Service
                 return result.ToList<QCPlanType>();
             }
         }     
-        /// <summary>
         /// 获取指标项分类
-        /// </summary>
-        /// <returns></returns>
-        public List<TargetType> GetTargetTypes()
-        {
-            using (OracleConnection conn = DapperHelper.GetConnString())
-            {
-                conn.Open();
-                string sql = @"select * from TargetType";
-                var result = conn.Query<TargetType>(sql, null);
-                return result.ToList<TargetType>();
-            }
-        }
+       
 
         /// <summary>
         /// 修改质检计划
