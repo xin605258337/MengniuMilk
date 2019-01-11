@@ -189,6 +189,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DataGatherController.cs" />
+    <Compile Include="Controllers\PackController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\QCPlanController.cs" />
     <Compile Include="Controllers\RawMilkController.cs" />
@@ -242,6 +243,7 @@
     <Content Include="Views\QCPlan\AddQCPlan.cshtml" />
     <Content Include="Views\TargetType\Add.cshtml" />
     <Content Include="Views\TargetType\Index.cshtml" />
+    <Content Include="Views\Pack\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

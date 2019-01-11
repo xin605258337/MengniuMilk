@@ -9,7 +9,7 @@ namespace MengniuMilk.Entity
     /// <summary>
     /// 包装检验
     /// </summary>
-   public class Pack
+   public class Pack:QCtask
     {
         /// <summary>
         /// ID
