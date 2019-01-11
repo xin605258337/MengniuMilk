@@ -53,6 +53,7 @@ namespace MengniuMilk.Api
             container.RegisterType<IUsersServices, UsersServices>();
             container.RegisterType<ITargetServices, TargetServices>();
             container.RegisterType<IRawMilkServices, RawMilkServices>();
+            container.RegisterType<IPackServices, PackServices>();
 
         }
     }

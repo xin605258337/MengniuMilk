@@ -124,6 +124,7 @@
     <Compile Include="App_Start\UnityWebApiActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DataGatherServicesController.cs" />
+    <Compile Include="Controllers\PackServicesController.cs" />
     <Compile Include="Controllers\PermissionServicesController.cs" />
     <Compile Include="Controllers\QCPlanServicesController.cs" />
     <Compile Include="Controllers\QCtaskServicesController.cs" />
