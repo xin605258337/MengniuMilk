@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MengniuMilk.Entity
 {
     //质检任务表
-    public class QCtask:QCPlan
+    public class QCtask : QCPlan
     {
         /// <summary>
         /// 质检任务ID
@@ -20,7 +20,7 @@ namespace MengniuMilk.Entity
         /// <summary>
         /// 质检类型
         /// </summary>
-        public string QCPlanType { get; set;}
+        public string QCPlanType { get; set; }
         /// <summary>
         /// 状态
         /// </summary>
@@ -34,6 +34,10 @@ namespace MengniuMilk.Entity
         /// </summary>
 
         public string InformTime { get; set; }
+        /// <summary>
+        /// 质检计划名称
+        /// </summary>
+        public new string QCPlanName { get; set; }
 
     }
 }
