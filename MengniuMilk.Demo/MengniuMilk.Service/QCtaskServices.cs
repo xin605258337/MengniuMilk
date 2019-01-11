@@ -121,6 +121,39 @@ namespace MengniuMilk.Service
             }
         }
 
-        
+        /// <summary>
+        /// 把质检任务ID添加到包装质量检验表
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int AddPack(int id)
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                conn.Open();
+                string sql = @"insert  into Pack(QCtaskID) select QCTASK_ID from QCtask where QCtask_ID=:QCtask_ID";
+                var result = conn.Execute(sql, new { QCtask_ID = id });
+                return result;
+            }
+        }
+
+        /// <summary>
+        ///根据质检任务获取质检工序
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int GetProcessByID(int id)
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                conn.Open();
+                string sql = @"select Process_ID from QCPlan where ID= (select QCPlan_ID from QCtask where QCtask_ID=:QCtask_ID)";
+                var result = conn.Query<Process>(sql, new { QCtask_ID = id });
+                return Convert.ToInt32(result.FirstOrDefault().Process_ID);
+            }
+        }
+
+
+
     }
 }

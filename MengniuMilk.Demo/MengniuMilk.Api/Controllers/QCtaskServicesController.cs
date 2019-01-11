@@ -97,5 +97,29 @@ namespace MengniuMilk.Api.Controllers
         {
             return QCtaskServices.GetQCtaskbyID(id);
         }
+
+        /// <summary>
+        /// 把质检任务ID添加到包装质量检验表
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("AddPack")]
+        public int AddPack(int id)
+        {
+            return QCtaskServices.AddPack(id);
         }
+
+        /// <summary>
+        ///根据质检任务获取质检工序
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetProcessByID")]
+        public int GetProcessByID(int id)
+        {
+            return QCtaskServices.GetProcessByID(id);
+        }
+    }
 }

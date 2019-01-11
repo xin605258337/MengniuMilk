@@ -56,7 +56,18 @@ namespace MengniuMilk.IService
         /// <returns></returns>
         int GetQCtaskbyName(int id);
 
+        /// <summary>
+        /// 把质检任务ID添加到包装质量检验表
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        int AddPack(int id);
 
-
-        }
+        /// <summary>
+        ///根据质检任务获取质检工序
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        int GetProcessByID(int id);
+    }
 }
