@@ -13,10 +13,26 @@
     <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
     <script type="text/javascript">
         $(function () {
+            //加载权限
+            $.ajax({
+                url: 'http://localhost:8103/GetPermissions',
+                type: 'get',
+                async: false,
+                success: function (data) {
+                    $(data).each(function (index, data) {
+
+                        var str = "<tr>";
+                        str += "<td><input type='checkbox' name='PermissionName' value=" + data.PermissionID + ">" + data.PermissionName + "</td>"
+                        str += "</tr>";
+                        $("#div1").append(str);
+                    })
+                }
+            });
             //反填
             $.ajax({
                 url: 'http://localhost:8103/GetRolesByID',
                 type: 'get',
+                async: false,
                 data: {
                     id: '@Request.QueryString["ID"]'
                 },
@@ -31,23 +47,6 @@
                 }
 
                })
-
-
-            //加载权限
-            $.ajax({
-                url: 'http://localhost:8103/GetPermissions',
-                type: 'get',
-                success: function (data) {
-                    $(data).each(function (index, data) {
-
-                        var str = "<tr>";
-                        str += "<td><input type='checkbox' name='PermissionName' value=" + data.PermissionID + ">" + data.PermissionName + "</td>"
-                        str += "</tr>";
-                        $("#div1").append(str);
-                    })
-                }
-            });
-
             //修改角色
             $("#btnAdd").click(function () {
 
@@ -65,6 +64,7 @@
                     url: 'http://localhost:8103/UpdateRoles',
                     type: 'post',
                     dataType: 'json',
+                    async: false,
                     data: {
                         RolesID: $("input[name=RolesID]").val(),
                         RolesName: $("input[name=RolesName]").val(),
@@ -76,7 +76,7 @@
                     success: function (data) {
                         if (data > 0) {
                             alert("修改成功");
-
+                            location.href = "/Roles/Index";
                         }
                         else {
                             alert("修改失败");

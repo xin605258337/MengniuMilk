@@ -194,25 +194,25 @@
 
             //根据质检任务ID获取质检任务中样品ID把质检任务样品ID添加到质检结果录入表
            
-
+           
             GetQCtaskbyName: function (ID) {
-                axios.get('http://localhost:8103/GetQCtaskbyName?id=' + ID).then((respose) => {
-                    if (respose.data > 0) {
-                        alert("已发送至质检结果录入表!!!");
-                        //把质检任务ID添加到生乳质量检验表
-                        axios.get('http://localhost:8103/GetQCtaskbyID?id=' + ID).then((respose) => {
-                            if (respose.data > 0) {
-                                alert("已发送至生乳质量检测表!!!");
-                                this.getList();
+                //axios.get('http://localhost:8103/GetQCtaskbyName?id=' + ID).then((respose) => {
+                //    if (respose.data > 0) {
+                //        alert("已发送至质检结果录入表!!!");
+                       
 
-                            }
-                        },
-                            (response) => {
-                                alert(response.status);
-                            }
-                        ).catch(function (response) {
-                            alert(response);
-                        });
+                //    }
+                //},
+                //    (response) => {
+                //        alert(response.status);
+                //    }
+                //).catch(function (response) {
+                //    alert(response);
+                //});
+                //把质检任务ID添加到生乳质量检验表
+                axios.get('http://localhost:8103/GetQCtaskbyID?id=' + ID).then((respose) => {
+                    if (respose.data > 0) {
+                        alert("已发送至生乳质量检测表!!!");
                         this.getList();
 
                     }
@@ -223,6 +223,8 @@
                 ).catch(function (response) {
                     alert(response);
                 });
+                this.getList();
+
             },
            
 
