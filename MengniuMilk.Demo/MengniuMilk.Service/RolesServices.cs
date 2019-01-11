@@ -121,6 +121,31 @@ namespace MengniuMilk.Service
                 conn.Open();
                 string sql = "update Roles set RolesName=:RolesName,PermissionIDs=:PermissionIDs,PermissionName=:PermissionName,RolesRemark=:RolesRemark where RolesID=:RolesID";
                 var result = conn.Execute(sql, roles);
+                if (result > 0)
+                {
+                    //根据角色名称查询角色ID
+                    string sql1 = @"select RolesID from Roles where RolesName=:RolesName";
+                    //返回一个对象(第一个元素)
+                    var ids = conn.Query<Roles>(sql1, new { RolesName = roles.RolesName }).FirstOrDefault();
+                    //根据角色ID删除权限角色关联表
+                    string sql2 = @"delete from Permission_Roles where RolesID=:RolesID";
+                    int result2 = conn.Execute(sql2, new { RolesID = roles.RolesID });
+
+                    //分割权限id
+                    var permissionIDs = roles.PermissionIDs.Split(',');
+                    //循环添加到角色权限关联表
+                    for (int i = 0; i < permissionIDs.Length; i++)
+                    {
+                        //实例化角色权限关联表
+                        Permission_Roles permission_Roles = new Permission_Roles();
+                        permission_Roles.RolesID = ids.RolesID;//为角色ID赋值
+                        permission_Roles.PermissionID = Convert.ToInt32(permissionIDs[i]);//为权限ID赋值
+                        //角色权限关联表添加语句
+                        string sql3 = @"insert into Permission_Roles(PermissionID,RolesID) values(:PermissionID,:RolesID)";
+                        //执行
+                        var result1 = conn.Execute(sql3, permission_Roles);
+                    }
+                }
                 return result;
             }
         }

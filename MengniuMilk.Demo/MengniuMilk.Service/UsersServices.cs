@@ -117,10 +117,36 @@ namespace MengniuMilk.Service
                 conn.Open();
                 string sql = @"update  Users set UsersName=:UsersName,UsersPwd=:UsersPwd,Gender=:Gender,UsersTel=:UsersTel,RolesIDs=:RolesIDs,RolesName=:RolesName,UsersRemark=UsersRemark where UsersID=:UsersID";
                 var result = conn.Execute(sql, users);
-                return result;
+                if (result > 0)
+                {
+                    //根据用户名称查询用户ID
+                    string sql1 = @"select UsersID from Users where UsersName=:UsersName";
+                    //返回一个对象(第一个元素)
+                    var ids = conn.Query<Users>(sql1, new { UsersName = users.UsersName }).FirstOrDefault();
+
+                    //根据用户ID删除用户角色关联表
+                    string sql2 = @"delete from User_Roles where UsersID=:UsersID";
+                    int result2 = conn.Execute(sql2, new { UsersID = users.UsersID });
+
+                    //分割角色id
+                    var roleIDs = users.RolesIDs.Split(',');
+
+                    //循环添加到用户角色关联表
+                    for (int i = 0; i < roleIDs.Length; i++)
+                    {
+                        //实例化用户角色关联表
+                        User_Roles user_Roles = new User_Roles();
+                        user_Roles.UsersID = ids.UsersID;//为用户ID赋值
+                        user_Roles.RolesID = Convert.ToInt32(roleIDs[i]);//为角色ID赋值
+                        //用户角色关联表添加语句
+                        string sql3 = @"insert into User_Roles(UsersID,RolesID) values(:UsersID,:RolesID)";
+                        //执行
+                        var result1 = conn.Execute(sql3, user_Roles);
+                    }
+                }
+                return result;               
             }
         }
-
 
         /// <summary>
         /// 登录
@@ -140,7 +166,6 @@ namespace MengniuMilk.Service
             }
         }
 
-
         /// <summary>
         /// 根据登录时的用户ID获取该管理员权限(url)
         /// </summary>
@@ -149,24 +174,10 @@ namespace MengniuMilk.Service
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
-                string sql = @"select * from Permission where PermissionID in(select  PermissionID  from PERMISSION_ROLES where RolesID in(select RolesID from USER_ROLES where UsersID=(select UsersID from Users where UsersID=:UsersID)))";
+                string sql = @"select * from Permission where PermissionID in(select  PermissionID  from PERMISSION_ROLES where RolesID in(select RolesID from USER_ROLES where UsersID=(select UsersID from Users where UsersID=:UsersID))) order by rownumber asc";
                 var result = conn.Query<Users>(sql, new { UsersID = id });
                 return result.ToList<Users>();
             }
-        }
-
-
-        //if (result != null)
-        //        {
-        //            string sql2 = @"select * from Permission where PermissionID in(select  PermissionID  from PERMISSION_ROLES where RolesID in(select RolesID from USER_ROLES where UsersID=(select UsersID from Users where UsersName='UsersName' and UsersPwd='UsersPwd')))";
-        //var result2 = conn.Query<Permission>(sql2, null);
-        //            return result;
-        //        }
-        //        else
-        //        {
-        //            return null;
-        //        }
-
-
+        }     
     }
 }

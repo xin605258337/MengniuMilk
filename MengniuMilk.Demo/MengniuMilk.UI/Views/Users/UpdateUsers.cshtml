@@ -13,10 +13,26 @@
     <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
     <script type="text/javascript">
         $(function () {
+            //加载角色
+            $.ajax({
+                url: 'http://localhost:8103/GetRoles',
+                type: 'get',
+                async: false,
+                success: function (data) {
+                    $(data).each(function (index, data) {
+
+                        var str = "<tr>";
+                        str += "<td><input type='checkbox' name='RolesName' value=" + data.RolesID + ">" + data.RolesName + "</td>"
+                        str += "</tr>";
+                        $("#div1").append(str);
+                    })
+                }
+            });
             //反填
             $.ajax({
                 url: 'http://localhost:8103/GetUsersByID',
                 type: 'get',
+                async: false,
                 data: {
                     id: '@Request.QueryString["ID"]'
                 },
@@ -33,28 +49,8 @@
 
                         $("input[name=RolesName][value=" + this + "]").attr("checked", "checked");
                     })
-
                 }
-
-
              })
-
-
-            //加载角色
-            $.ajax({
-                url: 'http://localhost:8103/GetRoles',
-                type: 'get',
-                success: function (data) {
-                    $(data).each(function (index, data) {
-
-                        var str = "<tr>";
-                        str += "<td><input type='checkbox' name='RolesName' value=" + data.RolesID + ">" + data.RolesName + "</td>"
-                        str += "</tr>";
-                        $("#div1").append(str);
-                    })
-                }
-            });
-
             //修改用户
             $("#btnAdd").click(function () {
 
@@ -66,12 +62,12 @@
                 $("input[name=RolesName]:checked").each(function () {
                     Names.push($(this).parent().text());
                 })
-
                 //修改用户
                 $.ajax({
                     url: 'http://localhost:8103/UpdateUsers',
                     type: 'post',
                     dataType: 'json',
+                    async: false,
                     data: {
                         UsersID: $("input[name=UsersID]").val(),
                         UsersName: $("input[name=UsersName]").val(),
@@ -87,7 +83,7 @@
 
                         if (data > 0) {
                             alert("修改成功");
-
+                            location.href = "/Users/ShowUser";
                         }
                         else {
                             alert("修改失败");

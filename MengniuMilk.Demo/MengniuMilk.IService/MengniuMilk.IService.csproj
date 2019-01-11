@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IDataGatherServices.cs" />
+    <Compile Include="IPackServices.cs" />
     <Compile Include="IPermissionServices.cs" />
     <Compile Include="IQCPlanServices.cs" />
     <Compile Include="IQCtaskServices.cs" />
