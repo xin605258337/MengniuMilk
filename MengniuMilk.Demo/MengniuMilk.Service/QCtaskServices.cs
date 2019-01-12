@@ -29,6 +29,7 @@ namespace MengniuMilk.Service
                 return result; 
             }
         }
+
         /// <summary>
         /// 获取质检名称
         /// </summary>
@@ -58,6 +59,7 @@ namespace MengniuMilk.Service
                 return result.ToList<QCtask>();
             }
         }
+
         /// <summary>
         /// 删除质检任务
         /// </summary>
@@ -74,6 +76,7 @@ namespace MengniuMilk.Service
             }
 
         }
+
         /// <summary>
         /// 修改质检任务信息
         /// </summary>
@@ -90,6 +93,7 @@ namespace MengniuMilk.Service
             }
 
         }
+
         /// <summary>
         /// 根据质检任务ID获取质检任务中样品ID把质检任务样品ID添加到质检结果录入表
         /// </summary>
@@ -105,6 +109,7 @@ namespace MengniuMilk.Service
                 return result;
             }
         }
+
         /// <summary>
         /// 把质检任务ID添加到生乳质量检验表
         /// </summary>
@@ -152,8 +157,5 @@ namespace MengniuMilk.Service
                 return Convert.ToInt32(result.FirstOrDefault().Process_ID);
             }
         }
-
-
-
     }
 }

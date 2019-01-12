@@ -12,11 +12,8 @@ namespace MengniuMilk.Service
     using Oracle.ManagedDataAccess.Client;
     using Oracle.ManagedDataAccess;
     using System.Configuration;
-    
     public class QCPlanServices : IQCPlanServices
     {
-       
-
         /// <summary>
         /// 新增质检计划
         /// </summary>
@@ -143,8 +140,7 @@ namespace MengniuMilk.Service
                 return result.ToList<QCPlanType>();
             }
         }     
-       
-
+        
         /// <summary>
         /// 修改质检计划
         /// </summary>

@@ -107,7 +107,5 @@ namespace MengniuMilk.Service
                 return resul.ToList<Permission>();
             }
         }
-
-
     }
 }

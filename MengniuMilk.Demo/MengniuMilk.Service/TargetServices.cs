@@ -60,8 +60,9 @@ namespace MengniuMilk.Service
                 return result;
             }
         }
+
         /// <summary>
-        /// 修
+        /// 修改
         /// </summary>
         /// <param name="target"></param>
         /// <returns></returns>

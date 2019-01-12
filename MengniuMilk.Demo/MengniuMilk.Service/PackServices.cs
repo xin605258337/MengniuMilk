@@ -36,7 +36,6 @@ namespace MengniuMilk.Service
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-
         public int DeletePack(int id)
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
@@ -52,7 +51,6 @@ namespace MengniuMilk.Service
         /// 获取包装检验信息
         /// </summary>
         /// <returns></returns>
-
         public List<Pack> GetPack()
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
@@ -69,6 +67,7 @@ namespace MengniuMilk.Service
                 return result.ToList<Pack>();
             }
         }
+
         /// <summary>
         /// 根据ID获取包装检验信息
         /// </summary>
@@ -84,6 +83,7 @@ namespace MengniuMilk.Service
                 return result;
             }
         }
+
         /// <summary>
         /// 修改包装检验信息
         /// </summary>

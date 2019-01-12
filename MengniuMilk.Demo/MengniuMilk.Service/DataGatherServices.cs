@@ -29,6 +29,7 @@ namespace MengniuMilk.Service
                 return result;
             }
         }
+
         /// <summary>
         /// 人工数据采集表删除
         /// </summary>
@@ -44,6 +45,7 @@ namespace MengniuMilk.Service
                 return result;
             }
         }
+
         /// <summary>
         /// 人工数据采集表添加查看
         /// </summary>
@@ -58,6 +60,7 @@ namespace MengniuMilk.Service
                 return result.ToList<DataGather>();
             }
         }
+
         /// <summary>
         /// 根据ID单个实体
         /// </summary>

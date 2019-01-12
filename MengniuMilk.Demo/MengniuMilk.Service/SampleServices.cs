@@ -32,6 +32,7 @@ namespace MengniuMilk.Service
 
             }
         }
+
         /// <summary>
         /// 采样表删除
         /// </summary>
@@ -47,6 +48,7 @@ namespace MengniuMilk.Service
                 return result;
             }
         }
+
         /// <summary>
         /// 获取采样表数据
         /// </summary>
@@ -61,6 +63,7 @@ namespace MengniuMilk.Service
                 return result.ToList<Sample>();
             }
         }
+
         /// <summary>
         /// 获取采样表单个ID
         /// </summary>
@@ -76,6 +79,7 @@ namespace MengniuMilk.Service
                 return result.ToList<Sample>();
             }
         }
+
         /// <summary>
         /// 采样表修改
         /// </summary>

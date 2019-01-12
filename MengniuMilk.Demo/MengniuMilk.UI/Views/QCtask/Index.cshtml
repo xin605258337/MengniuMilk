@@ -29,7 +29,6 @@
             </tr>
             <tr v-for="item in list ">
                 <td>{{item.QCtask_ID}}</td>
-
                 <td>
                     {{item.QCPlanName}}
                 </td>
@@ -206,7 +205,6 @@
                             alert(response);
                         });
                         this.getList();
-
                     }
                     else {
                         //把质检任务ID添加到包装质量检验表
@@ -214,7 +212,6 @@
                             if (respose.data > 0) {
                                 alert("已发送至包装质量检测表!!!");
                                 this.getList();
-
                             }
                         },
                             (response) => {
@@ -232,16 +229,7 @@
                 ).catch(function (response) {
                     alert(response);
                 });
-
             },
-           
-
-
         },
-
-
-
-
     })
-
 </script>

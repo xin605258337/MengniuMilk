@@ -29,6 +29,7 @@ namespace MengniuMilk.Service
                 return result;
             }
         }
+
         /// <summary>
         /// 删除生乳检验信息
         /// </summary>
@@ -44,6 +45,7 @@ namespace MengniuMilk.Service
                 return result;
             }
         }
+
         /// <summary>
         /// 根据ID获取生乳检验信息
         /// </summary>
@@ -59,6 +61,7 @@ namespace MengniuMilk.Service
                 return result;
             }
         }
+
         /// <summary>
         /// 获取生乳检验信息
         /// </summary>
@@ -79,6 +82,7 @@ namespace MengniuMilk.Service
                 return result.ToList<RawMilk>();
             }
         }
+
         /// <summary>
         /// 修改生乳检验信息
         /// </summary>
@@ -111,6 +115,5 @@ namespace MengniuMilk.Service
             }
 
         }
-
     }
 }

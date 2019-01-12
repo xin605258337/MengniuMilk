@@ -10,7 +10,7 @@ namespace MengniuMilk.Entity
     public class Target:Sample
     {
         /// <summary>
-        /// 指标项ID
+        /// 指标项ID 
         /// </summary>
         public int Target_ID { get; set; }
         /// <summary>

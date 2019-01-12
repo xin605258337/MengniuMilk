@@ -143,8 +143,6 @@
                 params.append('SAMPIEID', SampleID1);
                 axios.post('http://localhost:8103/AddQCtask', params).then(
                     (response) => {
-                        alert(response)
-
                         alert("添加成功");
                         location.href="/QCtask/index"
 
