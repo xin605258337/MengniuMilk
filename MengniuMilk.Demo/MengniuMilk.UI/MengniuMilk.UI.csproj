@@ -245,7 +245,6 @@
     <Content Include="Views\TargetType\Add.cshtml" />
     <Content Include="Views\TargetType\Index.cshtml" />
     <Content Include="Views\Pack\Index.cshtml" />
-    <Content Include="Views\QCResultList\AddQCResult.cshtml" />
     <Content Include="Views\QCResultList\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
