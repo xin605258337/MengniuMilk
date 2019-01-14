@@ -99,5 +99,21 @@ namespace MengniuMilk.Service
                 return result;
             }
         }
+
+        /// <summary>
+        /// 根据检验结果将质检任务ID添加到质检结果录入表中
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int AddResultByPack(int id)
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                conn.Open();
+                string sql = @"insert into ResultEenter(QCTASK_ID) select QCtaskID from Pack where ID=:ID ";
+                var result = conn.Execute(sql, new { ID = id });
+                return result;
+            }
+        }
     }
 }

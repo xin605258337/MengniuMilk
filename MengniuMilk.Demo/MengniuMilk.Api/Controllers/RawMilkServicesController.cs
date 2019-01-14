@@ -84,5 +84,17 @@ namespace MengniuMilk.Api.Controllers
             return RawMilkServices.ChangeState(id);
 
         }
+
+        /// <summary>
+        /// 根据检验结果将质检任务ID添加到质检结果录入表中
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AddResult")]
+        public int AddResult(int id)
+        {
+            return RawMilkServices.AddResult(id);
+        }
     }
 }

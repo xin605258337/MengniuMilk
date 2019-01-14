@@ -59,7 +59,7 @@
                 <td>
                     <div v-if="item.ID!=''">
                         <a href="#" v-on:click="UptRawMilk(item.ID,item.ResultValue,item.StandardValuesMax,item.StandardValuesMin)">保存</a>
-                        <a href="#" v-on:click="DelQCPlan(item.ID)">删除</a>
+                        <a href="#" v-on:click="DelRawMilk(item.ID)">删除</a>
                     </div>
                 </td>
             </tr>
@@ -135,7 +135,7 @@
             },
             //删除生乳质检信息
             DelRawMilk: function (Id) {
-                axios.get('http://localhost:8103/DeleteQCPlan?id=' + Id).then((respose) => {
+                axios.get('http://localhost:8103/DelRawMilk?id=' + Id).then((respose) => {
                     if (respose.data > 0) {
                         alert("删除成功!!!");
                         this.getList();
@@ -167,6 +167,19 @@
                         }
                     ).catch(function (response) {
                         alert(response);
+                        });
+                    axios.post('http://localhost:8103/AddResult?id=' + Id).then(
+                        (response) => {
+                            console.log(response.data);
+                            if (response.data > 0) {
+                                alert("已发送!!!");
+                            }
+                        },
+                        (response) => {
+                            alert(response.status);
+                        }
+                    ).catch(function (response) {
+                        alert(response);
                     });
                 }
                 else {
@@ -175,9 +188,21 @@
                         (response) => {
                             console.log(response.data);
                             if (response.data > 0) {
-                                alert("状态已更改!!!");
-                               
+                                alert("状态已更改!!!");                              
 
+                            }
+                        },
+                        (response) => {
+                            alert(response.status);
+                        }
+                    ).catch(function (response) {
+                        alert(response);
+                        });
+                    axios.post('http://localhost:8103/AddResult?id=' + Id).then(
+                        (response) => {
+                            console.log(response.data);
+                            if (response.data > 0) {
+                                alert("已发送!!!");
                             }
                         },
                         (response) => {

@@ -158,6 +158,19 @@
                             console.log(response.data);
                             if (response.data > 0) {
                                 alert("状态已更改!!!");
+                            }
+                        },
+                        (response) => {
+                            alert(response.status);
+                        }
+                    ).catch(function (response) {
+                        alert(response);
+                        });
+                    axios.post('http://localhost:8103/AddResultByPack?id=' + Id).then(
+                        (response) => {
+                            console.log(response.data);
+                            if (response.data > 0) {
+                                alert("已发送!!!");
 
 
                             }
@@ -176,6 +189,19 @@
                             console.log(response.data);
                             if (response.data > 0) {
                                 alert("状态已更改!!!");
+                            }
+                        },
+                        (response) => {
+                            alert(response.status);
+                        }
+                    ).catch(function (response) {
+                        alert(response);
+                        });
+                    axios.post('http://localhost:8103/AddResultByPack?id=' + Id).then(
+                        (response) => {
+                            console.log(response.data);
+                            if (response.data > 0) {
+                                alert("已发送!!!");
 
 
                             }

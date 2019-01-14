@@ -65,5 +65,17 @@ namespace MengniuMilk.Api.Controllers
             return PackServices.UpdatePack(pack);
         }
 
+        /// <summary>
+        /// 根据检验结果将质检任务ID添加到质检结果录入表中
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AddResultByPack")]
+        public int AddResultByPack(int id)
+        {
+            return PackServices.AddResultByPack(id);
         }
+
+    }
 }

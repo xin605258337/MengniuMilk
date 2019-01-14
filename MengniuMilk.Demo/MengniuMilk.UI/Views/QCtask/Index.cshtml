@@ -186,7 +186,7 @@
                 });
             },
 
-            //根据质检任务ID获取质检任务中样品ID把质检任务样品ID添加到质检结果录入表   
+            //根据检验工序将质检任务ID发送到不同的流程里  
             GetQCtaskbyName: function (ID) {
                 axios.get('http://localhost:8103/GetProcessByID?id=' + ID).then((respose) => {
                     if (respose.data == 6) {
