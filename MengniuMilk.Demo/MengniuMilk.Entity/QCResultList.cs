@@ -22,9 +22,12 @@ namespace MengniuMilk.Entity
         /// </summary>
         public int TargetID { get; set; }
         /// <summary>
-        /// 检验结果（0为不符合，1为符合）
+        /// 检验结果值
         /// </summary>
         public int Result { get; set; }
-
+        /// <summary>
+        /// 检验结果（0为不符合，1为符合）
+        /// </summary>
+        public int State { get; set; }
     }
 }
