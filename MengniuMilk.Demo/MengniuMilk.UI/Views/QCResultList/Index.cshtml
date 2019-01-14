@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>质检结果录入</title>
+    <title>检验结果明细录入</title>
     <script src="~/Scripts/axios.js"></script>
     <script src="~/Scripts/vue.js"></script>
     <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
@@ -16,10 +16,10 @@
 </head>
 <body>
     <div>
-        <h3>质检结果录入</h3>
+        <h3>检验结果明细录入</h3>
     </div>
-    <div id="app" class="div-td">
-        <table v-show="list.length" class="table table-striped" border="1">
+    <div id="add" class="div-td">
+        <table class="table table-striped" border="1">
             <tr>
                 <th>指标项分类</th>
                 <th>指标项名称</th>
@@ -46,17 +46,18 @@
     var vm = new Vue({
         el: "#add",
         data: {
-            QCResultList:[]
-
+            QCResultList:[],
+            sampleID:0
         },
         mounted() {
+            this.sampleID=@Request.QueryString["id"].ToString();
             this.getQCPlanType();
         },
         methods:
         {
             //获取质检结果明细
             getQCPlanType: function () {
-                axios.get('http://localhost:8103/GetQCResultLists?sampleId='+).then(
+                axios.get('http://localhost:8103/GetQCResultLists?sampleId=' + this.sampleID).then(
                     (response) => {
                         this.QCResultList = [];
                         for (var i = 0; i < response.data.length; i++) {

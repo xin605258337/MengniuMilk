@@ -17,7 +17,6 @@
 <body>
     <div>
         <h3>生乳质检信息</h3>
-        <input onclick="location.href='/QCResultList/Index'" type="button" value="质检结果录入" />
     </div>
     <div id="app" class="div-td">
         <table v-show="list.length" class="table table-striped" border="1">
@@ -39,7 +38,7 @@
                     {{item.Type_Name}}
                 </td>              
                 <td>
-                    <input onclick="location.href='/QCResultList/Index'" type="button" value="质检结果录入" />
+                    <input  v-on:click="GoAddIndex(item.ID)" type="button" value="质检结果录入" />
                 </td>
                 <td>
                     <div v-if="item.ID!=''">
@@ -85,6 +84,10 @@
                     alert(response);
                 });
 
+            },
+            //页面跳转并传采样品ID
+            GoAddIndex: function (ID) {
+                location.href = "/QCResultList/Index?id=" + ID;
             },
             //获取指标分类表
             getTargetType: function () {
