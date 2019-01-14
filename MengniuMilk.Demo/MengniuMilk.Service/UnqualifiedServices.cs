@@ -52,7 +52,7 @@ namespace MengniuMilk.Service
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
-                string sql = @"update Unqualified set QCtask_ID=:QCtask_ID,State=:State,Result=:Result where ID=:ID";
+                string sql = @"update Unqualified set State=:State,Result=:Result where ID=:ID";
                 var result = conn.Execute(sql, unqualified);
                 return result;
             }
