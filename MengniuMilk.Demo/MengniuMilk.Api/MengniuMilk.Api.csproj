@@ -127,6 +127,7 @@
     <Compile Include="Controllers\PackServicesController.cs" />
     <Compile Include="Controllers\PermissionServicesController.cs" />
     <Compile Include="Controllers\QCPlanServicesController.cs" />
+    <Compile Include="Controllers\QCResultListServicesController.cs" />
     <Compile Include="Controllers\QCtaskServicesController.cs" />
     <Compile Include="Controllers\RawMilkServicesController.cs" />
     <Compile Include="Controllers\RolesServicesController.cs" />
