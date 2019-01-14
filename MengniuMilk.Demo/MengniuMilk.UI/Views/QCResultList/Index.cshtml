@@ -38,11 +38,12 @@
                 <td>{{item.StandardValuesMax}}</td>
                 <td>{{item.StandardValuesMin}}</td>
                 <td>{{item.StandardValues}}</td>
-                <td><input id="Text1" type="text" v-model="item.Result"/></td>
+                <td><input id="Text1" type="text" v-model="item.Result" /></td>
                 <td>{{item.State==0?"未检验":(item.State==1?"符合":"不符合")}}</td>
                 <td><a href="#" v-on:click="UptQCResult(item.ID,item.Result,item.StandardValuesMax,item.StandardValuesMin)">保存</a></td>
             </tr>
         </table>
+        <input v-on:click="AddResultEenter()" type="button" value="保存" />
     </div>
 </body>
 </html>
@@ -51,10 +52,12 @@
         el: "#add",
         data: {
             QCResultList:[],
-            sampleID:0
+            sampleID: 0,
+            qcPlanId:0,
         },
         mounted() {
-            this.sampleID=@Request.QueryString["id"].ToString();
+            this.sampleID =@Request.QueryString["id"].ToString();
+            this.qcPlanId=@Request.QueryString["qcPlanId"].ToString();
             this.getQCPlanType();
         },
         methods:
@@ -156,6 +159,19 @@
                     alert(response);
                 });
             },
+            //根据指标项结果插入质检结果表
+            AddResultEenter: function () {
+                axios.get('http://localhost:8103/GetQCResultState?sampleId=' + this.sampleID).then(
+                    (response) => {
+                        console.log(response.data)
+                    },
+                    (response) => {
+                        alert(response.status + "1");
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            }
 
         },
         computed: {

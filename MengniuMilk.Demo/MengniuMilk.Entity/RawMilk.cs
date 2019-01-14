@@ -12,7 +12,7 @@ namespace MengniuMilk.Entity
         /// <summary>
         /// 主键ID
         /// </summary>
-        public int ID { get; set; }
+        public int RawMilkID { get; set; }
         /// <summary>
         /// 质检任务ID
         /// </summary>
@@ -33,5 +33,7 @@ namespace MengniuMilk.Entity
         /// 质检类型
         /// </summary>
         public string Type_Name { get; set; }
+        //样品ID
+        public int ID { get; set; }
     }
 }
