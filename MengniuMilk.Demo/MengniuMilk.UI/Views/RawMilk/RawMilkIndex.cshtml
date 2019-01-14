@@ -22,40 +22,24 @@
     <div id="app" class="div-td">
         <table v-show="list.length" class="table table-striped" border="1">
             <tr>
+                <th>样品ID</th>
                 <th>样品名称</th>
                 <th>质检计划名称</th>
                 <th>质检类型</th>
-                <th>检验结果值</th>
-                <th>指标项分类</th>
-                <th>指标项名称</th>
-                <th>标准值</th>
-                <th>标准值上限</th>
-                <th>标准值下限</th>
-                <th>状态</th>
+                <th>录入检验结果</th>
                 <th>编辑</th>
             </tr>
             <tr v-for="item in list ">
+                <td>{{item.ID}}</td>
                 <td>{{item.Name}}</td>
                 <td>
                     {{item.QCPlanName}}
                 </td>
                 <td>
                     {{item.Type_Name}}
-                </td>
+                </td>              
                 <td>
-                    <input id="result" type="text" v-model="item.ResultValue" />
-                </td>
-                <td>
-                    {{item.TargetType_Name}}
-                </td>
-                <td>
-                    {{item.Target_Name}}
-                </td>
-                <td>{{item.StandardValues}}</td>
-                <td>{{item.StandardValuesMax}}</td>
-                <td>{{item.StandardValuesMin}}</td>
-                <td>
-                    {{item.State==0?"未检验":(item.State==1?"合格":"不合格")}}
+                    <input onclick="location.href='/QCResultList/Index'" type="button" value="质检结果录入" />
                 </td>
                 <td>
                     <div v-if="item.ID!=''">
