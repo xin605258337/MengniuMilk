@@ -40,7 +40,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"delete from RawMilk where ID=:ID";
+                string sql = @"delete from RawMilk where RawMilkID=:ID";
                 var result = conn.Execute(sql, new { ID = id });
                 return result;
             }
@@ -56,7 +56,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"select * RawMilk where ID=:ID";
+                string sql = @"select * RawMilk where RawMilkID=:ID";
                 var result = conn.Query<RawMilk>(sql, new { ID = id }).FirstOrDefault();
                 return result;
             }
@@ -91,7 +91,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"update RawMilk set ResultValue=:ResultValue,State=:State where ID=:ID";
+                string sql = @"update RawMilk set ResultValue=:ResultValue,State=:State where RawMilkID=:ID";
                 var result = conn.Execute(sql, rawMilk);
                 return result;
             }
@@ -107,7 +107,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"update QCtask set State=1 where QCtask_ID = (select QCtaskID from RawMilk where ID=:ID)";
+                string sql = @"update QCtask set State=1 where QCtask_ID = (select QCtaskID from RawMilk where RawMilkID=:ID)";
                 var result = conn.Execute(sql, new { ID= id});
                 return result;
             }

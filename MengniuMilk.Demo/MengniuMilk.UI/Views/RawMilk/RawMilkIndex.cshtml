@@ -42,8 +42,8 @@
                 </td>
                 <td>
                     <div v-if="item.ID!=''">
-                        <a href="#" v-on:click="UptRawMilk(item.ID,item.ResultValue,item.StandardValuesMax,item.StandardValuesMin)">保存</a>
-                        <a href="#" v-on:click="DelRawMilk(item.ID)">删除</a>
+                        <a href="#" v-on:click="UptRawMilk(item.RawMilkID,item.ResultValue,item.StandardValuesMax,item.StandardValuesMin)">保存</a>
+                        <a href="#" v-on:click="DelRawMilk(item.RawMilkID)">删除</a>
                     </div>
                 </td>
             </tr>
@@ -201,7 +201,7 @@
                     });
                 }
                 var params = new URLSearchParams();
-                params.append('ID', Id);
+                params.append('RawMilkID', Id);
                 params.append('ResultValue', ResultValue);
                 params.append('State', state);                
                 axios.post('http://localhost:8103/UptRawMilk', params).then(

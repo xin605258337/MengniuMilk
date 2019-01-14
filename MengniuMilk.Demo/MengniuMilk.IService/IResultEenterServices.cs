@@ -15,6 +15,11 @@ namespace MengniuMilk.IService
         /// <returns></returns>
         List<ResultEenter> GetResultEenters();
 
+        /// <summary>
+        /// 添加日志信息
+        /// </summary>
+        /// <returns></returns>
+        int AddResultEenters(ResultEenter resultEenter);
 
     }
 }
