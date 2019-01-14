@@ -19,15 +19,22 @@ namespace MengniuMilk.Service
         /// </summary>
         /// <param name="qcPlanId">质检计划ID</param>
         /// <returns></returns>
-        public List<Target> GetTargets(int qcPlanId)
+        public int GetTargetsAndAddQCResult(int qcPlanId,int sampleId)
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
                 string sql = @"select ta.Target_ID from QCPlan q inner join TargetType t on q.targettype_id=t.TargetType_ID inner join Target ta on t.TargetType_ID=ta.targettypepid
                   where q.ID=:ID";
-                var result = conn.Query<Target>(sql, new { ID = qcPlanId }).ToList();
-                return result;
+                var targetList = conn.Query<Target>(sql, new { ID = qcPlanId }).ToList();
+                for (int i=0;i<targetList.Count;i++)
+                {
+                    QCResultList qcResult = new QCResultList();
+                    qcResult.SampleID = sampleId;
+                    qcResult.TargetID =Convert.ToInt32(targetList[i]);
+                    AddQCResult(qcResult);
+                }
+                return 1;
             }
         }
         /// <summary>

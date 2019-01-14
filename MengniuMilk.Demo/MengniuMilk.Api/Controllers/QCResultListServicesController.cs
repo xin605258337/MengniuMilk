@@ -32,9 +32,9 @@ namespace MengniuMilk.Api.Controllers
         /// <returns></returns>
         [Route("GetTargets")]
         [HttpGet]
-        public List<Target> GetTargets(int qcPlanId)
+        public int GetTargetsAndAddQCResult(int qcPlanId, int sampleId)
         {
-            return QCResultListServices.GetTargets(qcPlanId);
+            return QCResultListServices.GetTargetsAndAddQCResult(qcPlanId,sampleId);
         }
     }
 }
