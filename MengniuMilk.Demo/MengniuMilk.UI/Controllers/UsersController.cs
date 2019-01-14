@@ -47,7 +47,7 @@ namespace MengniuMilk.UI.Controllers
         /// <param name="UserId"></param>
         /// <param name="UserName"></param>
         /// <returns></returns>
-        public ActionResult GetUser(int UserId ,string UserName)
+        public ActionResult GetUser(int UserId)
         {
             System.Web.HttpContext.Current.Session["UsersID"] = UserId;
           
