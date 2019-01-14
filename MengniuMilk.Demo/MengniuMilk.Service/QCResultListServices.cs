@@ -31,7 +31,7 @@ namespace MengniuMilk.Service
                 {
                     QCResultList qcResult = new QCResultList();
                     qcResult.SampleID = sampleId;
-                    qcResult.TargetID =Convert.ToInt32(targetList[i]);
+                    qcResult.TargetID =Convert.ToInt32(targetList[i].Target_ID);
                     AddQCResult(qcResult);
                 }
                 return 1;
@@ -46,7 +46,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"insert into QCRESULTLIST(sampleID,targetID,result) values(:sampleID,:targetID,:result)";
+                string sql = @"insert into QCRESULTLIST(sampleID,targetID) values(:sampleID,:targetID)";
                 var result = conn.Execute(sql, qcResult);
                 return result;
             }

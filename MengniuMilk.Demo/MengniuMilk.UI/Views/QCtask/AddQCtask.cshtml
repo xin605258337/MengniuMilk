@@ -143,7 +143,19 @@
                 params.append('SAMPIEID', SampleID1);
                 axios.post('http://localhost:8103/AddQCtask', params).then(
                     (response) => {
-                        location.href = "/QCtask/index";
+                        axios.get('http://localhost:8103/GetTargetsAndAddQCResult?qcPlanId=' + QCPlan_ID1 + '&sampleId=' + SampleID1).then(
+                            (response) => {
+                                alert(response.data);
+                                alert("添加成功!!");
+                                location.href = "/QCtask/index";
+                            },
+                            (response) => {
+                                alert(response.status);
+                            }
+                        ).catch(function (response) {
+                            alert(response);
+                        });
+                        
                     },
                     (response) => {
                         alert(response.status);

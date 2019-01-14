@@ -30,7 +30,7 @@ namespace MengniuMilk.Api.Controllers
         /// </summary>
         /// <param name="qcPlanId">质检计划ID</param>
         /// <returns></returns>
-        [Route("GetTargets")]
+        [Route("GetTargetsAndAddQCResult")]
         [HttpGet]
         public int GetTargetsAndAddQCResult(int qcPlanId, int sampleId)
         {
