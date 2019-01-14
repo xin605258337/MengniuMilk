@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MengniuMilk.Entity
 {
     //指标项检验结果明细表(指标项和样品多对多，输入每个指标项的结果值)
-    public class QCResultList
+    public class QCResultList: TargetType
     {
         /// <summary>
         /// ID
