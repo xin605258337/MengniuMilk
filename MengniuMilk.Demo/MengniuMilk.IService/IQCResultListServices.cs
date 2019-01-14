@@ -14,7 +14,8 @@ namespace MengniuMilk.IService
         /// </summary>
         /// <param name="qcPlanId">质检计划ID</param>
         /// <returns></returns>
-        List<Target> GetTargets(int qcPlanId);
+        int GetTargetsAndAddQCResult(int qcPlanId, int sampleId);
+
         /// <summary>
         /// 添加质检结果明细表
         /// </summary>
