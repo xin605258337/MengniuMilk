@@ -28,5 +28,12 @@ namespace MengniuMilk.IService
         /// <param name="sampleId"></param>
         /// <returns></returns>
         List<QCResultList> GetQCResultLists(int sampleId);
+
+        /// <summary>
+        /// 修改生乳检验信息
+        /// </summary>
+        /// <param name="rawMilk"></param>
+        /// <returns></returns>
+        int Update(QCResultList qCResultList);
     }
 }

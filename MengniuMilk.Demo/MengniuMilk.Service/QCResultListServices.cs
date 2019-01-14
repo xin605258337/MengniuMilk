@@ -62,8 +62,24 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"select ta.TargetType_Name,t.Target_Name,t.StandardValues,t.StandardValuesMax,t.StandardValuesMin,q.Result,q.State from QCRESULTLIST q inner join Target t on q.targetid=t.Target_ID inner join TargetType ta on t.TargetTypePid=ta.TargetType_ID inner join Sample sm on q.sampleid=sm.id where q.sampleid=:sampleid";
+                string sql = @"select q.ID,ta.TargetType_Name,t.Target_Name,t.StandardValues,t.StandardValuesMax,t.StandardValuesMin,q.Result,q.State from QCRESULTLIST q inner join Target t on q.targetid=t.Target_ID inner join TargetType ta on t.TargetTypePid=ta.TargetType_ID inner join Sample sm on q.sampleid=sm.id where q.sampleid=:sampleid";
                 var result = conn.Query<QCResultList>(sql, new { sampleid = sampleId }).ToList();
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 修改生乳检验信息
+        /// </summary>
+        /// <param name="rawMilk"></param>
+        /// <returns></returns>
+        public int Update(QCResultList qCResultList)
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                conn.Open();
+                string sql = @"update QCResultList set Result=:Result,State=:State where ID=:ID";
+                var result = conn.Execute(sql, qCResultList);
                 return result;
             }
         }
