@@ -62,6 +62,7 @@
     <Compile Include="QCResultListServices.cs" />
     <Compile Include="QCtaskServices.cs" />
     <Compile Include="RawMilkServices.cs" />
+    <Compile Include="ResultEenterServices.cs" />
     <Compile Include="RolesServices.cs" />
     <Compile Include="SampleServices.cs" />
     <Compile Include="TargetTypeServices.cs" />

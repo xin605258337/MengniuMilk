@@ -48,6 +48,7 @@
     <Compile Include="IQCResultListServices.cs" />
     <Compile Include="IQCtaskServices.cs" />
     <Compile Include="IRawMilkServices.cs" />
+    <Compile Include="IResultEenterServices.cs" />
     <Compile Include="IRolesServices.cs" />
     <Compile Include="ISampleServices.cs" />
     <Compile Include="ITargetTypeServices.cs" />
