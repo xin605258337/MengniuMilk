@@ -25,6 +25,8 @@ namespace MengniuMilk.Api.Controllers
         {
             return QCResultListServices.AddQCResult(qcResult);
         }
+
+
         /// <summary>
         /// 根据质检计划查出所对应所有指标项主键ID
         /// </summary>
@@ -35,6 +37,18 @@ namespace MengniuMilk.Api.Controllers
         public int GetTargetsAndAddQCResult(int qcPlanId, int sampleId)
         {
             return QCResultListServices.GetTargetsAndAddQCResult(qcPlanId,sampleId);
+        }
+
+        /// <summary>
+        /// 根据采样品ID获取检验明细表
+        /// </summary>
+        /// <param name="sampleId"></param>
+        /// <returns></returns>
+        [Route("GetQCResultLists")]
+        [HttpGet]
+        public List<QCResultList> GetQCResultLists(int sampleId)
+        {
+            return QCResultListServices.GetQCResultLists(sampleId);
         }
     }
 }

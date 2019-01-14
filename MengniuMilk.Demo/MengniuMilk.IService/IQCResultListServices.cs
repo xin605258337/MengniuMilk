@@ -21,5 +21,12 @@ namespace MengniuMilk.IService
         /// </summary>
         /// <returns></returns>
         int AddQCResult(QCResultList qcResult);
+
+        /// <summary>
+        /// 根据采样品ID获取检验明细表
+        /// </summary>
+        /// <param name="sampleId"></param>
+        /// <returns></returns>
+        List<QCResultList> GetQCResultLists(int sampleId);
     }
 }
