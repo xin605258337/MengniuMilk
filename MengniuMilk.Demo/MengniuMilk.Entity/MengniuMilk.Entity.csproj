@@ -54,6 +54,7 @@
     <Compile Include="QCResultList.cs" />
     <Compile Include="QCtask.cs" />
     <Compile Include="RawMilk.cs" />
+    <Compile Include="ResultEenter.cs" />
     <Compile Include="Roles.cs" />
     <Compile Include="Sample.cs" />
     <Compile Include="Target.cs" />
