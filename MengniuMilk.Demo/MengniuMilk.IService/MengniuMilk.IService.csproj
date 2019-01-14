@@ -50,6 +50,7 @@
     <Compile Include="IRolesServices.cs" />
     <Compile Include="ISampleServices.cs" />
     <Compile Include="ITargetTypeServices.cs" />
+    <Compile Include="IUnqualifiedServices.cs" />
     <Compile Include="IUsersServices.cs" />
     <Compile Include="ITargetServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

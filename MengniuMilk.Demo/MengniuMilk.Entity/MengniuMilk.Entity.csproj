@@ -57,6 +57,7 @@
     <Compile Include="Sample.cs" />
     <Compile Include="Target.cs" />
     <Compile Include="TargetType.cs" />
+    <Compile Include="Unqualified.cs" />
     <Compile Include="Users.cs" />
     <Compile Include="User_Roles.cs" />
   </ItemGroup>

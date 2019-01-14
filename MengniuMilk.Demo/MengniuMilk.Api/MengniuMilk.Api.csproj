@@ -132,6 +132,7 @@
     <Compile Include="Controllers\RolesServicesController.cs" />
     <Compile Include="Controllers\SampleServicesController.cs" />
     <Compile Include="Controllers\TargetTypeServicesController.cs" />
+    <Compile Include="Controllers\UnqualifiedServicesController.cs" />
     <Compile Include="Controllers\UsersServicesController.cs" />
     <Compile Include="Controllers\TargetServicesController.cs" />
     <Compile Include="Global.asax.cs">
