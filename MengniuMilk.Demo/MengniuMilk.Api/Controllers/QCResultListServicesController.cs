@@ -15,6 +15,7 @@ namespace MengniuMilk.Api.Controllers
     {
         [Dependency]
         public IQCResultListServices  QCResultListServices { get; set; }
+
         /// <summary>
         /// 添加质检结果明细表
         /// </summary>

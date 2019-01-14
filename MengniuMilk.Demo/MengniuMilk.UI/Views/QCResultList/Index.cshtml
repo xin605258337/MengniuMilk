@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>添加质检结果明细</title>
+    <title>质检结果录入</title>
     <script src="~/Scripts/axios.js"></script>
     <script src="~/Scripts/vue.js"></script>
     <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
@@ -16,7 +16,7 @@
 </head>
 <body>
     <div>
-        <h3>添加质检结果明细</h3>
+        <h3>质检结果录入</h3>
     </div>
     <div id="app" class="div-td">
         <table v-show="list.length" class="table table-striped" border="1">
@@ -26,7 +26,8 @@
                 <th>指标项上限</th>
                 <th>指标项下限</th>
                 <th>指标项标准</th>
-                <th>指标项结果</th>   
+                <th>指标项结果值</th>
+                <th>指标项结果状态</th>
             </tr>
         </table>
     </div>
@@ -43,7 +44,7 @@
         },
         methods:
         {
-            
+
 
         },
         computed: {
@@ -51,3 +52,4 @@
 
     });
 </script>
+
