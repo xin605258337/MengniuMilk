@@ -247,11 +247,7 @@
                 params.append('TargetType_ID', targetType_ID);
                 axios.post('http://localhost:8103/AddQCPlan', params).then(
                     (response) => {
-                        alert(response)
-
-                            alert("添加成功")
-
-
+                        location.href ="/QCPlan/ShowIndex"
                         },
                         (response) => {
                             alert(response.status);
