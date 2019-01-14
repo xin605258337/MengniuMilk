@@ -63,5 +63,17 @@ namespace MengniuMilk.Api.Controllers
         {
             return QCResultListServices.Update(qCResultList);
         }
+
+        /// <summary>
+        /// 根据样品ID获取样品状态
+        /// </summary>
+        /// <param name="sampleId"></param>
+        /// <returns></returns>
+        [Route("GetQCResultState")]
+        [HttpGet]
+        public int GetQCResultState(int sampleId)
+        {
+            return QCResultListServices.GetQCResultState(sampleId);
+        }
     }
 }
