@@ -13,13 +13,5 @@ namespace MengniuMilk.UI.Controllers
         {
             return View();
         }
-        /// <summary>
-        /// 添加质检结果明细
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult AddQCResult()
-        {
-            return View();
-        }
     }
 }

@@ -83,5 +83,30 @@ namespace MengniuMilk.Service
                 return result;
             }
         }
+
+        /// <summary>
+        /// 根据样品ID获取样品状态
+        /// </summary>
+        /// <param name="sampleId"></param>
+        /// <returns></returns>
+        public int GetQCResultState(int sampleId)
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                conn.Open();
+                string sql = @"select state from QCRESULTLIST where SampleID = :SampleID";
+                var resultList = conn.Query<QCResultList>(sql, new { SampleID =sampleId}).ToList();
+                int  result= 1;
+                for(int i=0;i< resultList.Count;i++)
+                {
+                    if(resultList[i].State==2)
+                    {
+                        result = 0;
+                        break;
+                    }
+                }
+                return result;
+            }
+        }
     }
 }
