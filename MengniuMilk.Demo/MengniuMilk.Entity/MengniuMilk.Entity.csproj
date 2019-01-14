@@ -51,6 +51,7 @@
     <Compile Include="QCPlan.cs" />
     <Compile Include="QCPlanObjType.cs" />
     <Compile Include="QCPlanType.cs" />
+    <Compile Include="QCResultList.cs" />
     <Compile Include="QCtask.cs" />
     <Compile Include="RawMilk.cs" />
     <Compile Include="Roles.cs" />
