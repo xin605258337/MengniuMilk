@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>质检结果录入</title>
+    <title>检验结果明细录入</title>
     <script src="~/Scripts/axios.js"></script>
     <script src="~/Scripts/vue.js"></script>
     <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
@@ -16,11 +16,12 @@
 </head>
 <body>
     <div>
-        <h3>质检结果录入</h3>
+        <h3>检验结果明细录入</h3>
     </div>
-    <div id="app" class="div-td">
-        <table v-show="list.length" class="table table-striped" border="1">
+    <div id="add" class="div-td">
+        <table class="table table-striped" border="1">
             <tr>
+                <th>编号</th>
                 <th>指标项分类</th>
                 <th>指标项名称</th>
                 <th>指标项上限</th>
@@ -28,6 +29,18 @@
                 <th>指标项标准</th>
                 <th>指标项结果值</th>
                 <th>指标项结果状态</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="item in QCResultList">
+                <td>{{item.ID}}</td>
+                <td>{{item.TargetType_Name}}</td>
+                <td>{{item.Target_Name}}</td>
+                <td>{{item.StandardValuesMax}}</td>
+                <td>{{item.StandardValuesMin}}</td>
+                <td>{{item.StandardValues}}</td>
+                <td><input id="Text1" type="text" v-model="item.Result"/></td>
+                <td>{{item.State==0?"未检验":(item.State==1?"符合":"不符合")}}</td>
+                <td><a href="#" v-on:click="UptQCResult(item.ID,item.Result,item.StandardValuesMax,item.StandardValuesMin)">保存</a></td>
             </tr>
         </table>
     </div>
@@ -37,14 +50,112 @@
     var vm = new Vue({
         el: "#add",
         data: {
-
-
+            QCResultList:[],
+            sampleID:0
         },
         mounted() {
+            this.sampleID=@Request.QueryString["id"].ToString();
+            this.getQCPlanType();
         },
         methods:
         {
+            //获取质检结果明细
+            getQCPlanType: function () {
+                axios.get('http://localhost:8103/GetQCResultLists?sampleId=' + this.sampleID).then(
+                    (response) => {
+                        this.QCResultList = [];
+                        for (var i = 0; i < response.data.length; i++) {
+                            this.QCResultList.push(response.data[i]);
+                        }
+                    },
+                    (response) => {
+                        alert(response.status + "1");
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
 
+            },
+            UptQCResult: function (Id, ResultValue, max, min) {
+                var state = 0;
+                if (ResultValue <= max && ResultValue >= min) {
+                    state = 1;
+                    axios.post('http://localhost:8103/ChangeState?id=' + Id).then(
+                        (response) => {
+                            console.log(response.data);
+                            if (response.data > 0) {
+                                alert("状态已更改!!!");
+                            }
+                        },
+                        (response) => {
+                            alert(response.status);
+                        }
+                    ).catch(function (response) {
+                        alert(response);
+                    });
+                    axios.post('http://localhost:8103/AddResult?id=' + Id).then(
+                        (response) => {
+                            console.log(response.data);
+                            if (response.data > 0) {
+                                alert("已发送!!!");
+                            }
+                        },
+                        (response) => {
+                            alert(response.status);
+                        }
+                    ).catch(function (response) {
+                        alert(response);
+                    });
+                }
+                else {
+                    state = 2;
+                    axios.post('http://localhost:8103/ChangeState?id=' + Id).then(
+                        (response) => {
+                            console.log(response.data);
+                            if (response.data > 0) {
+                                alert("状态已更改!!!");
+                            }
+                        },
+                        (response) => {
+                            alert(response.status);
+                        }
+                    ).catch(function (response) {
+                        alert(response);
+                    });
+                    axios.post('http://localhost:8103/AddResult?id=' + Id).then(
+                        (response) => {
+                            console.log(response.data);
+                            if (response.data > 0) {
+                                alert("已发送!!!");
+                            }
+                        },
+                        (response) => {
+                            alert(response.status);
+                        }
+                    ).catch(function (response) {
+                        alert(response);
+                    });
+                }
+                var params = new URLSearchParams();
+                params.append('ID', Id);
+                params.append('Result', ResultValue);
+                params.append('State', state);
+                axios.post('http://localhost:8103/Update', params).then(
+                    (response) => {
+                        console.log(response.data);
+                        if (response.data > 0) {
+                            alert("保存成功!!!");
+                            this.getQCPlanType();
+
+                        }
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            },
 
         },
         computed: {
