@@ -25,7 +25,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"update QCtask set State=1 where QCtask_ID = (select QCtaskID from Pack where ID=:ID)";
+                string sql = @"update QCtask set State=1 where QCtask_ID = (select QCtaskID from Pack where PackID=:ID)";
                 var result = conn.Execute(sql, new { ID = id });
                 return result;
             }
@@ -41,7 +41,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"delete from Pack where ID=:ID";
+                string sql = @"delete from Pack where PackID=:ID";
                 var result = conn.Execute(sql, new { ID = id });
                 return result;
             }
@@ -56,12 +56,10 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"select k.*,q.SAMPIEID,q.QCPlan_ID,s.Name,p.QCPlanName,p.Type_ID,p.TargetType_ID,t.*,y.*,g.* from Pack k
+                string sql = @"select k.*,q.SAMPIEID,q.QCPlan_ID,s.ID,s.Name,p.QCPlanName,p.Type_ID,p.TargetType_ID,y.* from Pack k
                         inner join QCtask q on k.QCtaskID=q.QCtask_ID 
                         inner join Sample s on q.SAMPIEID =s.ID
-                        inner join QCPlan p on q.QCPlan_ID =p.ID
-                        inner join TargetType t on p.TargetType_ID = t.TargetType_ID
-                        inner join Target g on t.TargetType_ID = g.TargetTypePid
+                        inner join QCPlan p on q.QCPlan_ID =p.ID                   
                         inner join QCPlanType y on y.Type_ID=p.Type_ID";
                 var result = conn.Query<Pack>(sql, null);
                 return result.ToList<Pack>();
@@ -78,7 +76,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"select * Pack where ID=:ID";
+                string sql = @"select * Pack where PackID=:ID";
                 var result = conn.Query<Pack>(sql, new { ID = id }).FirstOrDefault();
                 return result;
             }
@@ -94,7 +92,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"update Pack set ResultValue=:ResultValue,State=:State where ID=:ID";
+                string sql = @"update Pack set ResultValue=:ResultValue,State=:State where PackID=:ID";
                 var result = conn.Execute(sql, pack);
                 return result;
             }
@@ -110,7 +108,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"insert into ResultEenter(QCTASK_ID) select QCtaskID from Pack where ID=:ID ";
+                string sql = @"insert into ResultEenter(QCTASK_ID) select QCtaskID from Pack where PackID=:ID ";
                 var result = conn.Execute(sql, new { ID = id });
                 return result;
             }
