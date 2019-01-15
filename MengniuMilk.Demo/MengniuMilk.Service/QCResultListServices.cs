@@ -111,5 +111,21 @@ namespace MengniuMilk.Service
                 return result;
             }
         }
+
+        /// <summary>
+        /// 根据检验结果将不合格的质检任务ID添加到不合格记录表中
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int AddUnqualified(int qcTaskID)
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                conn.Open();
+                string sql = @"insert into Unqualified(QCtask_ID) values(:QCtask_ID)";
+                var result = conn.Execute(sql, new { QCtask_ID = qcTaskID });
+                return result;
+            }
+        }
     }
 }
