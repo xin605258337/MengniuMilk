@@ -80,6 +80,7 @@ namespace MengniuMilk.Api.Controllers
         [Route("UpdateUsers")]
         public int UpdateUsers(Users users)
         {
+            users.UsersPwd = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(users.UsersPwd, "MD5");
             var result = UsersServices.UpdateUsers(users);
             return result;
         }

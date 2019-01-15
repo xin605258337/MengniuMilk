@@ -12,7 +12,8 @@ namespace MengniuMilk.Service
     using Oracle.ManagedDataAccess.Client;
     using Oracle.ManagedDataAccess;
 
-    public class UsersServices:IUsersServices
+
+    public class UsersServices : IUsersServices
     {
         /// <summary>
         /// 添加用户
@@ -23,33 +24,42 @@ namespace MengniuMilk.Service
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
-                conn.Open();
-                string sql = @"insert into Users(UsersName,UsersPwd,Gender,UsersTel,RolesIDs,RolesName,UsersRemark) values(:UsersName,:UsersPwd,:Gender,:UsersTel,:RolesIDs,:RolesName,:UsersRemark)";
-                var result = conn.Execute(sql, users);
-                //如果上条语句执行成功则执行下面语句
-                if (result > 0)
+                conn.Open();             
+                string Usersql = "select * from Users where UsersName=:UsersName";
+             
+                var usersName = conn.Query<Users>(Usersql,new { UsersName = users.UsersName });
+                int j = -1;
+                if (usersName.Count() == 0)
                 {
-                    //根据用户名称查询用户ID
-                    string sql1 = @"select UsersID from Users where UsersName=:UsersName";
-                    //返回一个对象(第一个元素)
-                    var ids = conn.Query<Users>(sql1, new { UsersName = users.UsersName }).FirstOrDefault();
-                    //分割角色id
-                    var roleIDs = users.RolesIDs.Split(',');
-
-                    //循环添加到用户角色关联表
-                    for (int i = 0; i < roleIDs.Length; i++)
+                    string sql = @"insert into Users(UsersName,UsersPwd,Gender,UsersTel,RolesIDs,RolesName,UsersRemark) values(:UsersName,:UsersPwd,:Gender,:UsersTel,:RolesIDs,:RolesName,:UsersRemark)";
+                    var result = conn.Execute(sql, users);
+                    //如果上条语句执行成功则执行下面语句
+                    if (result > 0)
                     {
-                        //实例化用户角色关联表
-                        User_Roles user_Roles = new User_Roles();
-                        user_Roles.UsersID = ids.UsersID;//为用户ID赋值
-                        user_Roles.RolesID = Convert.ToInt32(roleIDs[i]);//为角色ID赋值
-                        //用户角色关联表添加语句
-                        string sql2 = @"insert into User_Roles(UsersID,RolesID) values(:UsersID,:RolesID)";
-                        //执行
-                        var result1 = conn.Execute(sql2, user_Roles);
+                        //根据用户名称查询用户ID
+                        string sql1 = @"select UsersID from Users where UsersName=:UsersName";
+                        //返回一个对象(第一个元素)
+                        var ids = conn.Query<Users>(sql1, new { UsersName = users.UsersName }).FirstOrDefault();
+                        //分割角色id
+                        var roleIDs = users.RolesIDs.Split(',');
+
+                        //循环添加到用户角色关联表
+                        for (int i = 0; i < roleIDs.Length; i++)
+                        {
+                            //实例化用户角色关联表
+                            User_Roles user_Roles = new User_Roles();
+                            user_Roles.UsersID = ids.UsersID;//为用户ID赋值
+                            user_Roles.RolesID = Convert.ToInt32(roleIDs[i]);//为角色ID赋值
+                                                                             //用户角色关联表添加语句
+                            string sql2 = @"insert into User_Roles(UsersID,RolesID) values(:UsersID,:RolesID)";
+                            //执行
+                            var result1 = conn.Execute(sql2, user_Roles);
+                        }
                     }
+                    return result;
                 }
-                return result;
+                return j;
+
             }
         }
 
@@ -144,7 +154,7 @@ namespace MengniuMilk.Service
                         var result1 = conn.Execute(sql3, user_Roles);
                     }
                 }
-                return result;               
+                return result;
             }
         }
 
@@ -156,12 +166,12 @@ namespace MengniuMilk.Service
         /// <returns></returns>
         public Users Login(string UsersName, string UsersPwd)
         {
-           
+
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 string sql = @"select * from Users where UsersName=:UsersName and UsersPwd=:UsersPwd";
                 var result = conn.Query<Users>(sql, new { UsersName = UsersName, UsersPwd = UsersPwd }).FirstOrDefault();
-                
+
                 return result;
             }
         }
@@ -178,6 +188,6 @@ namespace MengniuMilk.Service
                 var result = conn.Query<Users>(sql, new { UsersID = id });
                 return result.ToList<Users>();
             }
-        }     
+        }
     }
 }
