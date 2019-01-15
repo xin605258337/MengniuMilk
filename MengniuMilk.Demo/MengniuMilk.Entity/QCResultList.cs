@@ -29,5 +29,9 @@ namespace MengniuMilk.Entity
         /// 检验结果（0为不符合，1为符合）
         /// </summary>
         public int State { get; set; }
+        /// <summary>
+        /// 质检任务
+        /// </summary>
+        public int QCTaskID { get; set; }
     }
 }

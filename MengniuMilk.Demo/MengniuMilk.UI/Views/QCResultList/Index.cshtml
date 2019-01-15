@@ -65,7 +65,7 @@
         {
             //获取质检结果明细
             getQCPlanType: function () {
-                axios.get('http://localhost:8103/GetQCResultLists?sampleId=' + this.sampleID).then(
+                axios.get('http://localhost:8103/GetQCResultLists?sampleId=' + this.sampleID + '&qcTaskID=' + qcPlanId).then(
                     (response) => {
                         this.QCResultList = [];
                         for (var i = 0; i < response.data.length; i++) {

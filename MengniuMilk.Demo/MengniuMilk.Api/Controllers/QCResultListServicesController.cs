@@ -47,9 +47,9 @@ namespace MengniuMilk.Api.Controllers
         /// <returns></returns>
         [Route("GetQCResultLists")]
         [HttpGet]
-        public List<QCResultList> GetQCResultLists(int sampleId)
+        public List<QCResultList> GetQCResultLists(int sampleId, int qcTaskID)
         {
-            return QCResultListServices.GetQCResultLists(sampleId);
+            return QCResultListServices.GetQCResultLists(sampleId, qcTaskID);
         }
 
         /// <summary>
