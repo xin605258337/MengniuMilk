@@ -28,7 +28,7 @@
             <tr v-for="item in list ">
                 <td>{{item.ID}}</td>
                 <td><input type="text" v-model="item.Name" /></td>
-                <td><input type="text" v-model="item.Code" /></td>
+                <td>{{item.Code}}</td>
 
                 <td>
                     <div v-if="item.ID!=''">
