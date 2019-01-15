@@ -24,7 +24,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql1 = @"select QCtask_ID from QCtask where QCPLAN_ID=:QCPLAN_ID and SAMPIEID:SAMPIEID";
+                string sql1 = @"select QCtask_ID from QCtask where QCPLAN_ID=:QCPLAN_ID and SAMPIEID=:SAMPIEID";
                 int qctaskID = conn.Query<QCtask>(sql1, new { QCPLAN_ID = qcPlanId, SAMPIEID = sampleId }).FirstOrDefault().QCtask_ID;
                 string sql = @"select ta.Target_ID from QCPlan q inner join TargetType t on q.targettype_id=t.TargetType_ID inner join Target ta on t.TargetType_ID=ta.targettypepid
                   where q.ID=:ID";
