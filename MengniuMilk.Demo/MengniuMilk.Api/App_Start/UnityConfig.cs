@@ -57,6 +57,7 @@ namespace MengniuMilk.Api
             container.RegisterType<ITargetTypeServices, TargetTypeServices>();
             container.RegisterType<IUnqualifiedServices, UnqualifiedServices>();
             container.RegisterType<IQCResultListServices, QCResultListServices>();
+            container.RegisterType<IResultEenterServices, ResultEenterServices>();
 
         }
     }

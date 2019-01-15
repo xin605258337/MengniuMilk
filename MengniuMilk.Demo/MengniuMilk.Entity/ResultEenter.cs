@@ -9,7 +9,7 @@ namespace MengniuMilk.Entity
     /// <summary>
     /// 质检结果录入表
     /// </summary>
-   public class ResultEenter
+   public class ResultEenter:QCtask
     {
         /// <summary>
         /// 质检结果录入ID
@@ -27,6 +27,17 @@ namespace MengniuMilk.Entity
         /// 质检结果
         /// </summary>
         public int Result { get; set; }
+
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        public string UsersName { get; set; }
+
+        /// <summary>
+        /// 分类名
+        /// </summary>
+        public string TargetType_Name { get; set; }
+
 
     }
 }
