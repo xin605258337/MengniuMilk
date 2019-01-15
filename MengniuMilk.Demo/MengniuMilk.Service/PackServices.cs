@@ -20,7 +20,7 @@ namespace MengniuMilk.Service
       /// </summary>
       /// <param name="id"></param>
       /// <returns></returns>
-        public int ChangeState(int id)
+        public int ChangeStatePack(int id)
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {

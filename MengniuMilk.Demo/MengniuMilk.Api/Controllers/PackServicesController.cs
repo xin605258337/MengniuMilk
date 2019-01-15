@@ -22,10 +22,10 @@ namespace MengniuMilk.Api.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ChangeState1")]
-        public int ChangeState(int id)
+        [Route("ChangeStatePack")]
+        public int ChangeStatePack(int id)
         {
-            return PackServices.ChangeState(id);
+            return PackServices.ChangeStatePack(id);
         }
 
         /// <summary>

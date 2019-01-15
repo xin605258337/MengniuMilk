@@ -38,7 +38,7 @@ namespace MengniuMilk.IService
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        int ChangeState(int id);
+        int ChangeStatePack(int id);
 
         /// <summary>
         /// 根据检验结果将质检任务ID添加到质检结果录入表中

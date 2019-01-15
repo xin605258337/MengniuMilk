@@ -107,7 +107,7 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"update QCtask set State=1 where QCtask_ID = (select QCtaskID from RawMilk where RawMilkID=:ID)";
+                string sql = @"update QCtask set State=1 where QCtask_ID=:ID";
                 var result = conn.Execute(sql, new { ID= id});
                 return result;
             }

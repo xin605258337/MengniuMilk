@@ -44,7 +44,6 @@
                 </td>
                 <td>
                     <div v-if="item.ID!=''">
-                        <a href="#" v-on:click="UptPack(item.PackID,item.ResultValue,item.StandardValuesMax,item.StandardValuesMin)">保存</a>
                         <a href="#" v-on:click="DelPack(item.PackID)">删除</a>
                     </div>
                 </td>
@@ -108,7 +107,7 @@
                 });
 
             },
-            //获取生乳质检信息
+            //获取包装质检信息
             getList: function () {
                 axios.get('http://localhost:8103/GetPack').then((response) => {
                     this.list = [];
@@ -131,91 +130,6 @@
                         this.getList();
                     }
                 },
-                    (response) => {
-                        alert(response.status);
-                    }
-                ).catch(function (response) {
-                    alert(response);
-                });
-            },
-            //修改包装质检信息
-            UptPack: function (Id, ResultValue, max, min) {
-                var state = 0;
-                if (ResultValue <= max && ResultValue >= min) {
-                    state = 1;
-                    axios.post('http://localhost:8103/ChangeState1?id=' + Id).then(
-                        (response) => {
-                            console.log(response.data);
-                            if (response.data > 0) {
-                                alert("状态已更改!!!");
-                            }
-                        },
-                        (response) => {
-                            alert(response.status);
-                        }
-                    ).catch(function (response) {
-                        alert(response);
-                        });
-                    axios.post('http://localhost:8103/AddResultByPack?id=' + Id).then(
-                        (response) => {
-                            console.log(response.data);
-                            if (response.data > 0) {
-                                alert("已发送!!!");
-
-
-                            }
-                        },
-                        (response) => {
-                            alert(response.status);
-                        }
-                    ).catch(function (response) {
-                        alert(response);
-                    });
-                }
-                else {
-                    state = 2;
-                    axios.post('http://localhost:8103/ChangeState1?id=' + Id).then(
-                        (response) => {
-                            console.log(response.data);
-                            if (response.data > 0) {
-                                alert("状态已更改!!!");
-                            }
-                        },
-                        (response) => {
-                            alert(response.status);
-                        }
-                    ).catch(function (response) {
-                        alert(response);
-                        });
-                    axios.post('http://localhost:8103/AddResultByPack?id=' + Id).then(
-                        (response) => {
-                            console.log(response.data);
-                            if (response.data > 0) {
-                                alert("已发送!!!");
-
-
-                            }
-                        },
-                        (response) => {
-                            alert(response.status);
-                        }
-                    ).catch(function (response) {
-                        alert(response);
-                    });
-                }
-                var params = new URLSearchParams();
-                params.append('PackID', Id);
-                params.append('ResultValue', ResultValue);
-                params.append('State', state);
-                axios.post('http://localhost:8103/UpdatePack', params).then(
-                    (response) => {
-                        console.log(response.data);
-                        if (response.data > 0) {
-                            alert("保存成功!!!");
-                            this.getList();
-
-                        }
-                    },
                     (response) => {
                         alert(response.status);
                     }
