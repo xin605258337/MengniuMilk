@@ -22,6 +22,8 @@ namespace MengniuMilk.Api.Controllers
         /// 获取不合格记录表信息
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
+        [Route("GetUnqualifieds")]
         public List<Unqualified> GetUnqualifieds()
         {
             var result = UnqualifiedServices.GetUnqualifieds();
@@ -33,6 +35,8 @@ namespace MengniuMilk.Api.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [Route("DeleteUnqualified")]
+        [HttpPost]
         public int DeleteUnqualified(int id)
         {
             var result = UnqualifiedServices.DeleteUnqualified(id);
@@ -44,6 +48,8 @@ namespace MengniuMilk.Api.Controllers
         /// </summary>
         /// <param name="unqualified"></param>
         /// <returns></returns>
+        [Route("UpdateUnqualified")]
+        [HttpPost]
         public int UpdateUnqualified(Unqualified unqualified)
         {
             var result = UnqualifiedServices.UpdateUnqualified(unqualified);

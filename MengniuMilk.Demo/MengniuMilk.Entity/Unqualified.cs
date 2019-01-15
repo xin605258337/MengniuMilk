@@ -14,7 +14,7 @@ namespace MengniuMilk.Entity
         /// <summary>
         /// 主键ID
         /// </summary>
-        public int ID { get; set; }
+        public int UnqualifiedID { get; set; }
 
         /// <summary>
         /// 质检任务ID
@@ -30,6 +30,19 @@ namespace MengniuMilk.Entity
         /// 检验结果值
         /// </summary>
         public int Result { get; set; }
-
+        /// <summary>
+        /// 质检类型
+        /// </summary>
+        public string Type_Name { get; set; }
+        //样品ID
+        public int ID { get; set; }
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string QCPlanName { get; set; }
+        /// <summary>
+        /// 工序名称
+        /// </summary>
+        public string Process_Name { get; set; }
     }
 }
