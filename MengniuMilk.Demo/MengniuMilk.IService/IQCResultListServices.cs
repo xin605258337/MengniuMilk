@@ -27,7 +27,7 @@ namespace MengniuMilk.IService
         /// </summary>
         /// <param name="sampleId"></param>
         /// <returns></returns>
-        List<QCResultList> GetQCResultLists(int sampleId);
+        List<QCResultList> GetQCResultLists(int sampleId, int qcTaskID);
 
         /// <summary>
         /// 修改生乳检验信息
