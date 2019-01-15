@@ -200,6 +200,7 @@
     <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Controllers\TargetController.cs" />
     <Compile Include="Controllers\TargetTypeController.cs" />
+    <Compile Include="Controllers\UnqualifiedController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -248,6 +249,7 @@
     <Content Include="Views\Pack\Index.cshtml" />
     <Content Include="Views\QCResultList\Index.cshtml" />
     <Content Include="Views\ResultEenter\Index.cshtml" />
+    <Content Include="Views\Unqualified\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
