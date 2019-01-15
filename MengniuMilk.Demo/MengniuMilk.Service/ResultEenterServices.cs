@@ -29,12 +29,18 @@ namespace MengniuMilk.Service
             }
         }
 
+
+        /// <summary>
+        /// 添加至结果录入表
+        /// </summary>
+        /// <param name="resultEenter"></param>
+        /// <returns></returns>
         public int AddResultEenters(ResultEenter resultEenter)
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"insert into ResultEenter(ID,QCtask_ID,Users_ID,Result) values(:ID,:QCtask_ID,:Users_ID,:Result)";
+                string sql = @"insert into ResultEenter(QCtask_ID,Users_ID,Result) values(:QCtask_ID,:Users_ID,:Result)";
                 int result = conn.Execute(sql, resultEenter);
                 return result;
             }

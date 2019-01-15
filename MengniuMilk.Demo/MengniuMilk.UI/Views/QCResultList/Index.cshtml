@@ -160,6 +160,7 @@
                 params.append('ID', Id);
                 params.append('Result', ResultValue);
                 params.append('State', state);
+                params.append('users_id', @ViewBag.UsersID);
                 axios.post('http://localhost:8103/Update', params).then(
                     (response) => {
                         console.log(response.data);
@@ -181,6 +182,19 @@
                 axios.get('http://localhost:8103/GetQCResultState?sampleId=' + this.sampleID).then(
                     (response) => {
                         console.log(response.data)
+
+                        //往质检结果表插入数据
+                        axios.post('http://localhost:8103/AddResultEenters').then(
+                            (response) => {
+                                console.log(response.data)
+
+                            },
+                            (response) => {
+                                alert(response.status + "1");
+                            }
+                        ).catch(function (response) {
+                            alert(response);
+                        });
 
                     },
                     (response) => {
