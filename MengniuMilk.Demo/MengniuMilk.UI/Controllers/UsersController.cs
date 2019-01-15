@@ -10,15 +10,20 @@ namespace MengniuMilk.UI.Controllers
     public class UsersController : Controller
     {
         // GET: Users
-        public ActionResult Index()
+        public ActionResult Index(int userId)
         {
+            System.Web.HttpContext.Current.Session["UsersID"] = userId;
             return View();
         }
         
 
         public ActionResult Login()
-        {       
-          
+        {
+            if (System.Web.HttpContext.Current.Session["UsersID"] != null)
+            {
+                ViewBag.UsersID = System.Web.HttpContext.Current.Session["UsersID"].ToString();
+
+            }
             return View();
         }
 
@@ -29,30 +34,13 @@ namespace MengniuMilk.UI.Controllers
 
         public ActionResult ShowUser()
         {
-            if (Session["UsersID"] !=null)
-            {
-                ViewBag.UsersID = Session["UsersID"].ToString();
            
-            }
             return View();
         }
 
         public ActionResult UpdateUsers()
         {
             return View();
-        }
-        /// <summary>
-        /// session存用户名密码
-        /// </summary>
-        /// <param name="UserId"></param>
-        /// <param name="UserName"></param>
-        /// <returns></returns>
-        public ActionResult GetUser(int UserId)
-        {
-            System.Web.HttpContext.Current.Session["UsersID"] = UserId;
-          
-            return Content("<script>location.href='/ResultEenter/Index'</script>");
-
         }
 
 
