@@ -172,6 +172,7 @@
                         axios.post('http://localhost:8103/AddResultEenters',params).then(
                             (response) => {
                                 alert("保存成功！")
+                                location.href = "/RawMilk/RawMilkIndex";
                             },
                             (response) => {
                                 alert(response.status + "1");
