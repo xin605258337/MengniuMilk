@@ -130,6 +130,7 @@
     <Compile Include="Controllers\QCResultListServicesController.cs" />
     <Compile Include="Controllers\QCtaskServicesController.cs" />
     <Compile Include="Controllers\RawMilkServicesController.cs" />
+    <Compile Include="Controllers\ResultEenterServicesController.cs" />
     <Compile Include="Controllers\RolesServicesController.cs" />
     <Compile Include="Controllers\SampleServicesController.cs" />
     <Compile Include="Controllers\TargetTypeServicesController.cs" />

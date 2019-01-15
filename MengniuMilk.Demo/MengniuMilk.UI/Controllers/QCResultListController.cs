@@ -11,7 +11,19 @@ namespace MengniuMilk.UI.Controllers
         // GET: QCResultList
         public ActionResult Index()
         {
+            if (System.Web.HttpContext.Current.Session["UsersID"] != null)
+            {
+                ViewBag.UsersID = System.Web.HttpContext.Current.Session["UsersID"].ToString();
+
+            }
             return View();
+        }
+        public ActionResult GetUser(int UserId)
+        {
+            System.Web.HttpContext.Current.Session["UsersID"] = UserId;
+
+            return Content("<script>location.href='/QCResultList/Index'</script>");
+
         }
     }
 }
