@@ -73,7 +73,8 @@
         },
         mounted() {
             this.sampleID =@Request.QueryString["id"].ToString();
-            this.qcPlanId=@Request.QueryString["qcPlanId"].ToString();
+            this.qcPlanId =@Request.QueryString["qcPlanId"].ToString();
+            console.log(this.qcPlanId)
             this.getQCPlanType();
         },
         methods:
