@@ -84,61 +84,9 @@
                 var state = 0;
                 if (ResultValue <= max && ResultValue >= min) {
                     state = 1;
-                    axios.post('http://localhost:8103/ChangeState?id=' + Id).then(
-                        (response) => {
-                            console.log(response.data);
-                            if (response.data > 0) {
-                                alert("状态已更改!!!");
-                            }
-                        },
-                        (response) => {
-                            alert(response.status);
-                        }
-                    ).catch(function (response) {
-                        alert(response);
-                    });
-                    axios.post('http://localhost:8103/AddResult?id=' + Id).then(
-                        (response) => {
-                            console.log(response.data);
-                            if (response.data > 0) {
-                                alert("已发送!!!");
-                            }
-                        },
-                        (response) => {
-                            alert(response.status);
-                        }
-                    ).catch(function (response) {
-                        alert(response);
-                    });
                 }
                 else {
                     state = 2;
-                    axios.post('http://localhost:8103/ChangeState?id=' + Id).then(
-                        (response) => {
-                            console.log(response.data);
-                            if (response.data > 0) {
-                                alert("状态已更改!!!");
-                            }
-                        },
-                        (response) => {
-                            alert(response.status);
-                        }
-                    ).catch(function (response) {
-                        alert(response);
-                    });
-                    axios.post('http://localhost:8103/AddResult?id=' + Id).then(
-                        (response) => {
-                            console.log(response.data);
-                            if (response.data > 0) {
-                                alert("已发送!!!");
-                            }
-                        },
-                        (response) => {
-                            alert(response.status);
-                        }
-                    ).catch(function (response) {
-                        alert(response);
-                    });
                 }
                 var params = new URLSearchParams();
                 params.append('ID', Id);
@@ -150,7 +98,6 @@
                         if (response.data > 0) {
                             alert("保存成功!!!");
                             this.getQCPlanType();
-
                         }
                     },
                     (response) => {
@@ -172,7 +119,25 @@
                         axios.post('http://localhost:8103/AddResultEenters',params).then(
                             (response) => {
                                 alert("保存成功！")
-                                location.href = "/RawMilk/RawMilkIndex";
+                                if (response.data == 0) {
+                                    axios.post('http://localhost:8103/AddUnqualified?qcTaskID=' + this.qcPlanId).then(
+                                        (response) => {
+                                            console.log(response.data);
+                                            if (response.data > 0) {
+                                                alert("已发送!!!");
+                                            }
+                                        },
+                                        (response) => {
+                                            alert(response.status);
+                                        }
+                                    ).catch(function (response) {
+                                        alert(response);
+                                    });
+                                }
+                                else {
+                                    location.href = "/RawMilk/RawMilkIndex";
+                                }
+                                
                             },
                             (response) => {
                                 alert(response.status + "1");

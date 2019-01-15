@@ -75,5 +75,17 @@ namespace MengniuMilk.Api.Controllers
         {
             return QCResultListServices.GetQCResultState(sampleId);
         }
+
+        /// <summary>
+        /// 根据检验结果将不合格的质检任务ID添加到不合格记录表中
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AddUnqualified")]
+        public int AddUnqualified(int qcTaskID)
+        {
+            return QCResultListServices.AddUnqualified(qcTaskID);
+        }
     }
 }
