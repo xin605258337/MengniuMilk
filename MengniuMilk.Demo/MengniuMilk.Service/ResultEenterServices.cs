@@ -23,7 +23,11 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"select  r.Result,r.Users_ID,c.qcplanname,s.name from ResultEenter r inner join QCtask q on q.qctask_id=r.qctask_id inner join QCPlan c on c.id=q.qcplan_id inner join Sample s on s.id=q.sampieid";
+                string sql = @"select r.id, r.Result,u.usersname,c.qcplanname,s.name from ResultEenter r 
+                               inner join QCtask q on q.qctask_id=r.qctask_id
+                               inner join QCPlan c on c.id=q.qcplan_id
+                               inner join Sample s on s.id=q.sampieid
+                               inner join Users u on r.users_id=u.usersid";
                 var result = conn.Query<ResultEenter>(sql, null);
                 return result.ToList<ResultEenter>();
             }
