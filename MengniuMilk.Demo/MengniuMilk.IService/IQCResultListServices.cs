@@ -27,7 +27,7 @@ namespace MengniuMilk.IService
         /// </summary>
         /// <param name="sampleId"></param>
         /// <returns></returns>
-        List<QCResultList> GetQCResultLists(int sampleId);
+        List<QCResultList> GetQCResultLists(int sampleId, int qcTaskID);
 
         /// <summary>
         /// 修改生乳检验信息
@@ -42,5 +42,12 @@ namespace MengniuMilk.IService
         /// <param name="sampleId"></param>
         /// <returns></returns>
         int GetQCResultState(int sampleId);
+
+        /// <summary>
+        /// 根据检验结果将不合格的质检任务ID添加到不合格记录表中
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        int AddUnqualified(int qcTaskID);
     }
 }

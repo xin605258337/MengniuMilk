@@ -15,7 +15,7 @@ namespace MengniuMilk.Service
     public class ResultEenterServices : IResultEenterServices
     {
         /// <summary>
-        ///质检结果录入日志
+        ///质检结果录入表显示
         /// </summary>
         /// <returns></returns>
         public List<ResultEenter> GetResultEenters()
@@ -23,22 +23,30 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"select  r.Result,r.Users_ID,c.qcplanname,s.name from ResultEenter r inner join QCtask q on q.qctask_id=r.qctask_id inner join QCPlan c on c.id=q.qcplan_id inner join Sample s on s.id=q.sampieid";
+                string sql = @"select u.UsersName,r.Result,qt.QCtask_ID,qp.QCPlanName,qp.targettype_id,ta.TargetType_Name from ResulteEnter r inner join Users u on r.Users_ID=u.UsersID inner join QCtask qt on qt.QCtask_ID=r.QCtask_ID inner join QCPlan qp on qp.ID=qt.QCPLAN_ID inner join TargetType ta on ta.TargetType_ID=qp.TargetType_ID";
                 var result = conn.Query<ResultEenter>(sql, null);
                 return result.ToList<ResultEenter>();
             }
         }
 
+
+        /// <summary>
+        /// 添加至结果录入表
+        /// </summary>
+        /// <param name="resultEenter"></param>
+        /// <returns></returns>
         public int AddResultEenters(ResultEenter resultEenter)
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"insert into ResultEenter(ID,QCtask_ID,Users_ID,Result) values(:ID,:QCtask_ID,:Users_ID,:Result)";
+                string sql = @"insert into ResultEenter(QCtask_ID,Users_ID,Result) values(:QCtask_ID,:Users_ID,:Result)";
                 int result = conn.Execute(sql, resultEenter);
                 return result;
             }
 
         }
+
+
     }
 }

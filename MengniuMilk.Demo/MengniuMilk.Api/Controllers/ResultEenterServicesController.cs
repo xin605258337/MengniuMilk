@@ -13,9 +13,15 @@ namespace MengniuMilk.Api.Controllers
     using Unity.Attributes;
     public class ResultEenterServicesController : ApiController
     {
+        
         [Dependency]
-
         public ResultEenterServices ResultEenterServices { get; set; }
+
+        /// <summary>
+        /// 添加至结果录入表
+        /// </summary>
+        /// <param name="resultEenter"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("AddResultEenters")]
         public int AddResultEenters(ResultEenter resultEenter)
@@ -24,5 +30,16 @@ namespace MengniuMilk.Api.Controllers
 
         }
 
+        /// <summary>
+        ///质检结果录入表显示
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetResultEenters")]
+        public List<ResultEenter> GetResultEenters()
+        {
+            return ResultEenterServices.GetResultEenters();
         }
+
+    }
 }

@@ -47,9 +47,9 @@ namespace MengniuMilk.Api.Controllers
         /// <returns></returns>
         [Route("GetQCResultLists")]
         [HttpGet]
-        public List<QCResultList> GetQCResultLists(int sampleId)
+        public List<QCResultList> GetQCResultLists(int sampleId, int qcTaskID)
         {
-            return QCResultListServices.GetQCResultLists(sampleId);
+            return QCResultListServices.GetQCResultLists(sampleId, qcTaskID);
         }
 
         /// <summary>
@@ -74,6 +74,18 @@ namespace MengniuMilk.Api.Controllers
         public int GetQCResultState(int sampleId)
         {
             return QCResultListServices.GetQCResultState(sampleId);
+        }
+
+        /// <summary>
+        /// 根据检验结果将不合格的质检任务ID添加到不合格记录表中
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AddUnqualified")]
+        public int AddUnqualified(int qcTaskID)
+        {
+            return QCResultListServices.AddUnqualified(qcTaskID);
         }
     }
 }
