@@ -30,5 +30,16 @@ namespace MengniuMilk.Api.Controllers
 
         }
 
+        /// <summary>
+        ///质检结果录入表显示
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetResultEenters")]
+        public List<ResultEenter> GetResultEenters()
+        {
+            return ResultEenterServices.GetResultEenters();
+        }
+
     }
 }
