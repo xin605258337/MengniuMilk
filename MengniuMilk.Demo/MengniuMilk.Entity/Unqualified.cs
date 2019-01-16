@@ -27,9 +27,9 @@ namespace MengniuMilk.Entity
         public int State { get; set; }
 
         /// <summary>
-        /// 检验结果值
+        /// 处理方式
         /// </summary>
-        public int Result { get; set; }
+        public int Conduct { get; set; }
         /// <summary>
         /// 质检类型
         /// </summary>
@@ -44,5 +44,13 @@ namespace MengniuMilk.Entity
         /// 工序名称
         /// </summary>
         public string Process_Name { get; set; }
+        /// <summary>
+        /// 分类名
+        /// </summary>
+        public string TargetType_Name { get; set; }
+        /// <summary>
+        /// 指标项ID 
+        /// </summary>
+        public int Target_ID { get; set; }
     }
 }

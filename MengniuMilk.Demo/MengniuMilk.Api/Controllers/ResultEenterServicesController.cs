@@ -49,7 +49,7 @@ namespace MengniuMilk.Api.Controllers
         [Route("UpdateResultEenters")]
         public int UpdateResultEenters(int sampleId, int qcTaskId)
         {
-            return ResultEenterServices.UpdateResultEenters(sampleId, qcTaskId)
+            return ResultEenterServices.UpdateResultEenters(sampleId, qcTaskId);
         }
     }
 }
