@@ -71,5 +71,19 @@ namespace MengniuMilk.Service
                 return result.ToList<Unqualified>();
             }
         }
+        /// <summary>
+        /// 删除不合格样品
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DeleteSample(int id)
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                string sql = @"delete from Sample where ID=(select SAMPIEID QCtask from where QCtask_ID=(select QCtask_ID from Unqualified where UnqualifiedID=:ID))";
+                var result = conn.Execute(sql, new { ID = id });
+                return result;
+            }
+        }
     }
 }
