@@ -61,14 +61,24 @@ namespace MengniuMilk.Service
                 return result;
             }
         }
-
-        public List<Unqualified> GetDispost()
+        /// <summary>
+        /// 获得不合格样品的不合格指标项数据
+        /// </summary>
+        /// <returns></returns>
+        public List<Unqualified> GetDispost(int sampleId)
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
-                string sql = @"";
-                var result = conn.Query<Unqualified>(sql, null);
-                return result.ToList<Unqualified>();
+                string sql = @"select sm.ID,sm.Name,qp.QCPlanName,t.TargetType_Name ,ta.Target_Name,ta.StandardValues,
+                             ta.StandardValuesMax,ta.StandardValuesMin,qc.Result,qc.state from UNQUALIFIED u 
+                             inner join QCtask qt on u.QCtask_ID=qt.QCtask_ID 
+                             inner join QCResultList qc on qc.QCTaskID=qt.QCtask_ID 
+                             inner join QCPlan qp on qp.ID=qt.QCPLAN_ID 
+                             inner join TargetType t on t.TargetType_ID=qp.TargetType_ID 
+                             inner join Target ta on ta.Target_ID=qc.TargetID 
+                             inner join Sample sm on sm.ID=qc.SampleID where sm.ID=:SampleId and qc.state=2";
+                var result = conn.Query<Unqualified>(sql, new { SampleId = sampleId }).ToList();
+                return result;
             }
         }
         /// <summary>

@@ -67,5 +67,16 @@ namespace MengniuMilk.Api.Controllers
         {
             return UnqualifiedServices.DeleteSample(id);
         }
+
+        /// <summary>
+        /// 获得不合格样品的不合格指标项数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetDispost")]
+        public List<Unqualified> GetDispost(int sampleId)
+        {
+            return UnqualifiedServices.GetDispost(sampleId);
+        }
     }
 }

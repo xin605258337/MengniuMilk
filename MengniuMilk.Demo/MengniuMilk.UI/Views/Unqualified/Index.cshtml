@@ -40,7 +40,7 @@
                     {{item.Process_Name}}
                 </td>
                 <td>
-                    <input id="Button1" type="button" value="处理" v-on:click="Dispost()" />
+                    <input id="Button1" type="button" value="处理" v-on:click="Dispost(item.ID,item.QCtask_ID)" />
                 </td>
                 <td>
                     <div v-if="item.DelUnqualified!=''">
@@ -70,6 +70,10 @@
             this.getTargetType();
             this.getFacility();
             this.getUnqualified();
+        },
+        //页面跳转并传采样品ID
+        Dispost: function (ID, id) {
+            location.href = "/Unqualified/Disposeindex?Id=" + ID + "&qcTaskID=" + id;
         },
         methods: {
             //获取质检类型表
@@ -171,11 +175,6 @@
                 ).catch(function (response) {
                     alert(response);
                 });
-            },
-
-            Dispost: function () {
-
-                location.href ='/Unqualified/Disposeindex'
             },
             //删除不合格信息
             DelUnqualified: function (Id) {
