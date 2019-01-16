@@ -41,5 +41,15 @@ namespace MengniuMilk.Api.Controllers
             return ResultEenterServices.GetResultEenters();
         }
 
+        /// <summary>
+        /// 修改质检结果录入表
+        /// </summary>
+        /// <returns></returns>
+       [HttpGet]
+        [Route("UpdateResultEenters")]
+        public int UpdateResultEenters(int sampleId, int qcTaskId)
+        {
+            return ResultEenterServices.UpdateResultEenters(sampleId, qcTaskId)
+        }
     }
 }

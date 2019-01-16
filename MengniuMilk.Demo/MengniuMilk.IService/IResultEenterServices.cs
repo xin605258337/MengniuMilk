@@ -21,5 +21,10 @@ namespace MengniuMilk.IService
         /// <returns></returns>
         int AddResultEenters(ResultEenter resultEenter);
 
+        /// <summary>
+        /// 修改质检结果录入表
+        /// </summary>
+        /// <returns></returns>
+        int UpdateResultEenters(int sampleId, int qcTaskId);
     }
 }
