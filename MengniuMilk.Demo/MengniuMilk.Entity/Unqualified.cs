@@ -52,5 +52,9 @@ namespace MengniuMilk.Entity
         /// 指标项ID 
         /// </summary>
         public int Target_ID { get; set; }
+        /// <summary>
+        /// 检验结果值
+        /// </summary>
+        public int Result { get; set; }
     }
 }

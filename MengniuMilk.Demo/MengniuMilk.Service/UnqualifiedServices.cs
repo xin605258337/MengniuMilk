@@ -22,7 +22,7 @@ namespace MengniuMilk.Service
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
-                string sql = @"select u.UnqualifiedID,u.state,q.qctask_id,p.id,q.sampieid,p.qcplanname,r.process_id,r.process_name,s.id,s.name,p.type_id,y.type_name from Unqualified u inner join QCtask q on u.qctask_id=q.qctask_id 
+                string sql = @"select u.UnqualifiedID,u.state,u.Conduct,q.qctask_id,p.id,q.sampieid,p.qcplanname,r.process_id,r.process_name,s.id,s.name,p.type_id,y.type_name from Unqualified u inner join QCtask q on u.qctask_id=q.qctask_id 
                             inner join QCPlan p on q.qcplan_id=p.id
                             inner join Sample s on q.sampieid=s.id
                             inner join Process r on r.process_id=p.process_id 
@@ -41,7 +41,7 @@ namespace MengniuMilk.Service
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
-                string sql = @"delete from Unqualified where UnqualifiedID=:ID";
+                string sql = @"delete from Unqualified where UnqualifiedID=(select UnqualifiedID from Unqualified where QCtask_ID=:ID)";
                 var result = conn.Execute(sql, new { ID = id });
                 return result;
             }
@@ -69,8 +69,8 @@ namespace MengniuMilk.Service
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
-                string sql = @"select sm.ID,sm.Name,qp.QCPlanName,t.TargetType_Name ,ta.Target_Name,ta.StandardValues,
-                             ta.StandardValuesMax,ta.StandardValuesMin,qc.Result,qc.state from UNQUALIFIED u 
+                string sql = @"select u.Conduct,sm.ID,sm.Name,qp.QCPlanName,t.TargetType_Name ,ta.Target_Name,ta.StandardValues,
+                             ta.StandardValuesMax,ta.StandardValuesMin,qc.ID,qc.Result,qc.state from UNQUALIFIED u 
                              inner join QCtask qt on u.QCtask_ID=qt.QCtask_ID 
                              inner join QCResultList qc on qc.QCTaskID=qt.QCtask_ID 
                              inner join QCPlan qp on qp.ID=qt.QCPLAN_ID 
@@ -92,6 +92,21 @@ namespace MengniuMilk.Service
             {
                 string sql = @"delete from Sample where ID=(select SAMPIEID QCtask from where QCtask_ID=(select QCtask_ID from Unqualified where UnqualifiedID=:ID))";
                 var result = conn.Execute(sql, new { ID = id });
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 修改处理方式
+        /// </summary>
+        /// <param name="unqualified"></param>
+        /// <returns></returns>
+        public int UpdateConduct(Unqualified unqualified)
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                string sql = @"update Unqualified set Conduct=:Conduct where UnqualifiedID=:UnqualifiedID";
+                var result = conn.Execute(sql, unqualified);
                 return result;
             }
         }

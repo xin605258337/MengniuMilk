@@ -19,31 +19,40 @@
     </div>
     <div id="add" class="div-td">
         <table class="table table-striped" border="1">
-            <tr>                
+            <tr>
+                <th>不合格ID</th>
                 <th>样品名称</th>
                 <th>质检计划名称</th>
+                <th>处理方式</th>
                 <th>指标项分类</th>
                 <th>指标项名称</th>
                 <th>指标项上限</th>
                 <th>指标项标准</th>
-                <th>指标项下限</th>              
+                <th>指标项下限</th>
                 <th>指标项结果值</th>
                 <th>指标项结果状态</th>
                 <th>操作</th>
             </tr>
             <tr v-for="item in QCResultList">
+                <td>{{item.UnqualifiedID}}</td>
                 <td>{{item.Name}}</td>
-                <td>{{item.TargetType_Name}}</td>
+                <td>{{item.QCPlanName}}</td>
+                <td>
+                    {{item.Conduct==0?"整改":"销毁"}}
+                </td>
+                <td>
+                    {{item.TargetType_Name}}
+                </td>
                 <td>{{item.Target_Name}}</td>
                 <td>{{item.StandardValuesMax}}</td>
                 <td>{{item.StandardValues}}</td>
                 <td>{{item.StandardValuesMin}}</td>
                 <td><input id="Text1" type="text" v-model="item.Result" /></td>
                 <td>{{item.State==0?"未检验":(item.State==1?"符合":"不符合")}}</td>
-                <td><a href="#" v-on:click="UptQCResult(item.ID,item.Result,item.StandardValuesMax,item.StandardValuesMin)">保存</a></td>
+                <td><a href="#" v-on:click="UptDispost(item.ID,item.Result,item.StandardValuesMax,item.StandardValuesMin)">保存</a></td>
             </tr>
         </table>
-        <input v-on:click="" type="button" value="提交" />
+        <input v-on:click="deleteDispost()" type="button" value="提交" />
     </div>
 </body>
 </html>
@@ -57,12 +66,12 @@
         },
         mounted() {
             this.sampleID =@Request.QueryString["Id"].ToString();
-            console.log(this.sampleID)
+            this.qcTaskId =@Request.QueryString["qcTaskID"].ToString();
             this.getDispost();
         },
         methods:
         {
-            //获取质检结果明细
+            //获取不合格样品明细
             getDispost: function () {
                 axios.get('http://localhost:8103/GetDispost?sampleId=' + this.sampleID).then(
                     (response) => {
@@ -79,6 +88,58 @@
                 });
 
             },
+            UptDispost: function (Id, ResultValue, max, min) {
+                var state = 0;
+                if (ResultValue <= max && ResultValue >= min) {
+                    state = 1;
+                }
+                else {
+                    state = 2;
+                }
+                var params = new URLSearchParams();
+                params.append('ID', Id);
+                params.append('Result', ResultValue);
+                params.append('State', state);
+                axios.post('http://localhost:8103/Update', params).then(
+                    (response) => {
+                        if (response.data > 0) {
+                            alert("保存成功!!!");
+                            this.getDispost();
+                        }
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            },
+            deleteDispost: function () {
+                axios.get('http://localhost:8103/UpdateResultEenters?sampleId=' + this.sampleID + '&qcTaskId=' + this.qcTaskId).then(
+                    (response) => {
+                        if (response.data > 0) {
+                            alert("修改质检结果状态成功!!!");
+                            axios.get('http://localhost:8103/DeleteUnqualified?id=' + this.qcTaskId).then((respose) => {
+                                if (respose.data > 0) {
+                                    alert("删除成功!!!");
+                                    location.href = '/Unqualified/Index';
+                                }
+                            },
+                                (response) => {
+                                    alert(response.status);
+                                }
+                            ).catch(function (response) {
+                                alert(response);
+                            })
+                        }
+                    },
+                    (response) => {
+                        alert(response.status + "1");
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            }
         },
         computed: {
         }

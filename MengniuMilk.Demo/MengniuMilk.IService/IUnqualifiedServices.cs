@@ -42,5 +42,12 @@ namespace MengniuMilk.IService
         /// <returns></returns>
         List<Unqualified> GetDispost(int sampleId);
 
+        /// <summary>
+        /// 修改处理方式
+        /// </summary>
+        /// <param name="unqualified"></param>
+        /// <returns></returns>
+        int UpdateConduct(Unqualified unqualified);
+
     }
 }
