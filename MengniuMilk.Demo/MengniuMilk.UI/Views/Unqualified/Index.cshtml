@@ -71,11 +71,12 @@
             this.getFacility();
             this.getUnqualified();
         },
-        //页面跳转并传采样品ID
-        Dispost: function (ID, id) {
-            location.href = "/Unqualified/Disposeindex?Id=" + ID + "&qcTaskID=" + id;
-        },
+        
         methods: {
+            //页面跳转并传采样品ID
+            Dispost: function (ID, id) {
+                location.href = "/Unqualified/Disposeindex?Id=" + ID + "&qcTaskID=" + id;
+            },
             //获取质检类型表
             getQCPlanType: function () {
                 axios.get('http://localhost:8103/GetQCPlanTypes').then(

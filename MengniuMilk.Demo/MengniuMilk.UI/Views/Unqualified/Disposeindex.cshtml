@@ -57,6 +57,7 @@
         },
         mounted() {
             this.sampleID =@Request.QueryString["Id"].ToString();
+            console.log(this.sampleID)
             this.getDispost();
         },
         methods:
@@ -78,87 +79,6 @@
                 });
 
             },
-            UptQCResult: function (Id, ResultValue, max, min) {
-                var state = 0;
-                if (ResultValue <= max && ResultValue >= min) {
-                    state = 1;
-                }
-                else {
-                    state = 2;
-                }
-                var params = new URLSearchParams();
-                params.append('ID', Id);
-                params.append('Result', ResultValue);
-                params.append('State', state);
-                axios.post('http://localhost:8103/Update', params).then(
-                    (response) => {
-                        if (response.data > 0) {
-                            alert("保存成功!!!");
-                            this.getQCPlanType();
-                        }
-                    },
-                    (response) => {
-                        alert(response.status);
-                    }
-                ).catch(function (response) {
-                    alert(response);
-                });
-            },
-            //根据指标项结果插入质检结果表
-            AddResultEenter: function () {
-                axios.get('http://localhost:8103/GetQCResultState?sampleId=' + this.sampleID).then(
-                    (response) => {
-                        if (response.data == 0) {
-                            axios.post('http://localhost:8103/AddUnqualified?qcTaskID=' + this.qcPlanId).then(
-                                (response) => {
-                                    if (response.data > 0) {
-                                        alert("已发送!!!");
-                                    }
-                                },
-                                (response) => {
-                                    alert(response.status);
-                                }
-                            ).catch(function (response) {
-                                alert(response);
-                            });
-                        }
-                        var params = new URLSearchParams();
-                        params.append("QCtask_ID", this.qcPlanId)
-                        params.append("Users_ID",@ViewBag.UsersID)
-                        params.append("Result", response.data)
-                        //往质检结果表插入数据
-                        axios.post('http://localhost:8103/AddResultEenters',params).then(
-                            (response) => {
-                                alert("保存成功！")
-                                location.href = "/RawMilk/RawMilkIndex";
-                                axios.post('http://localhost:8103/ChangeState?id=' + this.qcPlanId).then(
-                                    (response) => {
-                                        if (response.data > 0) {
-                                            alert("状态已更改!!!");
-                                        }
-                                    },
-                                    (response) => {
-                                        alert(response.status);
-                                    }
-                                ).catch(function (response) {
-                                    alert(response);
-                                });
-                            },
-                            (response) => {
-                                alert(response.status + "1");
-                            }
-                        ).catch(function (response) {
-                            alert(response);
-                        });
-
-                    },
-                    (response) => {
-                        alert(response.status + "1");
-                    }
-                ).catch(function (response) {
-                    alert(response);
-                });
-            }
         },
         computed: {
         }
