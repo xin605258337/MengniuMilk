@@ -44,9 +44,40 @@ namespace MengniuMilk.Service
                 int result = conn.Execute(sql, resultEenter);
                 return result;
             }
-
         }
 
 
+        /// <summary>
+        /// 修改质检结果录入表
+        /// </summary>
+        /// <returns></returns>
+        public int UpdateResultEenters(int sampleId, int qcTaskId)
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                conn.Open();
+                //判断指标项质检结果明细表指标项是否全部合格
+                string sql = @"select state from QCRESULTLIST where SampleID = :SampleID";
+                var resultList = conn.Query<QCResultList>(sql, new { SampleID = sampleId }).ToList();
+                int state = 1;
+                for (int i = 0; i < resultList.Count; i++)
+                {
+                    if (resultList[i].State == 2)
+                    {
+                        state = 0;
+                        break;
+                    }
+                }
+                //修改质检任务结果表
+                int result = 0;
+                if (state == 1)
+                {
+                    string sql1 = @"update ResultEenter set Result=1 where QCtask_ID=:QCtask_ID";
+                    result = conn.Execute(sql1, new {QCtask_ID= qcTaskId } );
+                    
+                }
+                return result;
+            }
+        }
     }
 }

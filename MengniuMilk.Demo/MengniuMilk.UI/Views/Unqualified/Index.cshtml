@@ -21,14 +21,17 @@
     <div id="app" class="div-td">    
         <table v-show="list.length" class="table table-responsive" border="1">
             <tr>
+                <th>不合格ID</th>
                 <th>样品名称</th>
                 <th>质检名称</th>
                 <th>质检类型</th>
                 <th>检验工序</th>
+                <th>处理方式</th>
                 <th>处理</th>
                 <th>编辑</th>
             </tr>
             <tr v-for="item in list ">
+                <td>{{item.UnqualifiedID}}</td>
                 <td>{{item.Name}}</td>
                 <td>
                     {{item.QCPlanName}}
@@ -39,12 +42,19 @@
                 <td>
                     {{item.Process_Name}}
                 </td>
-                <td>
-                    <input id="Button1" type="button" value="处理" v-on:click="Dispost()" />
+                <td>                  
+                    <select id="Select1" v-model="item.Conduct">
+                        <option value="0">整改</option>
+                        <option  value="1">销毁</option>
+                    </select>
                 </td>
                 <td>
-                    <div v-if="item.DelUnqualified!=''">
-                        <a href="#" v-on:click="DelUnqualified(item.UnqualifiedID)">删除</a>                    
+                    <input id="Button1" type="button" value="处理" v-on:click="Dispost(item.ID,item.QCtask_ID)" />
+                </td>
+                <td>
+                    <div v-if="item.UnqualifiedID!=''">
+                        <a href="#" v-on:click="uptConduct(item.UnqualifiedID,item.Conduct)">保存</a>
+                        <a href="#" v-on:click="DelUnqualified(item.QCtask_ID)">删除</a>
                     </div>
                 </td>
             </tr>
@@ -55,7 +65,8 @@
 <script type="text/javascript">
     var vm = new Vue({
         el: "#app",
-        data: {
+        data: {  
+           
             QCPlanType: [],
             QCPlanObjType: [],
             Process: [],
@@ -71,7 +82,12 @@
             this.getFacility();
             this.getUnqualified();
         },
+        
         methods: {
+            //页面跳转并传采样品ID
+            Dispost: function (ID, id) {
+                location.href = "/Unqualified/Disposeindex?Id=" + ID + "&qcTaskID=" + id;
+            },
             //获取质检类型表
             getQCPlanType: function () {
                 axios.get('http://localhost:8103/GetQCPlanTypes').then(
@@ -172,14 +188,9 @@
                     alert(response);
                 });
             },
-
-            Dispost: function () {
-
-                location.href ='/Unqualified/Disposeindex'
-            },
-            //删除不合格信息
+            //删除不合格样品
             DelUnqualified: function (Id) {
-                axios.get('http://localhost:8103/DeleteUnqualified?id=' + Id).then((respose) => {
+                axios.get('http://localhost:8103/DeleteSample?id=' + Id).then((respose) => {
                     if (respose.data > 0) {
                         alert("删除成功!!!");
                         this.getUnqualified();
@@ -192,6 +203,23 @@
                     alert(response);
                 });
             },
+            uptConduct: function (id,conduct) {
+                var params = new URLSearchParams();
+                params.append('UnqualifiedID', id);
+                params.append('Conduct', conduct);
+                axios.post('http://localhost:8103/UpdateConduct', params).then(
+                    (response) => {
+                        if (response.data > 0) {
+                            this.getUnqualified();
+                        }
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            }
 
         },
 
