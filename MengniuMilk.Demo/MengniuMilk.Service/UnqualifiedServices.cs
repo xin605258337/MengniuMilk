@@ -25,7 +25,7 @@ namespace MengniuMilk.Service
                 string sql = @"select u.UnqualifiedID,u.state,u.result,q.qctask_id,p.id,q.sampieid,p.qcplanname,r.process_id,r.process_name,s.id,s.name,p.type_id,y.type_name from Unqualified u inner join QCtask q on u.qctask_id=q.qctask_id 
                             inner join QCPlan p on q.qcplan_id=p.id
                             inner join Sample s on q.sampieid=s.id
-                            inner join Process r on r.process_id=p.process_id
+                            inner join Process r on r.process_id=p.process_id 
                             inner join QCPlanType y on p.type_id=y.type_id";
                 var result = conn.Query<Unqualified>(sql, null);
                 return result.ToList<Unqualified>();
