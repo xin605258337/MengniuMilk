@@ -61,5 +61,15 @@ namespace MengniuMilk.Service
                 return result;
             }
         }
+
+        public List<Unqualified> GetDispost()
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                string sql = @"";
+                var result = conn.Query<Unqualified>(sql, null);
+                return result.ToList<Unqualified>();
+            }
+        }
     }
 }

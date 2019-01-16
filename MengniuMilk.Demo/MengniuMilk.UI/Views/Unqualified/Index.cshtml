@@ -21,12 +21,13 @@
     <div id="app" class="div-td">    
         <table v-show="list.length" class="table table-responsive" border="1">
             <tr>
-                <th>样品名称</th>                
+                <th>样品名称</th>
                 <th>质检名称</th>
                 <th>质检类型</th>
                 <th>检验工序</th>
                 <th>结果值</th>
                 <th>状态</th>
+                <th>处理</th>
                 <th>编辑</th>
             </tr>
             <tr v-for="item in list ">
@@ -42,6 +43,9 @@
                 </td>
                 <td>{{item.Result}}</td>
                 <td>{{item.State==0?"未处理":"已处理"}}</td>
+                <td>
+                    <input id="Button1" type="button" value="处理" v-on:click="Dispost()" />
+                </td>
                 <td>
                     <div v-if="item.DelUnqualified!=''">
                         <a href="#" v-on:click="DelUnqualified(item.UnqualifiedID)">删除</a>
@@ -170,7 +174,8 @@
                     (response) => {
                         alert(response.status);
                     }
-                ).catch(function (response) {
+                ).catch(function (response)
+                {
                     alert(response);
                 });
             },
@@ -188,6 +193,11 @@
                 ).catch(function (response) {
                     alert(response);
                 });
+            },
+
+            Dispost: function () {
+
+                location.href ='/Unqualified/Disposeindex'
             },
             //删除质检计划信息
             DelUnqualified: function (Id) {
