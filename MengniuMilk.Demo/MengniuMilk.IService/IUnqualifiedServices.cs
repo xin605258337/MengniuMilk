@@ -30,6 +30,13 @@ namespace MengniuMilk.IService
         /// <param name="unqualified"></param>
         /// <returns></returns>
         int UpdateUnqualified(Unqualified unqualified);
-      
+        /// <summary>
+        /// 删除不合格样品
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        int DeleteSample(int id);
+
+
     }
 }
