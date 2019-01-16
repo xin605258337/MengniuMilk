@@ -250,6 +250,7 @@
     <Content Include="Views\QCResultList\Index.cshtml" />
     <Content Include="Views\ResultEenter\Index.cshtml" />
     <Content Include="Views\Unqualified\Index.cshtml" />
+    <Content Include="Views\Unqualified\Disposeindex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

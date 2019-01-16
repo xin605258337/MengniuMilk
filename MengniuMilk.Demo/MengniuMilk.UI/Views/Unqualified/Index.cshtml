@@ -21,12 +21,12 @@
     <div id="app" class="div-td">    
         <table v-show="list.length" class="table table-responsive" border="1">
             <tr>
-                <th>样品名称</th>                
+                <th>样品名称</th>
                 <th>质检名称</th>
                 <th>质检类型</th>
                 <th>检验工序</th>
-                <th>结果值</th>
                 <th>状态</th>
+                <th>处理</th>
                 <th>编辑</th>
             </tr>
             <tr v-for="item in list ">
@@ -40,12 +40,13 @@
                 <td>
                     {{item.Process_Name}}
                 </td>
-                <td>{{item.Result}}</td>
                 <td>{{item.State==0?"未处理":"已处理"}}</td>
                 <td>
+                    <input id="Button1" type="button" value="处理" v-on:click="Dispost()" />
+                </td>
+                <td>
                     <div v-if="item.DelUnqualified!=''">
-                        <a href="#" v-on:click="DelUnqualified(item.UnqualifiedID)">删除</a>
-                        <a href="#" v-on:click="UptUnqualified(item.ID,item.Code,item.QCPlanName,item.Type_ID,item.ObjType_ID,item.Process_ID,item.Facility_ID,item.TargetType_ID,item.QCPlan_State)">修改</a>
+                        <a href="#" v-on:click="DelUnqualified(item.UnqualifiedID)">删除</a>                    
                     </div>
                 </td>
             </tr>
@@ -70,7 +71,6 @@
             this.getProcesses();
             this.getTargetType();
             this.getFacility();
-            this.getList();
             this.getUnqualified();
         },
         methods: {
@@ -159,21 +159,6 @@
                 });
 
             },
-            //获取质检计划信息
-            getList: function () {
-                axios.get('http://localhost:8103/GetQCPlans').then((response) => {
-                    this.list = [];
-                    for (var i = 0; i < response.data.length; i++) {
-                        this.list.push(response.data[i]);
-                    }
-                },
-                    (response) => {
-                        alert(response.status);
-                    }
-                ).catch(function (response) {
-                    alert(response);
-                });
-            },
             //获取不合格样品信息
             getUnqualified: function () {
                 axios.get('http://localhost:8103/GetUnqualifieds').then((response) => {
@@ -189,7 +174,12 @@
                     alert(response);
                 });
             },
-            //删除质检计划信息
+
+            Dispost: function () {
+
+                location.href ='/Unqualified/Disposeindex'
+            },
+            //删除不合格信息
             DelUnqualified: function (Id) {
                 axios.get('http://localhost:8103/DeleteUnqualified?id=' + Id).then((respose) => {
                     if (respose.data > 0) {
@@ -197,33 +187,6 @@
                         this.getUnqualified();
                     }
                 },
-                    (response) => {
-                        alert(response.status);
-                    }
-                ).catch(function (response) {
-                    alert(response);
-                });
-            },
-            //修改质检计划信息
-            UptUnqualified: function (Id, code, name, type_ID, objType_ID, process_ID, facility_ID, targetType_ID, qCPlan_State) {
-                var params = new URLSearchParams();
-                params.append('ID', Id);
-                params.append('Code', code);
-                params.append('QCPlanName', name);
-                params.append('Type_ID', type_ID);
-                params.append('ObjType_ID', objType_ID);
-                params.append('Process_ID', process_ID);
-                params.append('Facility_ID', facility_ID);
-                params.append('QCPlan_State', qCPlan_State);
-                params.append('TargetType_ID', targetType_ID);
-                axios.post('http://localhost:8103/UpdateQCPlan', params).then(
-                    (response) => {
-                        console.log(response.data);
-                        if (response.data > 0) {
-                            alert("修改成功!!!");
-                            this.getList();
-                        }
-                    },
                     (response) => {
                         alert(response.status);
                     }

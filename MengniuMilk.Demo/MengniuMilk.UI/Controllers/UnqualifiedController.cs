@@ -13,5 +13,16 @@ namespace MengniuMilk.UI.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// 不合格处理页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Disposeindex()
+        {
+            return View();
+        }
+        
+      
     }
 }
