@@ -94,7 +94,6 @@
                 ).catch(function (response) {
                     alert(response);
                 });
-
             },
             //添加指标项信息
             AddTarget: function (Target_Name, TargetTypePid, standardValues, standardValuesMax, standardValuesMin) {
@@ -105,11 +104,8 @@
                 params.append('StandardValuesMax', standardValuesMax);
                 params.append('StandardValuesMin', standardValuesMin);
                 axios.post('http://localhost:8103/AddTarget', params).then(
-                    (response) => {                        
-
-                        alert("添加成功")
-
-
+                    (response) => {        
+                        location.href = "/Target/GetTarget";
                     },
                     (response) => {
                         alert(response.status);
@@ -118,10 +114,8 @@
                     alert(response);
                 });
             },
-
         },
         computed: {
         }
-
     });
 </script>

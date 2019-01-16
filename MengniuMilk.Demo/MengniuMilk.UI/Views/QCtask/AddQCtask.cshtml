@@ -27,17 +27,6 @@
                     </select>
                 </td>
             </tr>
-            @*<tr>
-                <td>质检类型:</td>
-                <td>
-                    <select id="Select1" v-model="QCPlanType">
-                        <option value="请选择">--请选择--</option>
-                        <option v-for="type in QCPlanType1" v-bind:value="type.Type_ID">{{type.Type_Name}}</option>
-                    </select>
-                </td>
-                
-
-            </tr>*@
             <tr>
                 <td>采样名称:</td>
                 <td>
@@ -145,8 +134,6 @@
                     (response) => {
                         axios.get('http://localhost:8103/GetTargetsAndAddQCResult?qcPlanId=' + QCPlan_ID1 + '&sampleId=' + SampleID1).then(
                             (response) => {
-                                alert(response.data);
-                                alert("添加成功!!");
                                 location.href = "/QCtask/index";
                             },
                             (response) => {
