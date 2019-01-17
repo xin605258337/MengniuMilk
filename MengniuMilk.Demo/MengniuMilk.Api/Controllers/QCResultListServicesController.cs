@@ -65,6 +65,18 @@ namespace MengniuMilk.Api.Controllers
         }
 
         /// <summary>
+        /// 将不合格信息改为合格
+        /// </summary>
+        /// <param name="qCResultList"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("UpdateResultLis")]
+        public int UpdateResultLis(QCResultList qCResultList)
+        {
+            return QCResultListServices.UpdateResultLis(qCResultList);
+        }
+
+        /// <summary>
         /// 根据样品ID获取样品状态
         /// </summary>
         /// <param name="sampleId"></param>

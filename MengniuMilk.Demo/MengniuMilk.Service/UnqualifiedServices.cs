@@ -69,7 +69,7 @@ namespace MengniuMilk.Service
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
-                string sql = @"select u.Conduct,sm.ID,sm.Name,qp.QCPlanName,t.TargetType_Name ,ta.Target_Name,ta.StandardValues,
+                string sql = @"select u.UnqualifiedID,u.Conduct,sm.ID,sm.Name,qp.QCPlanName,t.TargetType_Name ,ta.Target_Name,ta.StandardValues,
                              ta.StandardValuesMax,ta.StandardValuesMin,qc.ID,qc.Result,qc.state from UNQUALIFIED u 
                              inner join QCtask qt on u.QCtask_ID=qt.QCtask_ID 
                              inner join QCResultList qc on qc.QCTaskID=qt.QCtask_ID 
@@ -107,6 +107,21 @@ namespace MengniuMilk.Service
             {
                 string sql = @"update Unqualified set Conduct=:Conduct where UnqualifiedID=:UnqualifiedID";
                 var result = conn.Execute(sql, unqualified);
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 根据处理方式处理不合格产品
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int Enable(int id)
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                string sql = @"select Conduct from Unqualified where UnqualifiedID=:UnqualifiedID";
+                int result = conn.Query<Unqualified>(sql, new { UnqualifiedID =id}).ToList().FirstOrDefault().Conduct;
                 return result;
             }
         }

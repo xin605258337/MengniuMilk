@@ -95,6 +95,22 @@ namespace MengniuMilk.Service
         }
 
         /// <summary>
+        /// 将不合格信息改为合格
+        /// </summary>
+        /// <param name="qCResultList"></param>
+        /// <returns></returns>
+        public int UpdateResultLis(QCResultList qCResultList)
+        {
+            using (OracleConnection conn = DapperHelper.GetConnString())
+            {
+                conn.Open();
+                string sql = @"update QCResultList set Result=:Result,State=:State where ID=:ID";
+                var result = conn.Execute(sql, qCResultList);
+                return result;
+            }
+        }
+
+        /// <summary>
         /// 根据样品ID获取样品状态
         /// </summary>
         /// <param name="sampleId"></param>

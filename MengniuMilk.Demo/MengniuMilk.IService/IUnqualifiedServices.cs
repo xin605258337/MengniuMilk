@@ -49,5 +49,12 @@ namespace MengniuMilk.IService
         /// <returns></returns>
         int UpdateConduct(Unqualified unqualified);
 
+        /// <summary>
+        /// 根据处理方式处理不合格产品
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        int Enable(int id);
+
     }
 }

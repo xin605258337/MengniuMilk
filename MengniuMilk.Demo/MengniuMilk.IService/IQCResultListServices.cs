@@ -49,5 +49,12 @@ namespace MengniuMilk.IService
         /// <param name="id"></param>
         /// <returns></returns>
         int AddUnqualified(int qcTaskID);
+
+        /// <summary>
+        /// 将不合格信息改为合格
+        /// </summary>
+        /// <param name="qCResultList"></param>
+        /// <returns></returns>
+        int UpdateResultLis(QCResultList qCResultList);
     }
 }

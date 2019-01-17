@@ -90,5 +90,17 @@ namespace MengniuMilk.Api.Controllers
         {
             return UnqualifiedServices.UpdateConduct(unqualified);
         }
+
+        /// <summary>
+        /// 根据处理方式处理不合格产品
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("Enable")]
+        public int Enable(int id)
+        {
+            return UnqualifiedServices.Enable(id);
+        }
     }
 }
