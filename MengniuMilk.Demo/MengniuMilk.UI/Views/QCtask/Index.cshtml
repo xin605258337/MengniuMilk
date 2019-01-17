@@ -16,38 +16,39 @@
 </head>
 <body>
     <div id="app">
-        <table   class="table table-hover" >
-            <tr>
-                <td>ID</td>
-                <td>质检计划名称</td>
-                <td>采样名称</td>
-                <td>通知时间</td>
-                <td>检验工序</td>
-                <td>状态</td>
-                <td>操作</td>
+        <input type="button" class="btn btn-danger" value="添加质检任务" onclick="location.href='/QCtask/AddQCtask'"/>
+        <table   class="table table-hover table-bordered" style="width:1000px" >
+            <tr style="background-color:skyblue;color:white;text-align:center">
+                <td style="text-align:center">ID</td>
+                <td style="text-align:center">质检计划名称</td>
+                <td style="text-align:center">采样名称</td>
+                <td style="text-align:center">通知时间</td>
+                <td style="text-align:center">检验工序</td>
+                <td style="text-align:center">状态</td>
+                <td style="text-align:center">操作</td>
 
             </tr>
             <tr v-for="item in list ">
-                <td>{{item.QCtask_ID}}</td>
-                <td>
+                <td style="text-align:center">{{item.QCtask_ID}}</td>
+                <td style="text-align:center">
                     {{item.QCPlanName}}
                 </td>
-                <td>
+                <td style="text-align:center">
                     <select id="Select1" v-model="item.SAMPIEID">
                         <option value="请选择">--请选择--</option>
                         <option v-for="type in Sample1" v-bind:value="type.ID">{{type.Name}}</option>
                     </select>       
                 </td>
-                <td>
+                <td style="text-align:center">
                     {{item.InformTime}}
                 </td>
-                <td>
+                <td style="text-align:center">
                     {{item.Process_Name}}
                 </td>
-                <td>
+                <td style="text-align:center">
                    {{ item.State==1?"已检验":"未检验"}}
                 </td>
-                <td>
+                <td style="text-align:center">
                     <div v-if="item.QCtask_ID!=''">
                         <a href="#" v-on:click="Del(item.QCtask_ID)">删除</a>             
                         <a href="#" v-on:click="GetQCtaskbyName(item.QCtask_ID)">发送</a>

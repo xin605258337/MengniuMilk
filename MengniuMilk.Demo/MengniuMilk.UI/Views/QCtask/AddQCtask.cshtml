@@ -15,9 +15,10 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
 <body>
-    <h3>Vue.js质检任务表添加页面</h3>
-    <div id="add">
-        <table class="table table-hover">
+   
+    <div id="add" style="margin-left:200px">
+        <h3>质检任务表添加页面</h3>
+        <table class="table table-hover table-bordered" style="width:700px">
             <tr>
                 <td>质检计划名称:</td>
                 <td>
@@ -38,14 +39,17 @@
             </tr>
             <tr>
                 <td>状态</td>
-              
+
                 <td>
                     <input id="Radio1" type="radio" v-model="State" name="QCPlan_State" value="1" checked>已检验
                     <input id="Radio1" type="radio" v-model="State" name="QCPlan_State" value="0" />未检验
                 </td>
             </tr>
             <tr>
-                <td><a href="javascript:;" v-on:click="AddQCtask(QCPLAN_ID, QCPlanType, State, SAMPIEID)">添加</a></td>
+                <td><input type="button" class="btn btn-info" href="javascript:;" v-on:click="AddQCtask(QCPLAN_ID, QCPlanType, State, SAMPIEID)" value="添加" /></td>
+                <td>
+                    <input type="button" class=" btn btn-danger" value="显示列表" onclick="location.href='/QCtask/Index'"/>
+                </td>
             </tr>
 
         </table>
@@ -57,8 +61,8 @@
         el: "#add",
         data:
         {
-            QCPLAN_ID: "",
-            SAMPIEID: "",
+            QCPLAN_ID: "请选择",
+            SAMPIEID: "请选择",
             State:"",
             QCPlanType1: [],
             Sample1: [],
