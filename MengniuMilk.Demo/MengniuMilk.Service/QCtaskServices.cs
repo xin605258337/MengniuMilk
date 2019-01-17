@@ -120,8 +120,14 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"insert  into RawMilk(QCTASKID) select QCTASK_ID from QCtask where  QCtask_ID=:QCtask_ID";
-                var result = conn.Execute(sql, new { QCtask_ID = id });
+                string sql1 = @"select * from RawMilk where QCtaskID=:QCtaskID";
+                var rawMilkList = conn.Query<RawMilk>(sql1, new { QCtaskID= id }).ToList();
+                var result = 0;
+                if (rawMilkList.Count == 0)
+                {
+                    string sql = @"insert into RawMilk(QCTASKID) select QCTASK_ID from QCtask where  QCtask_ID=:QCtask_ID";
+                    result = conn.Execute(sql, new { QCtask_ID = id });
+                }
                 return result;
             }
         }

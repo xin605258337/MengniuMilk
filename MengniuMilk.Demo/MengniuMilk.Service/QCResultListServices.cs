@@ -12,14 +12,14 @@ namespace MengniuMilk.Service
     using Oracle.ManagedDataAccess.Client;
     using Oracle.ManagedDataAccess;
     using System.Configuration;
-    public  class QCResultListServices:IQCResultListServices
+    public class QCResultListServices : IQCResultListServices
     {
         /// <summary>
         /// 根据质检计划查出所对应所有指标项主键ID
         /// </summary>
         /// <param name="qcPlanId">质检计划ID</param>
         /// <returns></returns>
-        public int GetTargetsAndAddQCResult(int qcPlanId,int sampleId)
+        public int GetTargetsAndAddQCResult(int qcPlanId, int sampleId)
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
@@ -29,12 +29,12 @@ namespace MengniuMilk.Service
                 string sql = @"select ta.Target_ID from QCPlan q inner join TargetType t on q.targettype_id=t.TargetType_ID inner join Target ta on t.TargetType_ID=ta.targettypepid
                   where q.ID=:ID";
                 var targetList = conn.Query<Target>(sql, new { ID = qcPlanId }).ToList();
-                for (int i=0;i<targetList.Count;i++)
+                for (int i = 0; i < targetList.Count; i++)
                 {
                     QCResultList qcResult = new QCResultList();
                     qcResult.QCTaskID = qctaskID;
                     qcResult.SampleID = sampleId;
-                    qcResult.TargetID =Convert.ToInt32(targetList[i].Target_ID);
+                    qcResult.TargetID = Convert.ToInt32(targetList[i].Target_ID);
                     AddQCResult(qcResult);
                 }
                 return 1;
@@ -60,13 +60,13 @@ namespace MengniuMilk.Service
         /// </summary>
         /// <param name="sampleId"></param>
         /// <returns></returns>
-        public List<QCResultList> GetQCResultLists(int sampleId,int qcTaskID)
+        public List<QCResultList> GetQCResultLists(int sampleId, int qcTaskID)
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
                 string sql = @"select q.ID,ta.TargetType_Name,t.Target_Name,t.StandardValues,t.StandardValuesMax,t.StandardValuesMin,q.Result,q.State from QCRESULTLIST q inner join Target t on q.targetid=t.Target_ID inner join TargetType ta on t.TargetTypePid=ta.TargetType_ID inner join Sample sm on q.sampleid=sm.id where q.sampleid=:sampleid and QCTaskID=:QCTaskID";
-                var result = conn.Query<QCResultList>(sql, new { sampleid = sampleId, QCTaskID= qcTaskID }).ToList();
+                var result = conn.Query<QCResultList>(sql, new { sampleid = sampleId, QCTaskID = qcTaskID }).ToList();
                 return result;
             }
         }
@@ -81,9 +81,16 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"update QCResultList set Result=:Result,State=:State where ID=:ID";
-                var result = conn.Execute(sql, qCResultList);
+                string sql1 = @"select Result from QCResultList where ID=:ID";
+                int resultNum = conn.Query<QCResultList>(sql1, new { ID = qCResultList.ID }).ToList().FirstOrDefault().Result;
+                int result = 0;
+                if (resultNum == 0)
+                {
+                    string sql = @"update QCResultList set Result=:Result,State=:State where ID=:ID";
+                    result = conn.Execute(sql, qCResultList);
+                }
                 return result;
+
             }
         }
 
@@ -98,11 +105,11 @@ namespace MengniuMilk.Service
             {
                 conn.Open();
                 string sql = @"select state from QCRESULTLIST where SampleID = :SampleID";
-                var resultList = conn.Query<QCResultList>(sql, new { SampleID =sampleId}).ToList();
-                int  result= 1;
-                for(int i=0;i< resultList.Count;i++)
+                var resultList = conn.Query<QCResultList>(sql, new { SampleID = sampleId }).ToList();
+                int result = 1;
+                for (int i = 0; i < resultList.Count; i++)
                 {
-                    if(resultList[i].State==2)
+                    if (resultList[i].State == 2)
                     {
                         result = 0;
                         break;
@@ -122,8 +129,14 @@ namespace MengniuMilk.Service
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
                 conn.Open();
-                string sql = @"insert into Unqualified(QCtask_ID) values(:QCtask_ID)";
-                var result = conn.Execute(sql, new { QCtask_ID = qcTaskID });
+                string sql1 = @"select * from ResultEenter where QCtask_ID=:QCtask_ID";
+                var resultList = conn.Query<ResultEenter>(sql1, new { QCtask_ID = qcTaskID }).ToList();
+                var result = 0;
+                if (resultList.Count == 0)
+                {
+                    string sql = @"insert into Unqualified(QCtask_ID) values(:QCtask_ID)";
+                    result = conn.Execute(sql, new { QCtask_ID = qcTaskID });
+                }
                 return result;
             }
         }
