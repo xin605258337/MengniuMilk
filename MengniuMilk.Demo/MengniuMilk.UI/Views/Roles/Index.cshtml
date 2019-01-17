@@ -25,10 +25,10 @@
                 success: function (data) {
                     $(data).each(function (index, data) {
                         var str = "<tr>";
-                        str += "<td style='text-align: center'>" + data.RolesName + "</td>";
-                        str += "<td style='text-align: center'>" + data.PermissionName + "</td>";                    
-                        str += "<td style='text-align: center'>" + data.RolesRemark + "</td>";                
-                        str += "<td style='text-align: center'><a href='#' onclick=Delete(" + data.RolesID + ",this)>删除</a>&nbsp;&nbsp;<a href='/Roles/UpdateRoles?ID=" + data.RolesID + "'>修改</a></td>";
+                        str += "<td style='text-align: center;vertical-align:middle'>" + data.RolesName + "</td>";
+                        str += "<td style='text-align: center;vertical-align:middle'>" + data.PermissionName + "</td>";                  
+                        str += "<td style='text-align: center;vertical-align:middle'>" + data.RolesRemark + "</td>";                
+                        str += "<td style='text-align: center;vertical-align:middle'><a href='#' onclick=Delete(" + data.RolesID + ",this)>删除</a>&nbsp;&nbsp;<a href='/Roles/UpdateRoles?ID=" + data.RolesID + "'>修改</a></td>";
                         str += "</tr>";
                         $("#tab").append(str);
                     })
@@ -64,12 +64,12 @@
 
 </head>
 <body>
-    <div style="margin-left:150px">
+    <div style="margin-left:50px">
         <input type="button" value="添加角色" class="btn btn-danger" onclick="location.href='/Roles/AddRoles'" />
         <table id="tab" class="table table-bordered table-hover" style="width:1200px">
             <tr style="background-color:skyblue;color:white;">
                 <th style="text-align:center">角色名称</th>
-                <th style="text-align:center">拥有权限</th>
+                <th style="text-align:center;width:800px">拥有权限</th>
                 <th style="text-align:center">描述</th>
                 <th style="text-align:center">操作</th>
             </tr>

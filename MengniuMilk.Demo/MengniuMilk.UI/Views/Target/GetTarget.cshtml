@@ -20,31 +20,31 @@
         <h3>指标项信息</h3>
     </div>
     <div id="app">
-        <input id="Button1" type="button" value="添加" onclick="location.href='AddTarget'" />
-        <table class="table table-striped" v-show="list.length" border="1">
-            <tr>
-                <th>指标项ID</th>
-                <th>指标项名称</th>
-                <th>标准值</th>
-                <th>标准值上限</th>
-                <th>标准值下限</th>
-                <th>指标项分类</th>
-                <th>编辑</th>
+        <input id="Button1" type="button" class="btn btn-danger" value="添加" onclick="location.href='AddTarget'" />
+        <table class="table table-hover table-bordered table-striped" v-show="list.length">
+            <tr style="text-align:center;background-color:skyblue;color:white">
+                <th style="text-align:center">指标项ID</th>
+                <th style="text-align:center">指标项名称</th>
+                <th style="text-align:center">标准值</th>
+                <th style="text-align:center">标准值上限</th>
+                <th style="text-align:center">标准值下限</th>
+                <th style="text-align:center">指标项分类</th>
+                <th style="text-align:center">编辑</th>
             </tr>
             <tr v-for="item in list ">
-                <td>{{item.Target_ID}}</td>
-                <td><input type="text" v-model="item.Target_Name" /></td>
-                <td><input type="text" v-model="item.StandardValues" /></td>
-                <td><input type="text" v-model="item.StandardValuesMax" /></td>
-                <td><input type="text" v-model="item.StandardValuesMin" /></td>
-                <td>
+                <td style="text-align:center">{{item.Target_ID}}</td>
+                <td style="text-align:center"><input type="text" v-model="item.Target_Name" /></td>
+                <td style="text-align:center"><input type="text" v-model="item.StandardValues" /></td>
+                <td style="text-align:center"><input type="text" v-model="item.StandardValuesMax" /></td>
+                <td style="text-align:center"><input type="text" v-model="item.StandardValuesMin" /></td>
+                <td style="text-align:center">
                     <select id="Select5" v-model="item.TargetTypePid">
                         <option value="请选择">--请选择--</option>
                         <option v-for="targettype in TargetType" v-bind:value="targettype.TargetType_ID">{{targettype.TargetType_Name}}</option>
 
                     </select>
                 </td>
-                <td>
+                <td style="text-align:center">
                     <div v-if="item.Target_ID!=''">
                         <a href="#" v-on:click="DelTarget(item.Target_ID)">删除</a>
                         <a href="#" v-on:click="UptTarget(item.Target_ID, item.Target_Name, item.TargetTypePid, item.StandardValues, item.StandardValuesMax, item.StandardValuesMin)">修改</a>

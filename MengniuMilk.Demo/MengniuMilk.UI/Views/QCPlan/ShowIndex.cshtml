@@ -16,22 +16,22 @@
 </head>
 <body>
     <div id="app" class="div-td">
-        <input id="Button1" type="button" value="添加" onclick="location.href='AddQCPlan'"/>
-        <table v-show="list.length" class="table table-responsive" border="1">
-            <tr>
-                <th>质检计划ID</th>
-                <th>质检计划编号</th>
-                <th>质检名称</th>
-                <th>质检类型</th>
-                <th>质检对象类型</th>
-                <th>检验工序</th>
-                <th>质检设备</th>
-                <th>指标项分类</th>
-                <th>状态</th>
-                <th>编辑</th>
+        <input id="Button1" type="button" class="btn btn-danger" value="添加" onclick="location.href='AddQCPlan'"/>
+        <table v-show="list.length" class="table table-hover table-bordered table-responsive" border="1">
+            <tr style="background-color:skyblue;color:white">
+                <th style="text-align:center">质检计划ID</th>
+                <th style="text-align:center">质检计划编号</th>
+                <th style="text-align:center">质检名称</th>
+                <th style="text-align:center">质检类型</th>
+                <th style="text-align:center">质检对象类型</th>
+                <th style="text-align:center">检验工序</th>
+                <th style="text-align:center">质检设备</th>
+                <th style="text-align:center">指标项分类</th>
+                <th style="text-align:center">状态</th>
+                <th style="text-align:center">编辑</th>
             </tr>
             <tr v-for="item in list ">
-                <td>{{item.ID}}</td>
+                <td style="text-align:center">{{item.ID}}</td>
                 <td><input type="text" v-model="item.Code" /></td>
                 <td><input type="text" v-model="item.QCPlanName" /></td>
                 <td>

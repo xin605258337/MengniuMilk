@@ -14,11 +14,11 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
 <body>
-    <div>
+    <div style="margin-left:200px">
         <h3>指标项添加</h3>
     </div>
-    <div id="add">
-        <table class="table table-hover">
+    <div id="add" style="margin-left:200px">
+        <table class="table table-bordered table-hover" style="width:700px">
             <tr>
                 <td>指标项名: </td>
                 <td><input type="text" v-model="Target_Name" /></td>
@@ -29,6 +29,7 @@
                 </td>
                 <td>
                     <select id="Select5" v-model="TargetTypePid">
+                        @*TargetTypePid*@
                         <option value="请选择">--请选择--</option>
                         <option v-for="targettype in TargetType" v-bind:value="targettype.TargetType_ID">{{targettype.TargetType_Name}}</option>
 
@@ -54,8 +55,8 @@
                 <td><input type="text" v-model="StandardValuesMin" /></td>
             </tr>
             <tr>
-                <td><a href="javascript:;" v-on:click="AddTarget(Target_Name, TargetTypePid,  StandardValues, StandardValuesMax, StandardValuesMin)">添加</a></td>
-                <td><a href="#" onclick="location.href='GetTarget'">显示</a></td>
+                <td><input type="button" href="javascript:;" v-on:click="AddTarget(Target_Name, TargetTypePid,  StandardValues, StandardValuesMax, StandardValuesMin)" value="添加" class="btn btn-info"/></td>
+                <td><input type="button" href="#" onclick="location.href='GetTarget'" value="显示" class="btn btn-danger"/></td>
             </tr>
         </table>
     </div>
@@ -71,7 +72,7 @@
             StandardValuesMin: "",
             TargetTypePid:"",
             TargetType: [],
-            TargetType_ID: "请选择",
+            TargetTypePid: "请选择", /*TargetType_ID*/
 
         },
         mounted() {

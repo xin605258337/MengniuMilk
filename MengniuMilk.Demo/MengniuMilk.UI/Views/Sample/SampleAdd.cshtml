@@ -17,21 +17,21 @@
 </head>
 <body>
     <div>
-        <div>
-            <h3>Vue.js采样表添加页面</h3>
+        <div style="margin-left:200px">
+            <h3>采样表添加页面</h3>
         </div>
-        <div id="add">
-            <table class="table table-hover">
+        <div id="add" style="margin-left:200px">
+            <table class="table table-bordered table-hover" style="width:500px">
                 <tr>
                     <td>样品名称:</td>
                     <td><input type="text" v-model="Name" /></td>
                 </tr>
-                @*<tr>
-                    <td>样品编号:</td>
-                    <td>{{item}}</td>
-                </tr>*@
+               
                 <tr>
-                    <td><a href="javascript:;" v-on:click="AddSample(Name,Code)">添加</a></td>
+                    <td><input type="button" href="javascript:;" v-on:click="AddSample(Name,Code)" class="btn btn-info" value="添加"/></td>
+                    <td>
+                        <input type="button" value="显示列表" class="btn btn-danger" onclick="location.href='/Sample/SampleIndex'"/>
+                    </td>
                 </tr>
             </table>
         </div>

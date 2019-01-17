@@ -14,11 +14,11 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
 <body>
-    <div>
-        <h3>Vue.js质检计划表添加页面</h3>
+    <div style="margin-left:200px">
+        <h3>质检计划表添加页面</h3>
     </div>
-    <div id="add">
-        <table class="table table-hover">
+    <div id="add" style="margin-left:200px">
+        <table class="table table-bordered table-hover" style="width:700px">
             <tr>
                 <td>质检计划编号: </td>
                 <td><input type="text" v-model="Code" /></td>
@@ -79,7 +79,7 @@
                     状态:
                 </td>
                 <td>
-                    <input id="Radio1" type="radio" v-model="QCPlan_State" name="QCPlan_State" value="1" checked>有效
+                    <input id="Radio1" type="radio" v-model="QCPlan_State" name="QCPlan_State" value="1" checked="checked">有效
                     <input id="Radio1" type="radio" v-model="QCPlan_State" name="QCPlan_State" value="0" />无效
                 </td>
             </tr>
@@ -96,8 +96,8 @@
                 </td>
             </tr>
             <tr>
-                <td><a href="javascript:;" v-on:click="AddQCPlan1(Code,QCPlanName,Type_ID,ObjType_ID,Process_ID,Facility_ID,QCPlan_State,TargetType_ID)">添加</a></td>
-                <td><a href="#" onclick="location.href='ShowIndex'">显示</a></td>
+                <td><input type="button" class="btn btn-info" href="javascript:;" v-on:click="AddQCPlan1(Code,QCPlanName,Type_ID,ObjType_ID,Process_ID,Facility_ID,QCPlan_State,TargetType_ID)" value="添加"/></td>
+                <td><input type="button" class=" btn btn-danger" href="#" onclick="location.href='ShowIndex'" value="显示"/></td>
             </tr>
         </table>
     </div>

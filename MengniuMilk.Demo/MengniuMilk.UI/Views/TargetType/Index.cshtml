@@ -18,18 +18,18 @@
     <div id="app" class="div-td" style="margin-left:300px">
         <input id="Button1" type="button" value="添加" onclick="location.href='/TargetType/Add'" class="btn btn-danger" />
         <table v-show="list.length" class="table table-bordered table-hover" style="width:600px">
-            <tr>
-                <th>ID</th>
-                <th>指标项分类名称</th>             
-                <th>操作</th>
+            <tr style="background-color:skyblue;color:white">
+                <th style="text-align:center">ID</th>
+                <th  style="text-align:center">指标项分类名称</th>             
+                <th  style="text-align:center">操作</th>
 
             </tr>
             <tr v-for="item in list ">
-                <td>{{item.TargetType_ID}}</td>
-                <td><input type="text" v-model="item.TargetType_Name" /></td>
+                <td style="text-align:center">{{item.TargetType_ID}}</td>
+                <td style="text-align:center"><input type="text" v-model="item.TargetType_Name" /></td>
               
 
-                <td>
+                <td style="text-align:center">
                     <div v-if="item.TargetType_ID!=''">
                         <a href="#" v-on:click="DelQCPlan(item.TargetType_ID)">删除</a>
                         <a href="#" v-on:click="UptQCPlan(item.TargetType_ID,item.TargetType_Name)">修改</a>
