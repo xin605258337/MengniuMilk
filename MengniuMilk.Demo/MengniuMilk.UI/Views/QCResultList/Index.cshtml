@@ -107,7 +107,7 @@
                 });
             },
             //根据指标项结果插入质检结果表
-            AddResultEenter: function () {
+            AddResultEenter: function ()    {
                 axios.get('http://localhost:8103/GetQCResultState?sampleId=' + this.sampleID).then(
                     (response) => {
                         var params = new URLSearchParams();
