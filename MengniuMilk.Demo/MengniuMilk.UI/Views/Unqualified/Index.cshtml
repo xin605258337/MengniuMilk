@@ -54,7 +54,7 @@
                 <td>
                     <div v-if="item.UnqualifiedID!=''">
                         <a href="#" v-on:click="uptConduct(item.UnqualifiedID,item.Conduct)">保存</a>
-                        <a href="#" v-on:click="DelUnqualified(item.QCtask_ID)">删除</a>
+                        <a href="#" v-on:click="DelUnqualified(item.ID,item.QCtask_ID)">删除</a>
                     </div>
                 </td>
             </tr>
@@ -189,9 +189,17 @@
                 });
             },
             //删除不合格样品
-            DelUnqualified: function (Id) {
+            DelUnqualified: function (Id,ID) {
                 axios.get('http://localhost:8103/DeleteSample?id=' + Id).then((respose) => {
                     if (respose.data > 0) {
+                        axios.get('http://localhost:8103/DelQCtask?id=' + ID).then((respose) => {
+                        },
+                            (response) => {
+                                alert(response.status);
+                            }
+                        ).catch(function (response) {
+                            alert(response);
+                        });
                         alert("删除成功!!!");
                         this.getUnqualified();
                     }

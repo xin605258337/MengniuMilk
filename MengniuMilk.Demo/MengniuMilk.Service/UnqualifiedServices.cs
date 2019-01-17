@@ -90,7 +90,7 @@ namespace MengniuMilk.Service
         {
             using (OracleConnection conn = DapperHelper.GetConnString())
             {
-                string sql = @"delete from Sample where ID=(select SAMPIEID QCtask from where QCtask_ID=(select QCtask_ID from Unqualified where UnqualifiedID=:ID))";
+                string sql = @"delete from Sample where ID=:ID";
                 var result = conn.Execute(sql, new { ID = id });
                 return result;
             }
