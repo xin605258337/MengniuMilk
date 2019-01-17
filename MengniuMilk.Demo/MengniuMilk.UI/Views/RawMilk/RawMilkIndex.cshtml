@@ -13,12 +13,74 @@
     <script src="~/Scripts/vue.js"></script>
     <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .modal-dialog{
+            width:1000px;
+        }
+    </style>
 </head>
 <body>
     <div>
         <h3>生乳质检信息</h3>
     </div>
+
+
+    <!-- 按钮触发模态框 -->
+    <!-- 模态框（Modal） -->
+    
     <div id="app" class="div-td">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            模态框（Modal）标题
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <tr>
+                                <th>编号</th>
+                                <th>指标项分类</th>
+                                <th>指标项名称</th>
+                                <th>指标项上限</th>
+                                <th>指标项下限</th>
+                                <th>指标项标准</th>
+                                <th>指标项结果值</th>
+                                <th>指标项结果状态</th>
+                                <th>操作</th>
+                            </tr>
+                            <tr v-for="item in QCResultList">
+                                <td>{{item.ID}}</td>
+                                <td>{{item.TargetType_Name}}</td>
+                                <td>{{item.Target_Name}}</td>
+                                <td>{{item.StandardValuesMax}}</td>
+                                <td>{{item.StandardValuesMin}}</td>
+                                <td>{{item.StandardValues}}</td>
+                                <td><input id="Text1" type="text" v-model="item.Result" /></td>
+                                <td>{{item.State==0?"未检验":(item.State==1?"符合":"不符合")}}</td>
+                                <td><a href="#" v-on:click="UptQCResult(item.ID,item.Result,item.StandardValuesMax,item.StandardValuesMin)">保存</a></td>
+                            </tr>
+                        </table>
+                        <input v-on:click="AddResultEenter()" type="button" value="保存" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            关闭
+                        </button>
+                        @*<button type="button" class="btn btn-primary">
+                            提交更改
+                        </button>*@
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
         <table v-show="list.length" class="table table-striped" border="1">
             <tr>
                 <th>样品ID</th>
@@ -36,9 +98,9 @@
                 </td>
                 <td>
                     {{item.Type_Name}}
-                </td>              
+                </td>
                 <td>
-                    <input  v-on:click="GoAddIndex(item.ID,item.QCtaskID)" type="button" value="质检结果录入" />
+                    <input data-toggle="modal" data-target="#myModal" v-on:click="GoAddIndex(item.ID,item.QCtaskID)" type="button" value="质检结果录入" />
                 </td>
                 <td>
                     <div v-if="item.ID!=''">
@@ -54,11 +116,14 @@
     var vm = new Vue({
         el: "#app",
         data: {
-            ResultValue:"",
+            QCResultList: [],
+            ResultValue: "",
             QCPlanType: [],
             TargetType: [],
             list: [],
-            
+
+            sampleID: 0,
+            qcPlanId: 0,
         },
         mounted() {
             this.getQCPlanType();
@@ -66,7 +131,24 @@
             this.getList();
         },
         methods: {
-           
+
+            //获取质检结果明细
+            getQCResultList: function () {
+                axios.get('http://localhost:8103/GetQCResultLists?sampleId=' + this.sampleID + '&qcTaskID=' + this.qcPlanId).then(
+                    (response) => {
+                        this.QCResultList = [];
+                        for (var i = 0; i < response.data.length; i++) {
+                            this.QCResultList.push(response.data[i]);
+                        }
+                    },
+                    (response) => {
+                        alert(response.status + "1");
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+
+            },
             //获取质检类型表
             getQCPlanType: function () {
                 axios.get('http://localhost:8103/GetQCPlanTypes').then(
@@ -86,7 +168,9 @@
             },
             //页面跳转并传采样品ID
             GoAddIndex: function (ID, Id) {
-                location.href = "/QCResultList/Index?id=" + ID + "&qcPlanId=" + Id;
+                this.sampleID = ID;
+                this.qcPlanId = Id;
+                this.getQCResultList();
             },
             //获取指标分类表
             getTargetType: function () {
@@ -135,6 +219,97 @@
                     alert(response);
                 });
             },
+
+
+            UptQCResult: function (Id, ResultValue, max, min) {
+                var state = 0;
+                if (ResultValue <= max && ResultValue >= min) {
+                    state = 1;
+                }
+                else {
+                    state = 2;
+                }
+                var params = new URLSearchParams();
+                params.append('ID', Id);
+                params.append('Result', ResultValue);
+                params.append('State', state);
+                axios.post('http://localhost:8103/Update', params).then(
+                    (response) => {
+                        console.log(response.data);
+                        if (response.data > 0) {
+                            alert("保存成功!!!");
+                            this.getQCResultList();
+                        }
+                    },
+                    (response) => {
+                        alert(response.status);
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            },
+
+            //根据指标项结果插入质检结果表
+            AddResultEenter: function () {
+                axios.get('http://localhost:8103/GetQCResultState?sampleId=' + this.sampleID).then(
+                    (response) => {
+                        var params = new URLSearchParams();
+                        params.append("QCtask_ID", this.qcPlanId)
+                        params.append("Users_ID",@ViewBag.UsersID)
+                        params.append("Result", response.data)
+                        if (response.data == 0) {
+                            axios.post('http://localhost:8103/AddUnqualified?qcTaskID=' + this.qcPlanId).then(
+                                (response) => {
+                                    console.log(response.data);
+                                    if (response.data > 0) {
+                                        alert("已发送!!!");
+                                    }
+                                },
+                                (response) => {
+                                    alert(response.status);
+                                }
+                            ).catch(function (response) {
+                                alert(response);
+                            });
+                        }
+                        //往质检结果表插入数据
+                        axios.post('http://localhost:8103/AddResultEenters',params).then(
+                            (response) => {
+                                alert("保存成功！")
+                                location.href = "/RawMilk/RawMilkIndex";
+                                axios.post('http://localhost:8103/ChangeState?id=' + this.qcPlanId).then(
+                                    (response) => {
+                                        console.log(response.data);
+                                        if (response.data > 0) {
+                                            alert("状态已更改!!!");
+                                        }
+                                    },
+                                    (response) => {
+                                        alert(response.status);
+                                    }
+                                ).catch(function (response) {
+                                    alert(response);
+                                });
+
+                                
+                            },
+                            (response) => {
+                                alert(response.status + "1");
+                            }
+                        ).catch(function (response) {
+                            alert(response);
+                        });
+
+                    },
+                    (response) => {
+                        alert(response.status + "1");
+                    }
+                ).catch(function (response) {
+                    alert(response);
+                });
+            },
+
+
         },
 
     })
