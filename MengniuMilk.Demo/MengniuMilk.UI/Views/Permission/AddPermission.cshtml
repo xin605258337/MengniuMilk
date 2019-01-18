@@ -38,6 +38,17 @@
 
             //添加权限
             $("#btnAdd").click(function () {
+                //验证
+                if ($("input[name=PermissionName]").val().trim().length <= 0) {
+                    alert("权限名称不能为空!");
+                    return;
+                }
+                if ($("input[name=PermissionURL]").val().trim().length <= 0) {
+                    alert("URL不能为空!");
+                    return;
+                }
+                
+
                 $.ajax({
                     url: 'http://localhost:8103/AddPermission',
                     type: 'post',

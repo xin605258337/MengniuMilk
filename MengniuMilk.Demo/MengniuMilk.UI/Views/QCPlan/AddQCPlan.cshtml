@@ -79,7 +79,7 @@
                     状态:
                 </td>
                 <td>
-                    <input id="Radio1" type="radio" v-model="QCPlan_State" name="QCPlan_State" value="1" checked="checked">有效
+                    <input id="Radio1" type="radio" v-model="QCPlan_State" name="QCPlan_State" value="1" >有效
                     <input id="Radio1" type="radio" v-model="QCPlan_State" name="QCPlan_State" value="0" />无效
                 </td>
             </tr>
@@ -119,6 +119,7 @@
             Facility_ID: "请选择",
             TargetType_ID: "请选择",
             Target_ID: "请选择",
+            QCPlan_State:"1"
 
         },
         mounted() {

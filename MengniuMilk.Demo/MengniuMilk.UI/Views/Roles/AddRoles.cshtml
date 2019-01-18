@@ -65,6 +65,12 @@
                     Names.push($(this).parent().text());
                 })
 
+                //验证
+                if ($("input[name=RolesName]").val().trim().length <= 0) {
+                    alert("角色名称不能为空!");
+                    return;
+                }
+
                 //添加角色
                 $.ajax({
                     url: 'http://localhost:8103/AddRoles',
@@ -76,7 +82,7 @@
                         PermissionIDs: IDs.join(','),
                         PermissionName: Names.join(',')
                     },
-                    /*$("#formData").serialize(),*/
+                   
                     success: function (data) {
                         if (data > 0) {
                             alert("添加成功");

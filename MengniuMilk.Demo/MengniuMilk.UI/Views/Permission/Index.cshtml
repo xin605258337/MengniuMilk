@@ -21,11 +21,9 @@
                         var str = "<tr>";
                         str += "<td style='text-align: center'>" + (index + 1) + "</td>";
                         str += "<td style='text-align: center'>" + data.PermissionName + "</td>";
-                        str += "<td style='text-align: center'><a href='#'>" + data.PermissionURL + "</a></td>";
-                      
+                        str += "<td style='text-align: center'><a href='#'>" + data.PermissionURL + "</a></td>";                     
                         str += "<td style='text-align: center'>" + data.PermissionRemark + "</td>";
-                        str += "<td style='text-align: center'>" + (data.PermissionEnabel == 0 ? "启用" : "禁用") + "</td>";
-                       
+                        str += "<td style='text-align: center'>" + (data.PermissionEnabel == 0 ? "启用" : "禁用") + "</td>";                       
                         str += "<td style='text-align: center'><a href='#' onclick=Delete(" + data.PermissionID + ",this)>删除</a>&nbsp;&nbsp;<a href='/Permission/UpdatePermission?ID=" + data.PermissionID + "'>修改</a></td>";
                         str += "</tr>";
                         $("#tab").append(str);
@@ -64,7 +62,7 @@
     <div style="margin-left:200px">
         <input type="button" value="添加权限" onclick="location.href='/Permission/AddPermission'" class="btn btn-danger" />
         <table id="tab" class="table table-bordered table-hover" style="width:800px">
-            <tr>
+            <tr style="background-color:skyblue;color:white;text-align:center">
                 <th style="text-align:center">权限ID</th>
                 <th style="text-align:center">权限名称</th>
                 <th style="text-align:center">地址URL</th>
