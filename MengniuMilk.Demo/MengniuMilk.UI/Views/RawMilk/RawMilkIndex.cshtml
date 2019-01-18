@@ -9,6 +9,8 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>RawMilkIndex</title>
+    <link href="~/Scripts/style.css" rel="stylesheet" />
+    <script src="~/Scripts/messagebox.js"></script>
     <script src="~/Scripts/axios.js"></script>
     <script src="~/Scripts/vue.js"></script>
     <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
@@ -17,8 +19,8 @@
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
-        .modal-dialog{
-            width:1000px;
+        .modal-dialog {
+            width: 1000px;
         }
 
 
@@ -37,6 +39,9 @@
     <!-- 模态框（Modal） -->
     
     <div id="app" class="div-td">
+        <!-- 通用提示框 -->
+        <div class="messageBox"></div>
+
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -51,7 +56,7 @@
                     <div class="modal-body">
                         <table class="table table-hover table-bordered">
                             <tr style="background-color:pink;color:white">
-                                <th >编号</th>
+                                <th>编号</th>
                                 <th>指标项分类</th>
                                 <th>指标项名称</th>
                                 <th>指标项上限</th>
@@ -78,12 +83,12 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             关闭
-                        </button>                   
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        <table v-show="list.length" class="table table-striped" border="1" >
+        <table v-show="list.length" class="table table-striped" border="1">
             <tr style="background-color:skyblue;color:white;text-align:center">
                 <th style="text-align:center">样品ID</th>
                 <th style="text-align:center">样品名称</th>
@@ -93,18 +98,18 @@
                 <th style="text-align:center">编辑</th>
             </tr>
             <tr v-for="item in list ">
-                <td style="text-align:center">{{item.ID}}</td>
-                <td style="text-align:center">{{item.Name}}</td>
-                <td style="text-align:center">
+                <td style="text-align:center;vertical-align:middle">{{item.ID}}</td>
+                <td style="text-align:center;vertical-align:middle">{{item.Name}}</td>
+                <td style="text-align:center;vertical-align:middle">
                     {{item.QCPlanName}}
                 </td>
-                <td style="text-align:center">
+                <td style="text-align:center;vertical-align:middle">
                     {{item.Type_Name}}
                 </td>
-                <td style="text-align:center">
-                    <input data-toggle="modal" data-target="#myModal" v-on:click="GoAddIndex(item.ID,item.QCtaskID)" type="button" value="质检结果录入" class="btn btn-danger"/>
+                <td style="text-align:center;vertical-align:middle">
+                    <input data-toggle="modal" data-target="#myModal" v-on:click="GoAddIndex(item.ID,item.QCtaskID)" type="button" value="质检结果录入" class="btn btn-danger" />
                 </td>
-                <td style="text-align:center">
+                <td style="text-align:center;vertical-align:middle">
                     <div v-if="item.ID!=''">
                         <a href="#" v-on:click="DelRawMilk(item.RawMilkID)">删除</a>
                     </div>
@@ -238,11 +243,13 @@
                 axios.post('http://localhost:8103/Update', params).then(
                     (response) => {
                         if (response.data > 0) {
-                            alert("保存成功!!!");
+                            showmessagebox(true, "保存成功");
+                          
                             this.getQCResultList();
                         }
                         else {
-                            alert("已经保存过，不允许修改!!!");
+                         
+                            showmessagebox(false,"已经保存过，不允许修改");
                         }
                     },
                     (response) => {
@@ -265,10 +272,12 @@
                             axios.post('http://localhost:8103/AddUnqualified?qcTaskID=' + this.qcPlanId).then(
                                 (response) => {
                                     if (response.data > 0) {
-                                        alert("不合格录入成功!!!");
+                                        alert("不合格录入成功!");
+                                      
                                     }
                                     else {
                                         alert("不合格已录入!不能再录入！");
+                                       
                                     }
                                 },
                                 (response) => {
@@ -284,7 +293,7 @@
                                 if (response.data > 0) {
                                     axios.post('http://localhost:8103/ChangeState?id=' + this.qcPlanId).then(
                                         (response) => {
-                                            alert("质检结果录入成功!!!...");
+                                            alert("质检结果录入成功!");
                                             location.href = "/RawMilk/RawMilkIndex";
                                         },
                                         (response) => {

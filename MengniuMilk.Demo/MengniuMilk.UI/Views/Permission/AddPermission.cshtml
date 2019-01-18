@@ -11,7 +11,11 @@
     <meta name="viewport" content="width=device-width" />
     <title></title>
     <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/messagebox.js"></script>
+
     <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Scripts/style.css" rel="stylesheet" />
+
     <script type="text/javascript">
         $(function () {
             $("input[name=isPid]").click(function () {
@@ -47,16 +51,18 @@
                     alert("URL不能为空!");
                     return;
                 }
-                
+
 
                 $.ajax({
                     url: 'http://localhost:8103/AddPermission',
                     type: 'post',
                     data: $("#formData").serialize(),
                     success: function (data) {
-                        if (data > 0) {
-                            alert("添加成功");
+                        if (data > 0) {                       
                             location.href = "/Permission/Index";
+                        }
+                        else {
+                            showmessagebox(false,"添加失败");
                         }
                     }
                 })
@@ -69,12 +75,14 @@
     <div style="margin-left:200px">
         <h2>添加权限</h2>
         <form id="formData" enctype="multipart/form-data" method="post">
+            <!-- 通用提示框 -->
+            <div class="messageBox"></div>
             <table class="table-bordered table table-hover" style="width:700px">
 
                 <tr>
                     <td>权限名称</td>
                     <td>
-                        <input type="text" name="PermissionName"  />
+                        <input type="text" name="PermissionName" />
                     </td>
                 </tr>
                 <tr>
@@ -103,7 +111,7 @@
                     <td>
                         <select name="pID" id="pID">
                             <option value="0">=请选择=</option>
-                            
+
 
                         </select>
                     </td>

@@ -9,7 +9,9 @@
     <meta name="viewport" content="width=device-width" />
     <title></title>
     <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/messagebox.js"></script>
     <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Scripts/style.css" rel="stylesheet" />
 
 
     <script type="text/javascript">
@@ -49,8 +51,8 @@
                         id: ID
                     },
                     success: function (data) {
-                        if (data > 0) {
-                            alert("删除成功");
+                        if (data > 0) {                       
+                            showmessagebox(true,"删除成功");
                             $(obj).parent().parent().remove();
                         }
                         else {
@@ -69,14 +71,15 @@
 <body>
     <div style="margin-left:50px">
         <input type="button" value="添加用户" class="btn btn-danger" onclick="location.href='/Users/AddUsers'" />
-
+        <!-- 通用提示框 -->
+        <div class="messageBox"></div>
         <table id="tab" class="table table-bordered table-hover" style="width:1200px">
             <tr style="background-color:skyblue;color:white;">
                 <th style="text-align:center">用户名</th>
                 @*<th style="text-align:center">密码</th>*@
                 <th style="text-align:center">性别</th>
                 <th style="text-align:center">电话</th>
-                <th style="text-align:center">所属角色</th>            
+                <th style="text-align:center">所属角色</th>
                 <th style="text-align:center">描述</th>
                 <th style="text-align:center">操作</th>
             </tr>

@@ -1,0 +1,20 @@
+﻿
+.messageBox {
+    height: 52px;
+    padding: 0 53px 0 78px;
+    line-height: 52px;
+    background: url(../../image/img-set1.png) -441px -613px #ffffe7 no-repeat;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position: fixed;
+    top: -60px;
+    left: 50%;
+    border: 5px solid #ddd;
+    border-top: 0;
+    color: #444;
+    font-size: 18px;
+    z-index: 9999;
+}
+.messageError {
+    background-position: -441px -673px;
+}

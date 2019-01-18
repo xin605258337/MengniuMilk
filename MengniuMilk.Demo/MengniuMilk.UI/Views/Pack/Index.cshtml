@@ -9,6 +9,8 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>PackIndex</title>
+    <link href="~/Scripts/style.css" rel="stylesheet" />
+    <script src="~/Scripts/messagebox.js"></script>
     <script src="~/Scripts/axios.js"></script>
     <script src="~/Scripts/vue.js"></script>
     <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
@@ -29,53 +31,54 @@
         <h3>包装质检信息</h3>
     </div>
     <div id="app" class="div-td">
-
-       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        检验结果明细录入
-                    </h4>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-hover table-bordered" >
-                        <tr style="background-color:pink;color:white;text-align:center">
-                            <th style="text-align:center">编号</th>
-                            <th style="text-align:center">指标项分类</th>
-                            <th style="text-align:center">指标项名称</th>
-                            <th style="text-align:center">指标项上限</th>
-                            <th style="text-align:center">指标项下限</th>
-                            <th style="text-align:center">指标项标准</th>
-                            <th style="text-align:center">指标项结果值</th>
-                            <th style="text-align:center">指标项结果状态</th>
-                            <th style="text-align:center">操作</th>
-                        </tr>
-                        <tr v-for="item in QCResultList">
-                            <td style="text-align:center">{{item.ID}}</td>
-                            <td style="text-align:center">{{item.TargetType_Name}}</td>
-                            <td style="text-align:center">{{item.Target_Name}}</td>
-                            <td style="text-align:center">{{item.StandardValuesMax}}</td>
-                            <td style="text-align:center">{{item.StandardValuesMin}}</td>
-                            <td style="text-align:center">{{item.StandardValues}}</td>
-                            <td style="text-align:center"><input id="Text1" type="text" v-model="item.Result" /></td>
-                            <td style="text-align:center">{{item.State==0?"未检验":(item.State==1?"符合":"不符合")}}</td>
-                            <td style="text-align:center"><a href="#" v-on:click="UptQCResult(item.ID,item.Result,item.StandardValuesMax,item.StandardValuesMin)">保存</a></td>
-                        </tr>
-                    </table>
-                    <input v-on:click="AddResultEenter()" type="button" value="保存" class="btn btn-info" style="margin-left:400px"/>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                        关闭
-                    </button>                 
+        <!-- 通用提示框 -->
+        <div class="messageBox"></div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            检验结果明细录入
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover table-bordered">
+                            <tr style="background-color:pink;color:white;text-align:center">
+                                <th style="text-align:center">编号</th>
+                                <th style="text-align:center">指标项分类</th>
+                                <th style="text-align:center">指标项名称</th>
+                                <th style="text-align:center">指标项上限</th>
+                                <th style="text-align:center">指标项下限</th>
+                                <th style="text-align:center">指标项标准</th>
+                                <th style="text-align:center">指标项结果值</th>
+                                <th style="text-align:center">指标项结果状态</th>
+                                <th style="text-align:center">操作</th>
+                            </tr>
+                            <tr v-for="item in QCResultList">
+                                <td style="text-align:center">{{item.ID}}</td>
+                                <td style="text-align:center">{{item.TargetType_Name}}</td>
+                                <td style="text-align:center">{{item.Target_Name}}</td>
+                                <td style="text-align:center">{{item.StandardValuesMax}}</td>
+                                <td style="text-align:center">{{item.StandardValuesMin}}</td>
+                                <td style="text-align:center">{{item.StandardValues}}</td>
+                                <td style="text-align:center"><input id="Text1" type="text" v-model="item.Result" /></td>
+                                <td style="text-align:center">{{item.State==0?"未检验":(item.State==1?"符合":"不符合")}}</td>
+                                <td style="text-align:center"><a href="#" v-on:click="UptQCResult(item.ID,item.Result,item.StandardValuesMax,item.StandardValuesMin)">保存</a></td>
+                            </tr>
+                        </table>
+                        <input v-on:click="AddResultEenter()" type="button" value="保存" class="btn btn-info" style="margin-left:400px" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            关闭
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
         <table v-show="list.length" class="table table-bordered table-hover table-striped">
@@ -99,7 +102,7 @@
                     {{item.Type_Name}}
                 </td>
                 <td style="text-align:center;vertical-align:middle">
-                    <input data-toggle="modal" data-target="#myModal" v-on:click="GoAddIndex(item.ID,item.QCtaskID)" type="button" value="质检结果录入" class="btn btn-danger"/>
+                    <input data-toggle="modal" data-target="#myModal" v-on:click="GoAddIndex(item.ID,item.QCtaskID)" type="button" value="质检结果录入" class="btn btn-danger" />
                 </td>
                 <td style="text-align:center;vertical-align:middle">
                     <div v-if="item.ID!=''">
@@ -238,11 +241,12 @@
                 axios.post('http://localhost:8103/Update', params).then(
                     (response) => {
                         if (response.data > 0) {
-                            alert("保存成功!!!");
+                           
+                            showmessagebox(true, "保存成功");
                             this.getQCResultList();
                         }
                         else {
-                            alert("已经保存过，不允许修改!!!");
+                            showmessagebox(false, "已经保存过，不允许修改");
                         }
                     },
                     (response) => {
@@ -266,10 +270,13 @@
                             axios.post('http://localhost:8103/AddUnqualified?qcTaskID=' + this.qcPlanId).then(
                                 (response) => {
                                     if (response.data > 0) {
-                                        alert("不合格录入成功!!!");
+
+                                        alert("不合格录入成功!");
+                                       
                                     }
                                     else {
-                                        alert("不合格已录入!!!");
+                                      
+                                        alert("不合格已录入!不能再录入！");
                                     }
                                 },
                                 (response) => {

@@ -9,6 +9,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+   
     <script src="~/Scripts/axios.js"></script>
     <script src="~/Scripts/vue.js"></script>
     <link href="~/bootstrap-3.3.7-dist/bootstrap337/css/bootstrap.css" rel="stylesheet" />
@@ -16,8 +17,10 @@
 </head>
 <body>
     <div id="app">
-        <input type="button" class="btn btn-danger" value="添加质检任务" onclick="location.href='/QCtask/AddQCtask'"/>
-        <table   class="table table-hover table-bordered" style="width:1000px" >
+       
+
+        <input type="button" class="btn btn-danger" value="添加质检任务" onclick="location.href='/QCtask/AddQCtask'" />
+        <table class="table table-hover table-bordered" style="width:1000px">
             <tr style="background-color:skyblue;color:white;text-align:center">
                 <td style="text-align:center">ID</td>
                 <td style="text-align:center">质检计划名称</td>
@@ -37,7 +40,7 @@
                     <select id="Select1" v-model="item.SAMPIEID">
                         <option value="请选择">--请选择--</option>
                         <option v-for="type in Sample1" v-bind:value="type.ID">{{type.Name}}</option>
-                    </select>       
+                    </select>
                 </td>
                 <td style="text-align:center">
                     {{item.InformTime}}
@@ -46,11 +49,11 @@
                     {{item.Process_Name}}
                 </td>
                 <td style="text-align:center">
-                   {{ item.State==1?"已检验":"未检验"}}
+                    {{ item.State==1?"已检验":"未检验"}}
                 </td>
                 <td style="text-align:center">
                     <div v-if="item.QCtask_ID!=''">
-                        <a href="#" v-on:click="Del(item.QCtask_ID)">删除</a>             
+                        <a href="#" v-on:click="Del(item.QCtask_ID)">删除</a>
                         <a href="#" v-on:click="GetQCtaskbyName(item.QCtask_ID)">发送</a>
                     </div>
                 </td>
@@ -177,7 +180,7 @@
                             alert("修改成功!!!");
                             this.getList();
                         }
-                        //console.info(this.list);
+                       
                     },
                     (response) => {
                         alert(response.status);
@@ -194,11 +197,13 @@
                         //把质检任务ID添加到生乳质量检验表
                         axios.get('http://localhost:8103/GetQCtaskbyID?id=' + ID).then((respose) => {
                             if (respose.data > 0) {
-                                alert("已发送至生乳质量检测表!!!");
+                                alert("已发送至生乳质量检测表");
+                              
                                 this.getList();
                             }
                             else {
-                                alert("该质检任务已发送过，无需再次发送!!!");
+                                alert("该质检任务已发送过，无需再次发送!");
+                               
                             }
                         },
                             (response) => {
@@ -213,11 +218,12 @@
                         //把质检任务ID添加到包装质量检验表
                         axios.get('http://localhost:8103/AddPack?id=' + ID).then((respose) => {
                             if (respose.data > 0) {
-                                alert("已发送至包装质量检测表!!!");
+                                alert("已发送至包装质量检测表!");
                                 this.getList();
                             }
                             else {
-                                alert("该质检任务已发送过，无需再次发送!!!");
+                                alert("该质检任务已发送过，无需再次发送!");
+                              
                             }
                         },
                             (response) => {
