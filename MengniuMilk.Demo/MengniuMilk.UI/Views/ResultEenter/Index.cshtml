@@ -24,7 +24,6 @@
                 <th style="text-align:center">质检计划名称</th>               
                 <th style="text-align:center">指标项分类</th>              
                 <th style="text-align:center">状态</th>
-                <th style="text-align:center">编辑</th>
             </tr>
             <tr v-for="item in list ">
                 <td style="text-align:center">{{item.QCtask_ID}}</td>
@@ -33,21 +32,9 @@
                
                 <td style="text-align:center">
                     {{item.TargetType_Name}}
-                    @*<select id="Select5" v-model="item.TargetType_ID">
-                      <option value="请选择">--请选择--</option>
-                      <option v-for="targettype in TargetType" v-bind:value="targettype.TargetType_ID">{{targettype.TargetType_Name}}</option>
-                 </select>*@
                 </td >
                 <td style="text-align:center">
                     {{item.Result==1?"合格":"不合格"}}
-
-                    @*<input type="text" v-model="item.Result" />*@
-                </td>
-                <td style="text-align:center">
-                    <div v-if="item.ID!=''">
-                        <a href="#" v-on:click="DelQCPlan(item.ID)">删除</a>
-                        <a href="#" v-on:click="UptQCPlan(item.ID,item.Code,item.QCPlanName,item.Type_ID,item.ObjType_ID,item.Process_ID,item.Facility_ID,item.TargetType_ID,item.QCPlan_State)">修改</a>
-                    </div>
                 </td>
             </tr>
         </table>
