@@ -216,6 +216,9 @@
                                 alert("已发送至包装质量检测表!!!");
                                 this.getList();
                             }
+                            else {
+                                alert("该质检任务已发送过，无需再次发送!!!");
+                            }
                         },
                             (response) => {
                                 alert(response.status);
