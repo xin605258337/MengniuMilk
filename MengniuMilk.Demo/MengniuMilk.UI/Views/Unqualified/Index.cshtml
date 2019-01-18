@@ -46,75 +46,73 @@
                           不合格产品处理
                         </h4>
                     </div>
-                    <table class="table table-striped" border="1">
-                        <tr>                            
-                            <th>样品名称</th>
-                            <th>质检计划名称</th>
-                            <th>指标项分类</th>
-                            <th>指标项名称</th>
-                            <th>指标项上限</th>
-                            <th>指标项标准</th>
-                            <th>指标项下限</th>
-                            <th>指标项结果值</th>
-                            <th>指标项结果状态</th>
-                            <th>操作</th>
+                    <table class="table table-hover table-bordered table-striped">
+                        <tr style="background-color:pink;color:white;text-align:center">                            
+                            <th style="text-align:center">样品名称</th>
+                            <th style="text-align:center">质检计划名称</th>
+                            <th style="text-align:center">指标项分类</th>
+                            <th style="text-align:center">指标项名称</th>
+                            <th style="text-align:center">指标项上限</th>
+                            <th style="text-align:center">指标项标准</th>
+                            <th style="text-align:center">指标项下限</th>
+                            <th style="text-align:center">指标项结果值</th>
+                            <th style="text-align:center">指标项结果状态</th>
+                            <th style="text-align:center">操作</thstyle="text-align:center">
                         </tr>
                         <tr v-for="item in QCResultList">
-                            <td>{{item.Name}}</td>
-                            <td>{{item.QCPlanName}}</td>
-                            <td>
+                            <td style="text-align:center">{{item.Name}}</td>
+                            <td style="text-align:center">{{item.QCPlanName}}</td>
+                            <td style="text-align:center">
                                 {{item.TargetType_Name}}
                             </td>
-                            <td>{{item.Target_Name}}</td>
-                            <td>{{item.StandardValuesMax}}</td>
-                            <td>{{item.StandardValues}}</td>
-                            <td>{{item.StandardValuesMin}}</td>
-                            <td><input id="Text1" type="text" v-model="item.Result" /></td>
-                            <td>{{item.State==0?"未检验":(item.State==1?"符合":"不符合")}}</td>
-                            <td><a href="#" v-on:click="UptDispost(item.ID,item.Result,item.StandardValuesMax,item.StandardValuesMin)">保存</a></td>
+                            <td style="text-align:center">{{item.Target_Name}}</td>
+                            <td style="text-align:center">{{item.StandardValuesMax}}</td>
+                            <td style="text-align:center">{{item.StandardValues}}</td>
+                            <td style="text-align:center">{{item.StandardValuesMin}}</td>
+                            <td style="text-align:center"><input id="Text1" type="text" v-model="item.Result" /></td>
+                            <td style="text-align:center">{{item.State==0?"未检验":(item.State==1?"符合":"不符合")}}</td>
+                            <td style="text-align:center"><a href="#" v-on:click="UptDispost(item.ID,item.Result,item.StandardValuesMax,item.StandardValuesMin)">保存</a>
+                            </td>
                         </tr>
                     </table>
-                    <input v-on:click="deleteDispost()" type="button" value="提交" />
+                    <input v-on:click="deleteDispost()" type="button" value="提交" class="btn btn-info"/>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             关闭
-                        </button>
-                        @*<button type="button" class="btn btn-primary">
-                提交更改
-            </button>*@
+                        </button>                       
                     </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
+                </div>
+            </div>
         </div>
 
 
 
 
 
-        <table v-show="list.length" class="table table-responsive" border="1">
-            <tr>
-                <th>不合格ID</th>
-                <th>样品名称</th>
-                <th>质检名称</th>
-                <th>质检类型</th>
-                <th>检验工序</th>
-                <th>处理方式</th>
+        <table v-show="list.length" class="table table-hover table-bordered table-responsive">
+            <tr style="background-color:skyblue;color:white;text-align:center">
+                <th style="text-align:center">不合格ID</th>
+                <th style="text-align:center">样品名称</th>
+                <th style="text-align:center">质检名称</th>
+                <th style="text-align:center">质检类型</th>
+                <th style="text-align:center">检验工序</th>
+                <th style="text-align:center">处理方式</th>
             </tr>
             <tr v-for="item in list ">
-                <td>{{item.UnqualifiedID}}</td>
-                <td>{{item.Name}}</td>
-                <td>
+                <td style="text-align:center">{{item.UnqualifiedID}}</td>
+                <td style="text-align:center">{{item.Name}}</td>
+                <td style="text-align:center">
                     {{item.QCPlanName}}
                 </td>
-                <td>
+                <td style="text-align:center">
                     {{item.Type_Name}}
                 </td>
-                <td>
+                <td style="text-align:center">
                     {{item.Process_Name}}
                 </td>              
-                <td>
-                    <input data-toggle="modal" data-target="#myModal" v-on:click="Dispost(item.ID,item.QCtask_ID)" type="button" value="整改" />
-                    <input id="Button1" type="button" v-on:click="DelUnqualified(item.ID,item.QCtask_ID)" value="销毁" />
+                <td style="text-align:center">
+                    <input data-toggle="modal" data-target="#myModal" v-on:click="Dispost(item.ID,item.QCtask_ID)" type="button" value="整改" class="btn btn-info"/>
+                    <input id="Button1" type="button" v-on:click="DelUnqualified(item.ID,item.QCtask_ID)" value="销毁" class="btn btn-danger" />
                 </td>
             </tr>
         </table>
