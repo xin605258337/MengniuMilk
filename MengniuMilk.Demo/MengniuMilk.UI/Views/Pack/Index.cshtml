@@ -285,7 +285,7 @@
                                 if (response.data > 0) {
                                     axios.post('http://localhost:8103/ChangeState?id=' + this.qcPlanId).then(
                                         (response) => {
-                                            alert("质检结果录入成功!!!...");
+                                            alert("质检结果录入成功!");
                                             location.href = "/Pack/Index";
                                         },
                                         (response) => {
@@ -296,7 +296,7 @@
                                     });
                                 }
                                 else {
-                                    alert("质检结果已录入！");
+                                    alert("质检结果已录入!不能再录入！");
                                     location.href = "/Pack/Index";
                                 }
                             },

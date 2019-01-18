@@ -99,18 +99,18 @@
                 <th style="text-align:center">处理方式</th>
             </tr>
             <tr v-for="item in list ">
-                <td style="text-align:center">{{item.UnqualifiedID}}</td>
-                <td style="text-align:center">{{item.Name}}</td>
-                <td style="text-align:center">
+                <td style="text-align:center;vertical-align:middle">{{item.UnqualifiedID}}</td>
+                <td style="text-align:center;vertical-align:middle">{{item.Name}}</td>
+                <td style="text-align:center;vertical-align:middle">
                     {{item.QCPlanName}}
                 </td>
-                <td style="text-align:center">
+                <td style="text-align:center;vertical-align:middle">
                     {{item.Type_Name}}
                 </td>
-                <td style="text-align:center">
+                <td style="text-align:center;vertical-align:middle">
                     {{item.Process_Name}}
                 </td>              
-                <td style="text-align:center">
+                <td style="text-align:center;vertical-align:middle">
                     <input data-toggle="modal" data-target="#myModal" v-on:click="Dispost(item.ID,item.QCtask_ID)" type="button" value="整改" class="btn btn-info"/>
                     <input id="Button1" type="button" v-on:click="DelUnqualified(item.ID,item.QCtask_ID)" value="销毁" class="btn btn-danger" />
                 </td>
